@@ -2016,7 +2016,7 @@ function generateReceipt(studentNum, txId) {
     var details = [
       { label: 'Concepto:', val: tx.tipo },
       { label: 'Fecha de Registro:', val: tx.fecha },
-        { label: 'Fecha de Transacci\xA3n:', val: (tx.analisis?.fechaExtraida || tx.fecha || 'N/A') },
+        { label: 'Fecha de Transacción:', val: (tx.analisis?.fechaExtraida || tx.fecha || 'N/A') },
       { label: 'Banco Emisor:', val: (tx.analisis?.banco || 'SINPE Móvil') },
       { label: 'Referencia SINPE:', val: (tx.analisis?.refSINPE || 'Manual') }
     ];
