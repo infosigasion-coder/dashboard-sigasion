@@ -1,10 +1,10 @@
-
-// ══════════════════════════════════════════════════════════════
-//  CONFIGURACIÓN
-// ══════════════════════════════════════════════════════════════
+﻿
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+//  CONFIGURACIÃ“N
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 const SCRIPT_URL = "https://saga-backend.2510maag.workers.dev/api";
 let currentSeccion = localStorage.getItem('saga_seccion') || '1-1';
-let currentAnio = localStorage.getItem('saga_año') || '2027';
+let currentAnio = localStorage.getItem('saga_aÃ±o') || '2027';
 let currentActividadId = localStorage.getItem('siga_actividad_id') || null;
 let currentDocente = 'Control General';
 const REFRESH_MS  = 60000;
@@ -13,25 +13,25 @@ const MAP_RUBROS_LABELS = {
   camisaFest: 'Camisa Festival',
   camisaAdi: 'Camisa Adicional',
   entrenador: 'Entrenador',
-  vestPres: 'Vestuario Presentación Artística',
+  vestPres: 'Vestuario PresentaciÃ³n ArtÃ­stica',
   cuotaVentas: 'Cuota Ventas',
-  coreografo: 'Coreógrafo',
-  hidratacion: 'Hidratación',
+  coreografo: 'CoreÃ³grafo',
+  hidratacion: 'HidrataciÃ³n',
   maquillaje: 'Maquillaje'
 };
 const MILESTONES = [
-  { emoji: '🎪', fecha: new Date('2026-05-13T00:00:00'), nombre: 'el inicio del Festival Sión 2026', etiqueta: 'Inicio del Festival'    },
-  { emoji: '🚶', fecha: new Date('2026-05-13T08:00:00'), nombre: 'la Caminata',                      etiqueta: 'Caminata'               },
-  { emoji: '⚽', fecha: new Date('2026-05-13T13:00:00'), nombre: 'el partido contra 1-2',            etiqueta: 'Partido vs 1-2'         },
-  { emoji: '⚽', fecha: new Date('2026-05-14T10:15:00'), nombre: 'el partido contra 1-3',            etiqueta: 'Partido vs 1-3'         },
-  { emoji: '🏆', fecha: new Date('2026-05-15T12:50:00'), nombre: 'la Final de Primer Grado',         etiqueta: 'Final Primer Grado'     },
-  { emoji: '💃', fecha: new Date('2026-05-15T18:00:00'), nombre: 'el Baile — Presentación Artística',etiqueta: 'Presentación Artística' }
+  { emoji: 'ðŸŽª', fecha: new Date('2026-05-13T00:00:00'), nombre: 'el inicio del Festival SiÃ³n 2026', etiqueta: 'Inicio del Festival'    },
+  { emoji: 'ðŸš¶', fecha: new Date('2026-05-13T08:00:00'), nombre: 'la Caminata',                      etiqueta: 'Caminata'               },
+  { emoji: 'âš½', fecha: new Date('2026-05-13T13:00:00'), nombre: 'el partido contra 1-2',            etiqueta: 'Partido vs 1-2'         },
+  { emoji: 'âš½', fecha: new Date('2026-05-14T10:15:00'), nombre: 'el partido contra 1-3',            etiqueta: 'Partido vs 1-3'         },
+  { emoji: 'ðŸ†', fecha: new Date('2026-05-15T12:50:00'), nombre: 'la Final de Primer Grado',         etiqueta: 'Final Primer Grado'     },
+  { emoji: 'ðŸ’ƒ', fecha: new Date('2026-05-15T18:00:00'), nombre: 'el Baile â€” PresentaciÃ³n ArtÃ­stica',etiqueta: 'PresentaciÃ³n ArtÃ­stica' }
 ];
 const ADMIN_EMAILS = ['2510maag@gmail.com','mrojas1194@gmail.com','pameberta63@gmail.com'];
 
-// ══════════════════════════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 //  STATE
-// ══════════════════════════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 let students      = [];
 let activeTab     = 'all';
 let activeStudent = null;
@@ -44,20 +44,20 @@ let selectedFile  = null;
 let justifyCallback = null;
 let currentAdminTab = 'pending';
 
-// ══════════════════════════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 //  UTILS
-// ══════════════════════════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 var fmt = function(n) { return '\u20a1\u00a0' + Number(n).toLocaleString('es-CR'); };
 var pct = function(n) { return (n * 100).toFixed(1) + '%'; };
 var pgFill = function(s) { return s==='paid'?'#4CAF50':s==='partial'?'#E67E22':'#FFCDD2'; };
 
-function statusLabel(s) { return s==='paid'?'✅ PAGADO':s==='partial'?'🔄 EN PROCESO':'❌ PENDIENTE'; }
+function statusLabel(s) { return s==='paid'?'âœ… PAGADO':s==='partial'?'ðŸ”„ EN PROCESO':'âŒ PENDIENTE'; }
 
 function computeStatus(s) {
   s.abonado = (s.pagadoCompleto && s.abonos.length === 0)
     ? s.total
     : s.abonos.reduce(function(a, b) {
-        return (b.rawTipo === 'devolucion' || b.tipo === 'Devolución') ? a - b.monto : a + b.monto;
+        return (b.rawTipo === 'devolucion' || b.tipo === 'DevoluciÃ³n') ? a - b.monto : a + b.monto;
       }, 0);
   s.pendiente = Math.max(0, s.total - s.abonado); // No mostrar pendiente negativo
   s.ratio     = s.total > 0 ? s.abonado / s.total : 0;
@@ -71,9 +71,9 @@ function driveViewUrl(url) {
   return url;
 }
 
-// ══════════════════════════════════════════════════════════════
-//  COUNTDOWN — Hitos del Festival Sión 2026
-// ══════════════════════════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+//  COUNTDOWN â€” Hitos del Festival SiÃ³n 2026
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 function updateCountdown() {
   var bar = document.getElementById('countdownBar');
   if (!bar) return;
@@ -93,7 +93,7 @@ function updateCountdown() {
   (milestones || []).forEach(function(m) {
     if (m.fecha) {
       parsedMilestones.push({
-        emoji: m.emoji || '📅',
+        emoji: m.emoji || 'ðŸ“…',
         fecha: new Date(m.fecha),
         nombre: m.nombre || 'Hito',
         etiqueta: m.etiqueta || m.nombre
@@ -125,7 +125,7 @@ function updateCountdown() {
   var secs  = Math.floor((diff % 60000)    / 1000);
 
   var parts = [];
-  if (days > 0)  parts.push(days  + ' día'    + (days  !== 1 ? 's'    : ''));
+  if (days > 0)  parts.push(days  + ' dÃ­a'    + (days  !== 1 ? 's'    : ''));
   if (hours > 0 || days > 0) parts.push(hours + ' hora'   + (hours !== 1 ? 's'   : ''));
   parts.push(mins  + ' minuto' + (mins  !== 1 ? 's'  : ''));
   if (days === 0 && hours === 0) parts.push(secs + ' segundo' + (secs !== 1 ? 's' : ''));
@@ -142,15 +142,15 @@ function updateCountdown() {
 setInterval(updateCountdown, 1000);
 updateCountdown();
 
-// ══════════════════════════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 //  GOOGLE AUTH
-// ══════════════════════════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 async function handleGoogleSignIn(response) {
   const payload = parseJwt(response.credential);
   const email = payload.email;
   
-  // El backend ahora exige contraseña, por lo que bloquea Google Auth con un 400.
-  // Ya que Google autenticó correctamente al usuario, forzamos el acceso local.
+  // El backend ahora exige contraseÃ±a, por lo que bloquea Google Auth con un 400.
+  // Ya que Google autenticÃ³ correctamente al usuario, forzamos el acceso local.
   adminUser   = { email: email, name: payload.name, picture: payload.picture, rol: 'admin', seccion: currentSeccion };
   
   console.log({
@@ -171,7 +171,7 @@ async function handleGoogleSignIn(response) {
   if (activeStudent) reopenModal(activeStudent.num);
   
   closeLoginModal();
-  document.getElementById('updatedBadge').textContent = '✅';
+  document.getElementById('updatedBadge').textContent = 'âœ…';
   loadActivities();
 }
 
@@ -183,9 +183,9 @@ function parseJwt(token) {
 }
 
 
-// ══════════════════════════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 //  LOGIN MODAL & PASSWORD CHANGE FUNCTIONS
-// ══════════════════════════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 function openLoginModal() {
   document.getElementById('loginModalOverlay').classList.add('open');
   document.getElementById('loginUsername').focus();
@@ -220,7 +220,7 @@ async function submitPasswordLogin() {
     return;
   }
   
-  document.getElementById('updatedBadge').textContent = '🔑 Verificando...';
+  document.getElementById('updatedBadge').textContent = 'ðŸ”‘ Verificando...';
   try {
     const res = await fetch(SCRIPT_URL + '/login', {
       method: 'POST',
@@ -266,29 +266,29 @@ async function submitPasswordLogin() {
       alert('Error: ' + result.error);
     }
   } catch (err) {
-    alert('Error de conexión: ' + err.message);
+    alert('Error de conexiÃ³n: ' + err.message);
   } finally {
-    document.getElementById('updatedBadge').textContent = '✅';
+    document.getElementById('updatedBadge').textContent = 'âœ…';
   }
 }
 
 function openChangePasswordForm(username, oldPassword) {
   const box = document.querySelector('.login-box');
   box.innerHTML = `
-    <button class="login-close" onclick="closeLoginModal(); location.reload();">×</button>
+    <button class="login-close" onclick="closeLoginModal(); location.reload();">Ã—</button>
     <div class="login-header">
       <img src="escudo_color.png" class="login-logo" alt="SIGA">
-      <div class="login-title" style="color: #f97316;">🔑 Cambio Obligatorio</div>
-      <div class="login-sub">Debes cambiar tu contraseña temporal por una personalizada.</div>
+      <div class="login-title" style="color: #f97316;">ðŸ”‘ Cambio Obligatorio</div>
+      <div class="login-sub">Debes cambiar tu contraseÃ±a temporal por una personalizada.</div>
     </div>
     <div class="login-form">
       <div class="login-field">
-        <label for="newPassword1">Nueva Contraseña</label>
-        <input type="password" id="newPassword1" placeholder="Mínimo 6 caracteres" minlength="6">
+        <label for="newPassword1">Nueva ContraseÃ±a</label>
+        <input type="password" id="newPassword1" placeholder="MÃ­nimo 6 caracteres" minlength="6">
       </div>
       <div class="login-field">
-        <label for="newPassword2">Confirmar Contraseña</label>
-        <input type="password" id="newPassword2" placeholder="Confirmar contraseña">
+        <label for="newPassword2">Confirmar ContraseÃ±a</label>
+        <input type="password" id="newPassword2" placeholder="Confirmar contraseÃ±a">
       </div>
       <button class="login-btn-submit" style="background: #f97316;" onclick="submitChangePassword('${username}', '${oldPassword}')">Actualizar y Entrar</button>
     </div>
@@ -304,19 +304,19 @@ async function submitChangePassword(username, oldPassword) {
     return;
   }
   if (pass1 !== pass2) {
-    alert('Las contraseñas no coinciden.');
+    alert('Las contraseÃ±as no coinciden.');
     return;
   }
   if (pass1.length < 6) {
-    alert('La nueva contraseña debe tener al menos 6 caracteres.');
+    alert('La nueva contraseÃ±a debe tener al menos 6 caracteres.');
     return;
   }
   if (pass1 === 'siga2026') {
-    alert('Por favor elige una contraseña diferente a la contraseña temporal por defecto.');
+    alert('Por favor elige una contraseÃ±a diferente a la contraseÃ±a temporal por defecto.');
     return;
   }
   
-  document.getElementById('updatedBadge').textContent = '🔑 Cambiando contraseña...';
+  document.getElementById('updatedBadge').textContent = 'ðŸ”‘ Cambiando contraseÃ±a...';
   try {
     const res = await fetch(SCRIPT_URL + '/change-password', {
       method: 'POST',
@@ -326,7 +326,7 @@ async function submitChangePassword(username, oldPassword) {
     const result = await res.json();
     
     if (result.ok) {
-      alert('Contraseña actualizada con éxito. Iniciando sesión...');
+      alert('ContraseÃ±a actualizada con Ã©xito. Iniciando sesiÃ³n...');
       resetLoginModalHtml();
       document.getElementById('loginUsername').value = username;
       document.getElementById('loginPassword').value = pass1;
@@ -335,9 +335,9 @@ async function submitChangePassword(username, oldPassword) {
       alert('Error: ' + result.error);
     }
   } catch (err) {
-    alert('Error de conexión: ' + err.message);
+    alert('Error de conexiÃ³n: ' + err.message);
   } finally {
-    document.getElementById('updatedBadge').textContent = '✅';
+    document.getElementById('updatedBadge').textContent = 'âœ…';
   }
 }
 
@@ -345,7 +345,7 @@ function resetLoginModalHtml() {
   const overlay = document.getElementById('loginModalOverlay');
   overlay.innerHTML = `
     <div class="login-box">
-      <button class="login-close" onclick="closeLoginModal()">×</button>
+      <button class="login-close" onclick="closeLoginModal()">Ã—</button>
       <div class="login-header">
         <img src="escudo_color.png" class="login-logo" alt="SIGA">
         <div class="login-title">Acceso Administrativo</div>
@@ -357,12 +357,12 @@ function resetLoginModalHtml() {
           <input type="text" id="loginUsername" placeholder="Ej: malvarado" autocomplete="username">
         </div>
         <div class="login-field">
-          <label for="loginPassword">Contraseña</label>
-          <input type="password" id="loginPassword" placeholder="••••••••" autocomplete="current-password">
+          <label for="loginPassword">ContraseÃ±a</label>
+          <input type="password" id="loginPassword" placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢" autocomplete="current-password">
         </div>
         <button class="login-btn-submit" onclick="submitPasswordLogin()">Entrar</button>
       </div>
-      <div class="login-divider">o también</div>
+      <div class="login-divider">o tambiÃ©n</div>
       <button class="login-btn-google" onclick="triggerGoogleLoginDirect()">
         <svg viewBox="0 0 24 24"><path fill="#EA4335" d="M12.24 10.285V14.4h6.887c-.648 2.41-2.519 4.114-5.136 4.114A5.99 5.99 0 0 1 8 12.5c0-3.31 2.69-6 6-6 1.496 0 2.859.549 3.9 1.455l3.08-3.08A9.97 9.97 0 0 0 14 2.5C8.477 2.5 4 6.977 4 12.5S8.477 22.5 14 22.5c5.523 0 10-4.477 10-10 0-.727-.082-1.432-.24-2.115H12.24Z"/></svg>
         Acceder con Google
@@ -371,9 +371,9 @@ function resetLoginModalHtml() {
   `;
 }
 
-// ══════════════════════════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 //  MILESTONES EDITOR FUNCTIONS (CRONOGRAMA)
-// ══════════════════════════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 function loadMilestonesAdmin() {
   var container = document.getElementById('milestonesEditorContainer');
   if (!container) return;
@@ -410,7 +410,7 @@ function addMilestoneRow(emoji, nombre, fecha) {
   row.className = 'milestone-row';
   row.style = 'display:flex;gap:8px;align-items:center;background:#f8fafc;padding:10px;border-radius:8px;border:1px solid #e2e8f0;margin-bottom:8px;flex-wrap:wrap;';
   
-  var defaultEmoji = emoji || '📅';
+  var defaultEmoji = emoji || 'ðŸ“…';
   var defaultNombre = nombre || '';
   var defaultFecha = fecha ? formatForDateTimeInput(fecha) : '';
   
@@ -418,7 +418,7 @@ function addMilestoneRow(emoji, nombre, fecha) {
     '<input type="text" class="m-emoji" value="' + defaultEmoji + '" style="width:40px;padding:6px;border-radius:6px;border:1px solid #e2e8f0;text-align:center;font-size:16px;outline:none;">' +
     '<input type="text" class="m-nombre" value="' + defaultNombre + '" placeholder="Hito (ej: el inicio del Festival)" style="flex:1;min-width:180px;padding:6px;border-radius:6px;border:1px solid #e2e8f0;font-size:13px;outline:none;">' +
     '<input type="datetime-local" class="m-fecha" value="' + defaultFecha + '" style="padding:6px;border-radius:6px;border:1px solid #e2e8f0;font-size:13px;font-family:\'DM Sans\',sans-serif;outline:none;">' +
-    '<button class="btn-del" onclick="this.parentElement.remove(); if(document.getElementById(\'milestonesEditorContainer\').children.length===0) loadMilestonesAdmin();" style="background:#fee2e2;color:#ef4444;border:none;width:30px;height:30px;border-radius:6px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:14px;transition:background 0.2s;">🗑️</button>';
+    '<button class="btn-del" onclick="this.parentElement.remove(); if(document.getElementById(\'milestonesEditorContainer\').children.length===0) loadMilestonesAdmin();" style="background:#fee2e2;color:#ef4444;border:none;width:30px;height:30px;border-radius:6px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:14px;transition:background 0.2s;">ðŸ—‘ï¸</button>';
     
   container.appendChild(row);
 }
@@ -451,7 +451,7 @@ async function saveMilestones() {
     }
     
     milestones.push({
-      emoji: emoji || '📅',
+      emoji: emoji || 'ðŸ“…',
       fecha: dateObj.toISOString(),
       nombre: nombre,
       etiqueta: nombre
@@ -459,11 +459,11 @@ async function saveMilestones() {
   });
   
   if (hasError) {
-    alert('Por favor completa todos los campos de nombre y fecha con valores válidos.');
+    alert('Por favor completa todos los campos de nombre y fecha con valores vÃ¡lidos.');
     return;
   }
   
-  document.getElementById('updatedBadge').textContent = '🔄 Guardando cronograma...';
+  document.getElementById('updatedBadge').textContent = 'ðŸ”„ Guardando cronograma...';
   try {
     const res = await fetch(SCRIPT_URL + '/activities/milestones', {
       method: 'POST',
@@ -478,7 +478,7 @@ async function saveMilestones() {
     const result = await res.json();
     
     if (result.ok) {
-      alert('Cronograma guardado con éxito ✅');
+      alert('Cronograma guardado con Ã©xito âœ…');
       window._actividad.milestones = milestones;
       updateCountdown();
       loadMilestonesAdmin();
@@ -486,9 +486,9 @@ async function saveMilestones() {
       alert('Error al guardar: ' + result.error);
     }
   } catch (err) {
-    alert('Error de conexión: ' + err.message);
+    alert('Error de conexiÃ³n: ' + err.message);
   } finally {
-    document.getElementById('updatedBadge').textContent = '✅';
+    document.getElementById('updatedBadge').textContent = 'âœ…';
   }
 }
 
@@ -500,9 +500,9 @@ function formatForDateTimeInput(dateStr) {
   return localDate.toISOString().slice(0, 16);
 }
 
-// ══════════════════════════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 //  SETTINGS (AJUSTES) FUNCTIONS
-// ══════════════════════════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 async function loadSettingsData() {
   const secsYearSelect = document.getElementById('set-sec-year');
   const actYearSelect = document.getElementById('set-act-year');
@@ -512,7 +512,7 @@ async function loadSettingsData() {
     secsYearSelect.innerHTML = '';
     actYearSelect.innerHTML = '';
     
-    // Obtener años del select principal
+    // Obtener aÃ±os del select principal
     const mainYearSelect = document.getElementById('sagaAnioSelect');
     Array.from(mainYearSelect.options).forEach(opt => {
       secsYearSelect.appendChild(opt.cloneNode(true));
@@ -521,7 +521,7 @@ async function loadSettingsData() {
   }
   
   if (actSecSelect) {
-    actSecSelect.innerHTML = '<option value="">Seleccione una sección...</option>';
+    actSecSelect.innerHTML = '<option value="">Seleccione una secciÃ³n...</option>';
     const mainSecSelect = document.getElementById('sagaSeccionSelect');
     Array.from(mainSecSelect.options).forEach(opt => {
       if (opt.value) {
@@ -533,28 +533,28 @@ async function loadSettingsData() {
 
 async function saveSeccion() {
   const seccion = document.getElementById('set-sec-nombre').value.trim();
-  const año = document.getElementById('set-sec-year').value;
+  const aÃ±o = document.getElementById('set-sec-year').value;
   const docenteNombre = document.getElementById('set-sec-docente').value.trim();
   const sinpePrincipal = document.getElementById('set-sec-sinpe-p').value.trim();
   const sinpeSecundario = document.getElementById('set-sec-sinpe-s').value.trim();
   const sinpeTitular = document.getElementById('set-sec-sinpe-titular').value.trim();
   
-  if (!seccion || !año || !docenteNombre || !sinpePrincipal || !sinpeTitular) {
-    alert('Por favor completa todos los campos requeridos para la sección.');
+  if (!seccion || !aÃ±o || !docenteNombre || !sinpePrincipal || !sinpeTitular) {
+    alert('Por favor completa todos los campos requeridos para la secciÃ³n.');
     return;
   }
   
-  // Validar SINPE (8 dígitos)
+  // Validar SINPE (8 dÃ­gitos)
   if (!/^d{8}$/.test(sinpePrincipal.replace(/[-s]/g, ''))) {
-    alert('El número de SINPE Principal debe tener 8 dígitos.');
+    alert('El nÃºmero de SINPE Principal debe tener 8 dÃ­gitos.');
     return;
   }
   if (sinpeSecundario && !/^d{8}$/.test(sinpeSecundario.replace(/[-s]/g, ''))) {
-    alert('El número de SINPE Secundario debe tener 8 dígitos.');
+    alert('El nÃºmero de SINPE Secundario debe tener 8 dÃ­gitos.');
     return;
   }
 
-  document.getElementById('updatedBadge').textContent = '💾 Guardando sección...';
+  document.getElementById('updatedBadge').textContent = 'ðŸ’¾ Guardando secciÃ³n...';
   try {
     const res = await fetch(SCRIPT_URL + '/config/secciones', {
       method: 'POST',
@@ -562,7 +562,7 @@ async function saveSeccion() {
       body: JSON.stringify({
         adminEmail: adminUser.email,
         seccion,
-        año: parseInt(año),
+        aÃ±o: parseInt(aÃ±o),
         docenteNombre,
         sinpePrincipal,
         sinpeSecundario,
@@ -571,7 +571,7 @@ async function saveSeccion() {
     });
     const result = await res.json();
     if (result.ok) {
-      alert('Sección guardada correctamente ✅');
+      alert('SecciÃ³n guardada correctamente âœ…');
       await loadConfig();
       document.getElementById('set-sec-nombre').value = '';
       document.getElementById('set-sec-docente').value = '';
@@ -582,9 +582,9 @@ async function saveSeccion() {
       alert('Error: ' + result.error);
     }
   } catch (err) {
-    alert('Error de conexión: ' + err.message);
+    alert('Error de conexiÃ³n: ' + err.message);
   } finally {
-    document.getElementById('updatedBadge').textContent = '✅';
+    document.getElementById('updatedBadge').textContent = 'âœ…';
   }
 }
 
@@ -606,27 +606,27 @@ function addSettingsRubroRow(nombre = '', precioNino = '', precioNina = '', desc
   row.style = 'display:flex;gap:8px;margin-bottom:8px;align-items:center;flex-wrap:wrap;background:#f8fafc;padding:8px;border-radius:8px;border:1px solid #e2e8f0;';
   row.innerHTML = `
     <input type="text" class="sr-nombre" placeholder="Concepto (ej. Bingo)" value="${nombre}" style="flex:2;min-width:130px;padding:6px;border-radius:6px;border:1px solid #e2e8f0;font-size:12px;" required>
-    <input type="number" class="sr-nino" placeholder="Costo Niño ₡" value="${precioNino}" style="flex:1;min-width:80px;padding:6px;border-radius:6px;border:1px solid #e2e8f0;font-size:12px;" required>
-    <input type="number" class="sr-nina" placeholder="Costo Niña ₡" value="${precioNina}" style="flex:1;min-width:80px;padding:6px;border-radius:6px;border:1px solid #e2e8f0;font-size:12px;" required>
-    <input type="number" class="sr-desc" placeholder="Desc. Hermano ₡" value="${descuentoHermano}" style="flex:1;min-width:80px;padding:6px;border-radius:6px;border:1px solid #e2e8f0;font-size:12px;">
-    <button type="button" class="btn-del" onclick="this.parentElement.remove()" style="background:#fee2e2;color:#ef4444;border:none;width:30px;height:30px;border-radius:6px;cursor:pointer;display:flex;align-items:center;justify-content:center;">🗑️</button>
+    <input type="number" class="sr-nino" placeholder="Costo NiÃ±o â‚¡" value="${precioNino}" style="flex:1;min-width:80px;padding:6px;border-radius:6px;border:1px solid #e2e8f0;font-size:12px;" required>
+    <input type="number" class="sr-nina" placeholder="Costo NiÃ±a â‚¡" value="${precioNina}" style="flex:1;min-width:80px;padding:6px;border-radius:6px;border:1px solid #e2e8f0;font-size:12px;" required>
+    <input type="number" class="sr-desc" placeholder="Desc. Hermano â‚¡" value="${descuentoHermano}" style="flex:1;min-width:80px;padding:6px;border-radius:6px;border:1px solid #e2e8f0;font-size:12px;">
+    <button type="button" class="btn-del" onclick="this.parentElement.remove()" style="background:#fee2e2;color:#ef4444;border:none;width:30px;height:30px;border-radius:6px;cursor:pointer;display:flex;align-items:center;justify-content:center;">ðŸ—‘ï¸</button>
   `;
   container.appendChild(row);
 }
 
 async function saveActividad() {
   const nombre = document.getElementById('set-act-nombre').value.trim();
-  const año = document.getElementById('set-act-year').value;
+  const aÃ±o = document.getElementById('set-act-year').value;
   const asocVal = document.querySelector('input[name="set-act-asoc"]:checked').value;
   const seccion = asocVal === 'seccion' ? document.getElementById('set-act-seccion').value : 'Global';
   const tipoCobro = document.querySelector('input[name="set-act-cobro"]:checked').value;
   
-  if (!nombre || !año) {
-    alert('Por favor especifica el nombre de la actividad y el año escolar.');
+  if (!nombre || !aÃ±o) {
+    alert('Por favor especifica el nombre de la actividad y el aÃ±o escolar.');
     return;
   }
   if (asocVal === 'seccion' && !seccion) {
-    alert('Por favor selecciona la sección específica.');
+    alert('Por favor selecciona la secciÃ³n especÃ­fica.');
     return;
   }
   
@@ -636,7 +636,7 @@ async function saveActividad() {
   if (tipoCobro === 'unica') {
     cuotaUnica = parseInt(document.getElementById('set-act-monto-unico').value || '0');
     if (cuotaUnica <= 0) {
-      alert('Por favor ingresa un monto válido para la cuota única.');
+      alert('Por favor ingresa un monto vÃ¡lido para la cuota Ãºnica.');
       return;
     }
   } else {
@@ -667,12 +667,12 @@ async function saveActividad() {
     });
     
     if (hasError) {
-      alert('Por favor completa los rubros con valores válidos (costos mayores o iguales a 0).');
+      alert('Por favor completa los rubros con valores vÃ¡lidos (costos mayores o iguales a 0).');
       return;
     }
   }
   
-  document.getElementById('updatedBadge').textContent = '🚀 Creando actividad...';
+  document.getElementById('updatedBadge').textContent = 'ðŸš€ Creando actividad...';
   try {
     const res = await fetch(SCRIPT_URL + '/config/actividades', {
       method: 'POST',
@@ -680,7 +680,7 @@ async function saveActividad() {
       body: JSON.stringify({
         adminEmail: adminUser.email,
         nombre,
-        año: parseInt(año),
+        aÃ±o: parseInt(aÃ±o),
         asociacion: seccion,
         tipoCobro,
         cuotaUnica,
@@ -690,7 +690,7 @@ async function saveActividad() {
     
     const result = await res.json();
     if (result.ok) {
-      alert('Actividad creada con éxito ✅');
+      alert('Actividad creada con Ã©xito âœ…');
       await loadActivities();
       document.getElementById('set-act-nombre').value = '';
       document.getElementById('set-act-monto-unico').value = '';
@@ -699,9 +699,9 @@ async function saveActividad() {
       alert('Error: ' + result.error);
     }
   } catch (err) {
-    alert('Error de conexión: ' + err.message);
+    alert('Error de conexiÃ³n: ' + err.message);
   } finally {
-    document.getElementById('updatedBadge').textContent = '✅';
+    document.getElementById('updatedBadge').textContent = 'âœ…';
   }
 }
 
@@ -728,11 +728,11 @@ function initGoogleBtn() {
 }
 setTimeout(initGoogleBtn, 1000);
 
-// ══════════════════════════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 //  DATA LOADING
-// ══════════════════════════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 async function loadData() {
-  document.getElementById('updatedBadge').textContent = '🔄 Actualizando…';
+  document.getElementById('updatedBadge').textContent = 'ðŸ”„ Actualizandoâ€¦';
   // Sincronizar selectores del header
   document.getElementById('sagaSeccionSelect').value = currentSeccion;
   document.getElementById('sagaAnioSelect').value = currentAnio;
@@ -760,12 +760,12 @@ async function loadData() {
     
     if (document.getElementById('footerText')) {
       const actName = window._actividad ? window._actividad.nombre : 'SIGA';
-      document.getElementById('footerText').innerHTML = '© 2026 &nbsp;·&nbsp; S.I.G.A. &nbsp;·&nbsp; C.E.C. Nuestra Señora de Sión &nbsp;·&nbsp; ' + actName + ' (Sección ' + currentSeccion + ') &nbsp;·&nbsp; 🟢 Conectado a Supabase en Vivo';
+      document.getElementById('footerText').innerHTML = 'Â© 2026 &nbsp;Â·&nbsp; S.I.G.A. &nbsp;Â·&nbsp; C.E.C. Nuestra SeÃ±ora de SiÃ³n &nbsp;Â·&nbsp; ' + actName + ' (SecciÃ³n ' + currentSeccion + ') &nbsp;Â·&nbsp; ðŸŸ¢ Conectado a Supabase en Vivo';
     }
     
     if (document.getElementById('egrModalTitleText')) {
       const actName = window._actividad ? window._actividad.nombre : 'Actividad';
-      document.getElementById('egrModalTitleText').textContent = 'Detalle de Gastos — Sección ' + currentSeccion + ' — ' + actName;
+      document.getElementById('egrModalTitleText').textContent = 'Detalle de Gastos â€” SecciÃ³n ' + currentSeccion + ' â€” ' + actName;
     }
     
     updateCountdown();
@@ -775,21 +775,21 @@ async function loadData() {
     updateTabCounts();
     applyFilters();
     var now = json.updated || new Date().toLocaleTimeString('es-CR',{hour:'2-digit',minute:'2-digit'});
-    document.getElementById('updatedBadge').textContent = '✅ ' + now;
+    document.getElementById('updatedBadge').textContent = 'âœ… ' + now;
     if (json.totalPendientes > 0) updateAdminBadge(json.totalPendientes);
     loadEgresos();
   } catch(err) {
     showError(err.message);
-    document.getElementById('updatedBadge').textContent = '⚠️ Error — click para reintentar';
+    document.getElementById('updatedBadge').textContent = 'âš ï¸ Error â€” click para reintentar';
   }
 }
 
 function showError(msg){document.getElementById('errorBanner').classList.add('vis');document.getElementById('errorMsg').textContent=msg;}
 function hideError(){document.getElementById('errorBanner').classList.remove('vis');}
 
-// ══════════════════════════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 //  KPIs & RUBROS
-// ══════════════════════════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 function renderKPIs() {
   var totalRec  = students.reduce(function(a,s){return a+s.total;},0);
   var totalPaid = students.reduce(function(a,s){return a+s.abonado;},0);
@@ -835,10 +835,10 @@ function renderRubros() {
 function updateTabCounts() {
   var c={all:students.length,paid:0,partial:0,pending:0};
   students.forEach(function(s){c[s.status]++;});
-  document.getElementById('tab-all').textContent     = '🎓 Todos ('+c.all+')';
-  document.getElementById('tab-paid').textContent    = '✅ Pagado ('+c.paid+')';
-  document.getElementById('tab-partial').textContent = '🔄 Con abono ('+c.partial+')';
-  document.getElementById('tab-pending').textContent = '❌ Sin pago ('+c.pending+')';
+  document.getElementById('tab-all').textContent     = 'ðŸŽ“ Todos ('+c.all+')';
+  document.getElementById('tab-paid').textContent    = 'âœ… Pagado ('+c.paid+')';
+  document.getElementById('tab-partial').textContent = 'ðŸ”„ Con abono ('+c.partial+')';
+  document.getElementById('tab-pending').textContent = 'âŒ Sin pago ('+c.pending+')';
 }
 
 function updateAdminBadge(count) {
@@ -851,9 +851,9 @@ function updateAdminBadge(count) {
   }
 }
 
-// ══════════════════════════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 //  GRID
-// ══════════════════════════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 function applyFilters() {
   var q = searchQuery.toLowerCase();
   var filtered = students.filter(function(s) {
@@ -869,22 +869,22 @@ function applyFilters() {
 function renderGrid(list) {
   var grid = document.getElementById('studentGrid');
   if (!list.length) {
-    grid.innerHTML = '<div class="no-results"><div class="emoji">🔍</div>No se encontraron resultados</div>';
+    grid.innerHTML = '<div class="no-results"><div class="emoji">ðŸ”</div>No se encontraron resultados</div>';
     return;
   }
   grid.innerHTML = list.map(function(s) {
-    var pendingBadge = s.tienePendiente ? '<div class="card-pending-badge">⏳ Comprobante en revisión</div>' : '';
+    var pendingBadge = s.tienePendiente ? '<div class="card-pending-badge">â³ Comprobante en revisiÃ³n</div>' : '';
     return '<div class="student-card status-'+s.status+'" onclick="openModal('+s.num+')" role="button" tabindex="0">' +
       '<div class="card-header"><div class="card-num">'+s.num+'</div>' +
       '<span class="status-pill pill-'+s.status+'">'+statusLabel(s.status)+'</span></div>' +
       '<div class="card-name">'+s.nombre+'</div>' +
-      '<div class="card-parents">'+s.padres.join(' · ')+'</div>' +
+      '<div class="card-parents">'+s.padres.join(' Â· ')+'</div>' +
       '<div class="card-amounts">' +
         '<div class="amount-box"><div class="amount-label">Abonado</div><div class="amount-val paid-val">'+fmt(s.abonado)+'</div></div>' +
         '<div class="amount-box"><div class="amount-label">Pendiente</div><div class="amount-val pend-val">'+fmt(s.pendiente)+'</div></div>' +
       '</div>' +
       '<div class="mini-progress"><div class="mini-fill fill-'+s.status+'" style="width:'+Math.min(100,s.ratio*100)+'%"></div></div>' +
-      '<div class="card-pct">'+pct(s.ratio)+' · Cuota: '+fmt(s.total)+'</div>' +
+      '<div class="card-pct">'+pct(s.ratio)+' Â· Cuota: '+fmt(s.total)+'</div>' +
       pendingBadge +
     '</div>';
   }).join('');
@@ -894,9 +894,9 @@ function onSearch(val){searchQuery=val;document.getElementById('searchClear').cl
 function clearSearch(){document.getElementById('searchInput').value='';onSearch('');}
 function setTab(tab){activeTab=tab;['all','paid','partial','pending'].forEach(function(t){document.getElementById('tab-'+t).classList.toggle('active',t===tab);});applyFilters();}
 
-// ══════════════════════════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 //  MODAL
-// ══════════════════════════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 function openModal(num) {
   var s = null;
   for (var i=0;i<students.length;i++){if(students[i].num===num){s=students[i];break;}}
@@ -906,8 +906,8 @@ function openModal(num) {
 
   document.getElementById('m-num').textContent      = 'Estudiante #'+String(s.num).padStart(2,'0');
   document.getElementById('m-name').textContent     = s.nombre;
-  document.getElementById('m-parents').textContent  = s.padres.join(' · ');
-  document.getElementById('m-cedula').textContent   = 'Cédula: ' + (s.cedula || 'No registrada');
+  document.getElementById('m-parents').textContent  = s.padres.join(' Â· ');
+  document.getElementById('m-cedula').textContent   = 'CÃ©dula: ' + (s.cedula || 'No registrada');
   document.getElementById('m-dob').textContent      = 'Nacimiento: ' + (s.fechaNacimiento || 'No registrada');
   document.getElementById('m-total').textContent    = fmt(s.total);
   document.getElementById('m-paid').textContent     = fmt(s.abonado);
@@ -937,11 +937,11 @@ function openModal(num) {
 
   // Tags
   document.getElementById('m-tags').innerHTML = [
-    {label:(s.genero==='Niña'?'👧':'👦')+' '+s.genero, yes:true},
-    {label:'🎭 Pres. Artística', yes:s.presArt},
-    {label:'🎽 Camisa adicional'+(s.camisa?' ('+s.cantCamisa+'×'+s.talla+')':''), yes:s.camisa},
-    {label:'👨‍👩‍👧 Hermanos en institución', yes:s.hermanos}
-  ].map(function(t){return '<span class="tag tag-'+(t.yes?'yes':'no')+'">'+(t.yes?'✓':'✗')+' '+t.label+'</span>';}).join('');
+    {label:(s.genero==='NiÃ±a'?'ðŸ‘§':'ðŸ‘¦')+' '+s.genero, yes:true},
+    {label:'ðŸŽ­ Pres. ArtÃ­stica', yes:s.presArt},
+    {label:'ðŸŽ½ Camisa adicional'+(s.camisa?' ('+s.cantCamisa+'Ã—'+s.talla+')':''), yes:s.camisa},
+    {label:'ðŸ‘¨â€ðŸ‘©â€ðŸ‘§ Hermanos en instituciÃ³n', yes:s.hermanos}
+  ].map(function(t){return '<span class="tag tag-'+(t.yes?'yes':'no')+'">'+(t.yes?'âœ“':'âœ—')+' '+t.label+'</span>';}).join('');
 
   // Desglose
   var d = s.desglose;
@@ -952,7 +952,7 @@ function openModal(num) {
     var val = d[k] || 0;
     var isReadonly = false || (isAdminMode && adminUser && adminUser.rol === 'docente');
     var editBtn = (isAdminMode && !isReadonly)
-      ? '<button class="desglose-item-edit" onclick="editRubro(\''+k+'\',\''+label+'\')">✏️</button>'
+      ? '<button class="desglose-item-edit" onclick="editRubro(\''+k+'\',\''+label+'\')">âœï¸</button>'
       : '';
     return '<div class="desglose-item">' +
       '<span class="desglose-item-name">'+label+'</span>' +
@@ -1009,7 +1009,7 @@ function openModal(num) {
   // WhatsApp button - admin only
   if (isAdminMode) {
     btnWA.style.display = 'flex';
-    btnWA.textContent   = s.pendiente > 0 ? '📱 Copiar mensaje de recordatorio para WhatsApp' : '🎉 Copiar mensaje de confirmación de pago';
+    btnWA.textContent   = s.pendiente > 0 ? 'ðŸ“± Copiar mensaje de recordatorio para WhatsApp' : 'ðŸŽ‰ Copiar mensaje de confirmaciÃ³n de pago';
     btnWA.className     = 'btn-main'+(s.pendiente===0?' sent':'');
   }
 
@@ -1024,15 +1024,15 @@ function buildAnalisisCard(a) {
   var scoreClass = a.score >= 85 ? 'high' : a.score >= 50 ? 'mid' : 'low';
   var decColor   = a.decision === 'APROBAR' ? '#2E7D32' : a.decision === 'RECHAZAR' ? '#C62828' : '#E65100';
   var flags = '';
-  if (a.isAlternate) flags += '<span class="abono-analisis-flag abono-af-alt">📱 N° alterno</span>';
-  if (a.isDuplicate) flags += '<span class="abono-analisis-flag abono-af-dup">🔁 Duplicado</span>';
-  if (a.isSuspect)   flags += '<span class="abono-analisis-flag abono-af-sus">⚠️ Sospecha</span>';
+  if (a.isAlternate) flags += '<span class="abono-analisis-flag abono-af-alt">ðŸ“± NÂ° alterno</span>';
+  if (a.isDuplicate) flags += '<span class="abono-analisis-flag abono-af-dup">ðŸ” Duplicado</span>';
+  if (a.isSuspect)   flags += '<span class="abono-analisis-flag abono-af-sus">âš ï¸ Sospecha</span>';
   return '<div class="abono-analisis">' +
-    '<div class="abono-analisis-item"><span class="abono-analisis-label">Banco</span><span class="abono-analisis-val">'+(a.banco||'—')+'</span></div>' +
+    '<div class="abono-analisis-item"><span class="abono-analisis-label">Banco</span><span class="abono-analisis-val">'+(a.banco||'â€”')+'</span></div>' +
     '<div class="abono-analisis-item"><span class="abono-analisis-label">Score IA</span><span class="abono-analisis-score '+scoreClass+'">'+a.score+'%</span></div>' +
-    '<div class="abono-analisis-item" style="grid-column:1/-1"><span class="abono-analisis-label">Remitente</span><span class="abono-analisis-val">'+(a.remitente||'—')+'</span></div>' +
+    '<div class="abono-analisis-item" style="grid-column:1/-1"><span class="abono-analisis-label">Remitente</span><span class="abono-analisis-val">'+(a.remitente||'â€”')+'</span></div>' +
     (a.refSINPE ? '<div class="abono-analisis-item" style="grid-column:1/-1"><span class="abono-analisis-label">Ref. SINPE</span><span class="abono-analisis-val" style="font-size:9px;font-family:monospace;">'+(a.refSINPE)+'</span></div>' : '') +
-    '<div class="abono-analisis-item"><span class="abono-analisis-label">Decisión IA</span><span class="abono-analisis-decision" style="color:'+decColor+';">'+(a.decision||'—')+'</span></div>' +
+    '<div class="abono-analisis-item"><span class="abono-analisis-label">DecisiÃ³n IA</span><span class="abono-analisis-decision" style="color:'+decColor+';">'+(a.decision||'â€”')+'</span></div>' +
     (a.razonScore ? '<div class="abono-analisis-item" style="grid-column:1/-1"><span class="abono-analisis-label">Nota</span><span class="abono-analisis-val" style="font-style:italic;">'+a.razonScore+'</span></div>' : '') +
     (a.aprobador && a.aprobador !== 'Sistema' ? '<div class="abono-analisis-item" style="grid-column:1/-1"><span class="abono-analisis-label">Revisado por</span><span class="abono-analisis-val">'+a.aprobador+'</span></div>' : '') +
     (flags ? '<div class="abono-analisis-flags">'+flags+'</div>' : '') +
@@ -1048,28 +1048,28 @@ function renderPayments(s) {
       ? '<div class="payment-indented">' +
           (cuAnalisis ? buildAnalisisCard(cuAnalisis) : '') +
           (cuUrl ? '<div class="abono-btns">'+
-            '<button class="comp-link" onclick="openImgViewer(this.dataset.url)" data-url="'+cuUrl+'">📎 Ver comprobante</button>'+
-            '<button class="comp-link" onclick="generateReceipt('+s.num+',\'pago_unico\')" style="margin-left:8px;background:rgba(6,182,212,0.1);color:#0891b2;border-color:rgba(6,182,212,0.2);">🧾 Recibo</button>'+
+            '<button class="comp-link" onclick="openImgViewer(this.dataset.url)" data-url="'+cuUrl+'">ðŸ“Ž Ver comprobante</button>'+
+            '<button class="comp-link" onclick="generateReceipt('+s.num+',\'pago_unico\')" style="margin-left:8px;background:rgba(6,182,212,0.1);color:#0891b2;border-color:rgba(6,182,212,0.2);">ðŸ§¾ Recibo</button>'+
             '<div style="flex:1;"></div>'+
-            '<button class="revert-btn" onclick="revertPayment(this)" data-num="'+s.num+'" data-idx="pago_unico" data-link="'+s.compUnico+'">↩️ Revertir</button>'+
+            '<button class="revert-btn" onclick="revertPayment(this)" data-num="'+s.num+'" data-idx="pago_unico" data-link="'+s.compUnico+'">â†©ï¸ Revertir</button>'+
           '</div>' : '') +
         '</div>'
       : '';
     pe.innerHTML = '<div class="payment-row full-payment">' +
-      '<div class="payment-dot full">✅</div>' +
+      '<div class="payment-dot full">âœ…</div>' +
       '<div class="payment-info">' +
-        '<div class="payment-type">Pago único completo</div>' +
-        '<div class="payment-date">'+(s.fechaUnico?'📅 '+s.fechaUnico:'Comprobante registrado')+'</div>' +
+        '<div class="payment-type">Pago Ãºnico completo</div>' +
+        '<div class="payment-date">'+(s.fechaUnico?'ðŸ“… '+s.fechaUnico:'Comprobante registrado')+'</div>' +
       '</div>' +
       '<div class="payment-amount">'+fmt(s.total)+'</div>' +
       indentedHTML +
     '</div>';
   } else if (!s.abonos.length) {
-    pe.innerHTML = '<div class="no-payments">⚠️ Sin pagos registrados<br><small>Límite: 07 de mayo de 2026</small></div>';
+    pe.innerHTML = '<div class="no-payments">âš ï¸ Sin pagos registrados<br><small>LÃ­mite: 07 de mayo de 2026</small></div>';
   } else {
     pe.innerHTML = s.abonos.map(function(a,i){
-      var isDev = a.rawTipo === 'devolucion' || a.tipo === 'Devolución';
-      var dotContent = isDev ? '↩️' : (i+1);
+      var isDev = a.rawTipo === 'devolucion' || a.tipo === 'DevoluciÃ³n';
+      var dotContent = isDev ? 'â†©ï¸' : (i+1);
       var rowClass = isDev ? 'payment-row devolucion-payment' : 'payment-row';
       var dotClass = isDev ? 'payment-dot dev-dot' : 'payment-dot';
       var amtClass = isDev ? 'payment-amount dev-amount' : 'payment-amount';
@@ -1079,10 +1079,10 @@ function renderPayments(s) {
         ? '<div class="payment-indented">' +
             buildAnalisisCard(a.analisis||null) +
             '<div class="abono-btns">'+
-              '<button class="comp-link" onclick="openImgViewer(this.dataset.url)" data-url="'+driveViewUrl(a.comprobante)+'">📎 Ver comprobante</button>'+
-              '<button class="comp-link" onclick="generateReceipt('+s.num+',\''+a.id+'\')" style="margin-left:8px;background:rgba(6,182,212,0.1);color:#0891b2;border-color:rgba(6,182,212,0.2);">🧾 Recibo</button>'+
+              '<button class="comp-link" onclick="openImgViewer(this.dataset.url)" data-url="'+driveViewUrl(a.comprobante)+'">ðŸ“Ž Ver comprobante</button>'+
+              '<button class="comp-link" onclick="generateReceipt('+s.num+',\''+a.id+'\')" style="margin-left:8px;background:rgba(6,182,212,0.1);color:#0891b2;border-color:rgba(6,182,212,0.2);">ðŸ§¾ Recibo</button>'+
               '<div style="flex:1;"></div>'+
-              '<button class="revert-btn" onclick="revertPayment(this)" data-num="'+s.num+'" data-idx="'+i+'" data-link="'+(a.comprobante||'')+'">↩️ Revertir</button>'+
+              '<button class="revert-btn" onclick="revertPayment(this)" data-num="'+s.num+'" data-idx="'+i+'" data-link="'+(a.comprobante||'')+'">â†©ï¸ Revertir</button>'+
             '</div>'+
           '</div>'
         : '';
@@ -1090,7 +1090,7 @@ function renderPayments(s) {
         '<div class="'+dotClass+'">'+dotContent+'</div>' +
         '<div class="payment-info">' +
           '<div class="payment-type">'+a.tipo+'</div>' +
-          '<div class="payment-date">📅 '+a.fecha+'</div>' +
+          '<div class="payment-date">ðŸ“… '+a.fecha+'</div>' +
         '</div>' +
         '<div class="'+amtClass+'">'+amtText+'</div>' +
         indentedHTML +
@@ -1102,9 +1102,9 @@ function renderPayments(s) {
 function closeModal(){document.getElementById('modalOverlay').classList.remove('open');document.body.style.overflow='';}
 function closeModalOnBg(e){if(e.target===document.getElementById('modalOverlay'))closeModal();}
 
-// ══════════════════════════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 //  UPLOAD
-// ══════════════════════════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 function resetUploadUI() {
   selectedFile = null;
   document.getElementById('upload-ui').style.display    = 'block';
@@ -1123,7 +1123,7 @@ function handleFileSelect(input) {
   var file = input.files[0];
   var allowed = ['image/jpeg','image/jpg','image/png','image/webp','image/heic'];
   if (!allowed.includes(file.type)) {
-    alert('Solo se permiten imágenes (JPG, PNG, WEBP, HEIC)');
+    alert('Solo se permiten imÃ¡genes (JPG, PNG, WEBP, HEIC)');
     input.value = '';
     return;
   }
@@ -1172,23 +1172,23 @@ async function uploadComprobante(tipo) {
   document.getElementById('processing-ui').style.display = 'block';
 
   var steps = [
-    {text:'Preparando imagen…', id:'step1'},
-    {text:'Guardando comprobante en Supabase…', id:'step2'},
-    {text: isDev ? 'Analizando devolución con Doble IA…' : 'Analizando comprobante con Doble IA…', id:'step3'},
-    {text:'Validando datos…', id:'step4'},
-    {text: isDev ? 'Registrando devolución…' : 'Registrando pago…', id:'step5'}
+    {text:'Preparando imagenâ€¦', id:'step1'},
+    {text:'Guardando comprobante en Supabaseâ€¦', id:'step2'},
+    {text: isDev ? 'Analizando devoluciÃ³n con Doble IAâ€¦' : 'Analizando comprobante con Doble IAâ€¦', id:'step3'},
+    {text:'Validando datosâ€¦', id:'step4'},
+    {text: isDev ? 'Registrando devoluciÃ³nâ€¦' : 'Registrando pagoâ€¦', id:'step5'}
   ];
 
   var stepsEl = document.getElementById('processing-steps');
   stepsEl.innerHTML = steps.map(function(st){
-    return '<div class="processing-step" id="'+st.id+'">⬜ '+st.text+'</div>';
+    return '<div class="processing-step" id="'+st.id+'">â¬œ '+st.text+'</div>';
   }).join('');
 
   function setStep(id, status) {
     var el = document.getElementById(id);
     if (!el) return;
     el.className = 'processing-step ' + status;
-    el.textContent = (status==='done'?'✅ ':status==='active'?'⏳ ':'⬜ ') + steps.find(function(s){return s.id===id;}).text;
+    el.textContent = (status==='done'?'âœ… ':status==='active'?'â³ ':'â¬œ ') + steps.find(function(s){return s.id===id;}).text;
   }
 
   try {
@@ -1225,28 +1225,28 @@ async function uploadComprobante(tipo) {
       var d = result.datos || {};
       document.getElementById('result-ui').innerHTML =
         '<div class="result-success" style="background:#F3E5F5;border-color:#CE93D8;">' +
-          '<div class="result-success-icon">🧪</div>' +
-          '<div class="result-success-title" style="color:#6A1B9A;">MODO PRUEBA — Sin registrar en SIGA</div>' +
+          '<div class="result-success-icon">ðŸ§ª</div>' +
+          '<div class="result-success-title" style="color:#6A1B9A;">MODO PRUEBA â€” Sin registrar en SIGA</div>' +
           '<div class="result-data">' +
             '<div class="result-data-row"><span class="result-data-label">Monto</span><span class="result-data-val">'+fmt(d.monto||0)+'</span></div>' +
-            '<div class="result-data-row"><span class="result-data-label">Fecha</span><span class="result-data-val">'+(d.fecha||'—')+'</span></div>' +
-            '<div class="result-data-row"><span class="result-data-label">Banco</span><span class="result-data-val">'+(d.banco||'—')+'</span></div>' +
-            '<div class="result-data-row"><span class="result-data-label">Remitente</span><span class="result-data-val">'+(d.remitente||'—')+'</span></div>' +
+            '<div class="result-data-row"><span class="result-data-label">Fecha</span><span class="result-data-val">'+(d.fecha||'â€”')+'</span></div>' +
+            '<div class="result-data-row"><span class="result-data-label">Banco</span><span class="result-data-val">'+(d.banco||'â€”')+'</span></div>' +
+            '<div class="result-data-row"><span class="result-data-label">Remitente</span><span class="result-data-val">'+(d.remitente||'â€”')+'</span></div>' +
             '<div class="result-data-row"><span class="result-data-label">Score IA</span><span class="result-data-val">'+(d.score||0)+'%</span></div>' +
-            '<div class="result-data-row"><span class="result-data-label">Decisión</span><span class="result-data-val">'+(d.decision||'—')+'</span></div>' +
-            '<div class="result-data-row"><span class="result-data-label">Duplicado</span><span class="result-data-val">'+(d.isDuplicate?'⚠️ SÍ':'✅ No')+'</span></div>' +
-            '<div class="result-data-row"><span class="result-data-label">N° alterno</span><span class="result-data-val">'+(d.isAlternate?'⚠️ SÍ':'✅ No')+'</span></div>' +
+            '<div class="result-data-row"><span class="result-data-label">DecisiÃ³n</span><span class="result-data-val">'+(d.decision||'â€”')+'</span></div>' +
+            '<div class="result-data-row"><span class="result-data-label">Duplicado</span><span class="result-data-val">'+(d.isDuplicate?'âš ï¸ SÃ':'âœ… No')+'</span></div>' +
+            '<div class="result-data-row"><span class="result-data-label">NÂ° alterno</span><span class="result-data-val">'+(d.isAlternate?'âš ï¸ SÃ':'âœ… No')+'</span></div>' +
           '</div>' +
           '<div style="font-size:10px;color:#6A1B9A;margin-top:8px;text-align:center;">Imagen guardada en Drive: <a href="'+result.driveLink+'" target="_blank" style="color:#6A1B9A;">ver</a></div>' +
         '</div>';
 
     } else if (result.status === 'APROBADO') {
       setStep('step5','done');
-      var altWarn = result.isAlternate ? '<div class="result-alternate-warning" style="display:block;">⚠️ Pago recibido en número alterno (8382-3869)</div>' : '';
+      var altWarn = result.isAlternate ? '<div class="result-alternate-warning" style="display:block;">âš ï¸ Pago recibido en nÃºmero alterno (8382-3869)</div>' : '';
       document.getElementById('result-ui').innerHTML =
         '<div class="result-success">' +
-          '<div class="result-success-icon">✅</div>' +
-          '<div class="result-success-title">¡Comprobante registrado!</div>' +
+          '<div class="result-success-icon">âœ…</div>' +
+          '<div class="result-success-title">Â¡Comprobante registrado!</div>' +
           '<div class="result-data">' +
             '<div class="result-data-row"><span class="result-data-label">Monto</span><span class="result-data-val">'+fmt(result.datos.monto)+'</span></div>' +
             '<div class="result-data-row"><span class="result-data-label">Fecha</span><span class="result-data-val">'+result.datos.fecha+'</span></div>' +
@@ -1260,8 +1260,8 @@ async function uploadComprobante(tipo) {
     } else if (result.status === 'PENDIENTE') {
       document.getElementById('result-ui').innerHTML =
         '<div class="result-pending">' +
-          '<div class="result-pending-icon">⏳</div>' +
-          '<div style="font-size:12px;font-weight:700;color:#E65100;">Comprobante en revisión</div>' +
+          '<div class="result-pending-icon">â³</div>' +
+          '<div style="font-size:12px;font-weight:700;color:#E65100;">Comprobante en revisiÃ³n</div>' +
           '<div style="font-size:11px;color:#E65100;margin-top:4px;">'+result.message+'</div>' +
         '</div>';
       setTimeout(loadData, 1000);
@@ -1270,7 +1270,7 @@ async function uploadComprobante(tipo) {
       var errMsg = result.razon || result.message || result.error || JSON.stringify(result);
       document.getElementById('result-ui').innerHTML =
         '<div class="result-error">' +
-          '<div style="font-size:24px;margin-bottom:4px;">' + (result.status === 'RECHAZADO' ? '❌' : '⚠️') + '</div>' +
+          '<div style="font-size:24px;margin-bottom:4px;">' + (result.status === 'RECHAZADO' ? 'âŒ' : 'âš ï¸') + '</div>' +
           '<div style="font-size:12px;font-weight:700;color:#C62828;">' + (result.status === 'RECHAZADO' ? 'Comprobante rechazado' : 'Error') + '</div>' +
           '<div style="font-size:11px;color:#C62828;margin-top:4px;">'+errMsg+'</div>' +
         '</div>';
@@ -1282,25 +1282,25 @@ async function uploadComprobante(tipo) {
     document.getElementById('result-ui').style.display = 'block';
     document.getElementById('result-ui').innerHTML =
       '<div class="result-error">' +
-        '<div style="font-size:24px;margin-bottom:4px;">❌</div>' +
-        '<div style="font-size:12px;font-weight:700;color:#C62828;">Error de conexión</div>' +
+        '<div style="font-size:24px;margin-bottom:4px;">âŒ</div>' +
+        '<div style="font-size:12px;font-weight:700;color:#C62828;">Error de conexiÃ³n</div>' +
         '<div style="font-size:11px;color:#C62828;margin-top:4px;">'+err.message+'</div>' +
       '</div>';
   }
 }
 
-// ══════════════════════════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 //  ADMIN ACTIONS
-// ══════════════════════════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 function saveComment() {
   if (!isAdminMode || !activeStudent) return;
   var text = document.getElementById('m-comment-textarea').value;
-  showJustify('Guardar observación', '¿Confirmar guardar esta observación?', function(justif) {
+  showJustify('Guardar observaciÃ³n', 'Â¿Confirmar guardar esta observaciÃ³n?', function(justif) {
     callScript({action:'saveComment', studentNum:activeStudent.num, comentario:text, adminEmail:adminUser.email}).then(function(res){
       if (res.ok) {
         activeStudent.comentario = text;
         document.getElementById('m-comment-text').textContent = text;
-        alert('Observación guardada ✅');
+        alert('ObservaciÃ³n guardada âœ…');
       }
     });
   });
@@ -1361,7 +1361,7 @@ async function submitEditRubro() {
   const justificacion = document.getElementById('editRubroJustificacion').value.trim();
   
   if (!justificacion) {
-    alert('Por favor ingresa la justificación (es obligatoria para guardar cambios).');
+    alert('Por favor ingresa la justificaciÃ³n (es obligatoria para guardar cambios).');
     return;
   }
   
@@ -1385,19 +1385,19 @@ async function submitEditRubro() {
       justificacion: justificacion,
       adminEmail: adminUser.email,
       seccion: currentSeccion,
-      año: Number(currentAnio),
+      aÃ±o: Number(currentAnio),
       actividadId: currentActividadId
     });
     
     if (res.ok) {
-      alert('Rubro ajustado con éxito ✅');
+      alert('Rubro ajustado con Ã©xito âœ…');
       closeEditRubroModal();
       setTimeout(loadData, 500);
     } else {
       alert('Error al ajustar: ' + res.error);
     }
   } catch (err) {
-    alert('Error de conexión: ' + err.message);
+    alert('Error de conexiÃ³n: ' + err.message);
   } finally {
     document.getElementById('editRubroConfirmBtn').textContent = 'Guardar Cambios';
     document.getElementById('editRubroConfirmBtn').disabled = false;
@@ -1409,16 +1409,16 @@ function revertPayment(btn) {
   var studentNum  = btn.dataset.num;
   var abonoIndex  = btn.dataset.idx;
   var driveLink   = btn.dataset.link;
-  showJustify('Revertir pago', '⚠️ Esta acción eliminará el abono del registro. La imagen se moverá a "Rechazados" como evidencia.', function(just) {
+  showJustify('Revertir pago', 'âš ï¸ Esta acciÃ³n eliminarÃ¡ el abono del registro. La imagen se moverÃ¡ a "Rechazados" como evidencia.', function(just) {
     callScript({action:'revert', studentNum:Number(studentNum), abonoIndex:abonoIndex, adminEmail:adminUser.email, justificacion:just, driveLink:driveLink}).then(function(res){
-      if (res.ok) { alert('Pago revertido ✅'); closeModal(); setTimeout(loadData,500); }
+      if (res.ok) { alert('Pago revertido âœ…'); closeModal(); setTimeout(loadData,500); }
     });
   });
 }
 
-// ══════════════════════════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 //  ADMIN PANEL
-// ══════════════════════════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 async function openAdminPanel() {
   document.getElementById('adminPanelOverlay').classList.add('open');
   document.body.style.overflow = 'hidden';
@@ -1463,7 +1463,7 @@ function changeSeccion(val) {
 
 function changeAnio(val) {
   currentAnio = val;
-  localStorage.setItem('saga_año', val);
+  localStorage.setItem('saga_aÃ±o', val);
   loadActivities();
 }
 
@@ -1485,17 +1485,17 @@ async function loadConfig() {
       data.sections.forEach(sec => {
         const opt = document.createElement('option');
         opt.value = sec;
-        opt.textContent = 'Sección ' + sec;
+        opt.textContent = 'SecciÃ³n ' + sec;
         seccionSelect.appendChild(opt);
       });
       
-      const añoSelect = document.getElementById('sagaAnioSelect');
-      añoSelect.innerHTML = '';
+      const aÃ±oSelect = document.getElementById('sagaAnioSelect');
+      aÃ±oSelect.innerHTML = '';
       data.years.forEach(yr => {
         const opt = document.createElement('option');
         opt.value = yr;
         opt.textContent = yr;
-        añoSelect.appendChild(opt);
+        aÃ±oSelect.appendChild(opt);
       });
 
       if (!data.sections.includes(currentSeccion)) {
@@ -1504,14 +1504,14 @@ async function loadConfig() {
       }
       if (!data.years.includes(parseInt(currentAnio))) {
         currentAnio = String(data.years[0] || '2026');
-        localStorage.setItem('saga_año', currentAnio);
+        localStorage.setItem('saga_aÃ±o', currentAnio);
       }
 
       seccionSelect.value = currentSeccion;
-      añoSelect.value = currentAnio;
+      aÃ±oSelect.value = currentAnio;
     }
   } catch (err) {
-    console.error('Error al cargar la configuración dinámica:', err);
+    console.error('Error al cargar la configuraciÃ³n dinÃ¡mica:', err);
   }
   await loadActivities();
 }
@@ -1585,19 +1585,19 @@ function parseBulkStudents() {
       nombre = parts[0].trim() + (parts[1] ? ' ' + parts[1].trim() : '');
     }
     
-    let genero = 'niño';
+    let genero = 'niÃ±o';
     if (parts[2]) {
       const gStr = parts[2].trim().toLowerCase();
-      if (gStr.includes('niña') || gStr === 'f' || gStr === 'female' || gStr === 'mujer' || gStr === 'niña' || gStr === 'nina') genero = 'niña';
+      if (gStr.includes('niÃ±a') || gStr === 'f' || gStr === 'female' || gStr === 'mujer' || gStr === 'niÃ±a' || gStr === 'nina') genero = 'niÃ±a';
     } else {
       const firstWord = nombre.split(',').pop().trim().split(' ')[0].toLowerCase();
-      if (firstWord.endsWith('a') && !['joshua', 'luca', 'noa'].includes(firstWord)) genero = 'niña';
+      if (firstWord.endsWith('a') && !['joshua', 'luca', 'noa'].includes(firstWord)) genero = 'niÃ±a';
     }
     
     let hermano = false;
     if (parts[3]) {
       const hStr = parts[3].trim().toLowerCase();
-      if (hStr === 'sí' || hStr === 'si' || hStr === 'yes' || hStr === 'true' || hStr === '1' || hStr === 'hermano') hermano = true;
+      if (hStr === 'sÃ­' || hStr === 'si' || hStr === 'yes' || hStr === 'true' || hStr === '1' || hStr === 'hermano') hermano = true;
     }
     
     parsedBulkStudents.push({ numero, nombre, genero, tiene_hermano: hermano });
@@ -1607,8 +1607,8 @@ function parseBulkStudents() {
     row.innerHTML = `
       <td style="padding:6px 10px;">${numero}</td>
       <td style="padding:6px 10px;">${nombre}</td>
-      <td style="padding:6px 10px;">${genero === 'niña' ? '👧 Niña' : '👦 Niño'}</td>
-      <td style="padding:6px 10px;">${hermano ? '✅ Sí' : '❌ No'}</td>
+      <td style="padding:6px 10px;">${genero === 'niÃ±a' ? 'ðŸ‘§ NiÃ±a' : 'ðŸ‘¦ NiÃ±o'}</td>
+      <td style="padding:6px 10px;">${hermano ? 'âœ… SÃ­' : 'âŒ No'}</td>
     `;
     tbody.appendChild(row);
   });
@@ -1625,23 +1625,23 @@ function parseBulkStudents() {
 async function submitBulkImport() {
   if (parsedBulkStudents.length === 0) return;
   
-  const confirmMsg = `¿Estás seguro de registrar estos ${parsedBulkStudents.length} estudiantes en la Sección ${currentSeccion} para el año ${currentAnio}?`;
+  const confirmMsg = `Â¿EstÃ¡s seguro de registrar estos ${parsedBulkStudents.length} estudiantes en la SecciÃ³n ${currentSeccion} para el aÃ±o ${currentAnio}?`;
   if (!confirm(confirmMsg)) return;
   
-  document.getElementById('updatedBadge').textContent = '💾 Guardando alumnos...';
+  document.getElementById('updatedBadge').textContent = 'ðŸ’¾ Guardando alumnos...';
   
   try {
     const payload = {
       action: 'students/bulk',
       seccion: currentSeccion,
-      año: currentAnio,
+      aÃ±o: currentAnio,
       alumnos: parsedBulkStudents,
       adminEmail: adminUser ? adminUser.email : 'Admin'
     };
     
     const resp = await callScript(payload);
     if (resp.ok) {
-      alert(resp.message || 'Estudiantes registrados con éxito.');
+      alert(resp.message || 'Estudiantes registrados con Ã©xito.');
       document.getElementById('bulkImportText').value = '';
       document.getElementById('bulkPreviewContainer').style.display = 'none';
       closeAdminPanel();
@@ -1650,7 +1650,7 @@ async function submitBulkImport() {
       alert('Error: ' + resp.error);
     }
   } catch(err) {
-    alert('Error de conexión: ' + err.message);
+    alert('Error de conexiÃ³n: ' + err.message);
   }
 }
 
@@ -1677,7 +1677,7 @@ async function loadPending() {
         });
       }
     });
-    // Ordenar por fecha descendente (más reciente primero)
+    // Ordenar por fecha descendente (mÃ¡s reciente primero)
     todosLosPagos.sort(function(a, b) {
       var fa = a.fecha ? a.fecha.split('/').reverse().join('') : '';
       var fb = b.fecha ? b.fecha.split('/').reverse().join('') : '';
@@ -1686,7 +1686,7 @@ async function loadPending() {
     var autoEl = document.getElementById('auto-approved-section');
     if (todosLosPagos.length > 0) {
       autoEl.innerHTML = '<div class="auto-approved-box">' +
-        '<div class="auto-approved-title">🕐 Últimos 5 pagos recibidos</div>' +
+        '<div class="auto-approved-title">ðŸ• Ãšltimos 5 pagos recibidos</div>' +
         todosLosPagos.slice(0,5).map(function(p){
           return '<div class="auto-item">'+
             '<span class="auto-item-name">'+p.nombre+'</span>'+
@@ -1701,40 +1701,40 @@ async function loadPending() {
 
     var listEl = document.getElementById('pending-list');
     if (pending.length === 0) {
-      listEl.innerHTML = '<div style="text-align:center;padding:32px;color:var(--gray);font-size:13px;">✅ Sin comprobantes pendientes de revisión</div>';
+      listEl.innerHTML = '<div style="text-align:center;padding:32px;color:var(--gray);font-size:13px;">âœ… Sin comprobantes pendientes de revisiÃ³n</div>';
       return;
     }
 
-    listEl.innerHTML = '<div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--orange);margin-bottom:10px;">'+pending.length+' pendiente'+(pending.length>1?'s':'')+' de revisión</div>' +
+    listEl.innerHTML = '<div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--orange);margin-bottom:10px;">'+pending.length+' pendiente'+(pending.length>1?'s':'')+' de revisiÃ³n</div>' +
       pending.map(function(p) {
         var scoreClass = p.score >= 85 ? 'score-high' : p.score >= 50 ? 'score-med' : 'score-low';
         var cardClass  = p.isSuspect ? 'suspect' : p.isAlternate ? 'alternate' : '';
         var flags = [];
-        if (p.isSuspect)   flags.push('<span class="flag-badge flag-red">⚠️ Sospecha falsificación</span>');
-        if (p.isDuplicate) flags.push('<span class="flag-badge flag-orange">🔁 Posible duplicado</span>');
-        if (p.isAlternate) flags.push('<span class="flag-badge flag-purple">📱 Número alterno</span>');
+        if (p.isSuspect)   flags.push('<span class="flag-badge flag-red">âš ï¸ Sospecha falsificaciÃ³n</span>');
+        if (p.isDuplicate) flags.push('<span class="flag-badge flag-orange">ðŸ” Posible duplicado</span>');
+        if (p.isAlternate) flags.push('<span class="flag-badge flag-purple">ðŸ“± NÃºmero alterno</span>');
         var viewBtn = p.driveLink
-          ? '<button class="pending-action-btn btn-view-p" onclick="openImgViewer(this.dataset.url, JSON.parse(this.dataset.info))" data-url="'+p.driveLink+'" data-info=\''+JSON.stringify({monto:p.monto,fecha:p.fechaExtraida,banco:p.banco,remitente:p.remitente,score:p.score,decision:p.score>=85?'APROBAR':p.score>=50?'REVISAR':'RECHAZAR',refSINPE:p.refSINPE,isAlternate:p.isAlternate,isDuplicate:p.isDuplicate,isSuspect:p.isSuspect}).replace(/'/g,"&#39;")+'\'">🔍 Ver</button>'
+          ? '<button class="pending-action-btn btn-view-p" onclick="openImgViewer(this.dataset.url, JSON.parse(this.dataset.info))" data-url="'+p.driveLink+'" data-info=\''+JSON.stringify({monto:p.monto,fecha:p.fechaExtraida,banco:p.banco,remitente:p.remitente,score:p.score,decision:p.score>=85?'APROBAR':p.score>=50?'REVISAR':'RECHAZAR',refSINPE:p.refSINPE,isAlternate:p.isAlternate,isDuplicate:p.isDuplicate,isSuspect:p.isSuspect}).replace(/'/g,"&#39;")+'\'">ðŸ” Ver</button>'
           : '';
         return '<div class="pending-card '+cardClass+'">' +
           '<div class="pending-card-header">' +
             '<div>' +
               '<div class="pending-card-name">#'+p.studentNum+' '+p.studentName+'</div>' +
-              '<div class="pending-card-meta">'+p.fecha+' · '+p.banco+'</div>' +
+              '<div class="pending-card-meta">'+p.fecha+' Â· '+p.banco+'</div>' +
             '</div>' +
             '<span class="pending-score '+scoreClass+'">'+p.score+'%</span>' +
           '</div>' +
           '<div class="pending-card-data">' +
-            '<div class="pending-data-item"><div class="pending-data-label">Monto extraído</div><div class="pending-data-val">'+fmt(p.monto)+'</div></div>' +
-            '<div class="pending-data-item"><div class="pending-data-label">Fecha</div><div class="pending-data-val">'+(p.fechaExtraida||'—')+'</div></div>' +
-            '<div class="pending-data-item"><div class="pending-data-label">Remitente</div><div class="pending-data-val">'+(p.remitente||'—')+'</div></div>' +
-            '<div class="pending-data-item"><div class="pending-data-label">Ref. SINPE</div><div class="pending-data-val">'+(p.refSINPE||'—')+'</div></div>' +
+            '<div class="pending-data-item"><div class="pending-data-label">Monto extraÃ­do</div><div class="pending-data-val">'+fmt(p.monto)+'</div></div>' +
+            '<div class="pending-data-item"><div class="pending-data-label">Fecha</div><div class="pending-data-val">'+(p.fechaExtraida||'â€”')+'</div></div>' +
+            '<div class="pending-data-item"><div class="pending-data-label">Remitente</div><div class="pending-data-val">'+(p.remitente||'â€”')+'</div></div>' +
+            '<div class="pending-data-item"><div class="pending-data-label">Ref. SINPE</div><div class="pending-data-val">'+(p.refSINPE||'â€”')+'</div></div>' +
           '</div>' +
           (flags.length ? '<div class="pending-flags">'+flags.join('')+'</div>' : '') +
           '<div class="pending-card-actions">' +
             (isReadonly ? '' : 
-              '<button class="pending-action-btn btn-approve-p" onclick="approvePending(this.dataset.id,this.dataset.num,this.dataset.monto)" data-id="'+p.id+'" data-num="'+p.studentNum+'" data-monto="'+p.monto+'">✅ Aprobar</button>' +
-              '<button class="pending-action-btn btn-reject-p" onclick="rejectPending(this.dataset.id)" data-id="'+p.id+'">❌ Rechazar</button>'
+              '<button class="pending-action-btn btn-approve-p" onclick="approvePending(this.dataset.id,this.dataset.num,this.dataset.monto)" data-id="'+p.id+'" data-num="'+p.studentNum+'" data-monto="'+p.monto+'">âœ… Aprobar</button>' +
+              '<button class="pending-action-btn btn-reject-p" onclick="rejectPending(this.dataset.id)" data-id="'+p.id+'">âŒ Rechazar</button>'
             ) +
             viewBtn +
           '</div>' +
@@ -1748,18 +1748,18 @@ async function loadPending() {
 
 function approvePending(pendingId, studentNum, monto) {
   studentNum = Number(studentNum); monto = Number(monto);
-  showJustify('Aprobar comprobante', 'Confirmar aprobación de '+fmt(monto)+' para estudiante #'+studentNum, function(just) {
+  showJustify('Aprobar comprobante', 'Confirmar aprobaciÃ³n de '+fmt(monto)+' para estudiante #'+studentNum, function(just) {
     callScript({action:'approve', pendingId:pendingId, adminEmail:adminUser.email, studentNumOverride:studentNum, justificacion:just}).then(function(res){
-      if (res.ok) { alert('Aprobado ✅'); loadPending(); setTimeout(loadData,1000); }
+      if (res.ok) { alert('Aprobado âœ…'); loadPending(); setTimeout(loadData,1000); }
       else alert('Error: '+res.error);
     });
   });
 }
 
 function rejectPending(pendingId) {
-  showJustify('Rechazar comprobante', '⚠️ El comprobante será rechazado y la imagen movida a "Rechazados".', function(just) {
+  showJustify('Rechazar comprobante', 'âš ï¸ El comprobante serÃ¡ rechazado y la imagen movida a "Rechazados".', function(just) {
     callScript({action:'reject', pendingId:pendingId, adminEmail:adminUser.email, justificacion:just}).then(function(res){
-      if (res.ok) { alert('Rechazado ✅'); loadPending(); }
+      if (res.ok) { alert('Rechazado âœ…'); loadPending(); }
       else alert('Error: '+res.error);
     });
   });
@@ -1780,7 +1780,7 @@ async function loadHistory() {
 function renderHistory() {
   var el = document.getElementById('history-list');
   if (!allHistory.length) {
-    el.innerHTML = '<div style="text-align:center;padding:32px;color:var(--gray);">Sin historial aún</div>';
+    el.innerHTML = '<div style="text-align:center;padding:32px;color:var(--gray);">Sin historial aÃºn</div>';
     return;
   }
 
@@ -1807,8 +1807,8 @@ function renderHistory() {
   var tipoLabels = {
     'APROBADO_AUTO':'Aprobado auto','APROBADO_MANUAL':'Aprobado manual',
     'RECHAZADO_AUTO':'Rechazado auto','RECHAZADO_MANUAL':'Rechazado manual',
-    'REVERTIDO':'Revertido','COMENTARIO':'Observación','EDICION_RUBRO':'Edición rubro',
-    'PENDIENTE':'En revisión','REGISTRO_MANUAL':'Registro manual',
+    'REVERTIDO':'Revertido','COMENTARIO':'ObservaciÃ³n','EDICION_RUBRO':'EdiciÃ³n rubro',
+    'PENDIENTE':'En revisiÃ³n','REGISTRO_MANUAL':'Registro manual',
     'RESCATADO':'Rescatado','RESCATADO_TELEGRAM':'Rescatado Telegram',
     'APROBADO_TELEGRAM':'Aprobado Telegram','RECHAZADO_TELEGRAM':'Rechazado Telegram',
   };
@@ -1823,7 +1823,7 @@ function renderHistory() {
   });
 
   var iconMap  = {'APROBADO_AUTO':'h-approved','APROBADO_MANUAL':'h-approved','APROBADO_TELEGRAM':'h-approved','RECHAZADO_AUTO':'h-rejected','RECHAZADO_MANUAL':'h-rejected','RECHAZADO_TELEGRAM':'h-rejected','REVERTIDO':'h-reverted','COMENTARIO':'h-comment','EDICION_RUBRO':'h-edit','PENDIENTE':'h-orange','REGISTRO_MANUAL':'h-approved','RESCATADO':'h-approved','RESCATADO_TELEGRAM':'h-approved'};
-  var emojiMap = {'APROBADO_AUTO':'✅','APROBADO_MANUAL':'✅','APROBADO_TELEGRAM':'✅','RECHAZADO_AUTO':'❌','RECHAZADO_MANUAL':'❌','RECHAZADO_TELEGRAM':'❌','REVERTIDO':'↩️','COMENTARIO':'💬','EDICION_RUBRO':'✏️','PENDIENTE':'⏳','REGISTRO_MANUAL':'📋','RESCATADO':'♻️','RESCATADO_TELEGRAM':'♻️'};
+  var emojiMap = {'APROBADO_AUTO':'âœ…','APROBADO_MANUAL':'âœ…','APROBADO_TELEGRAM':'âœ…','RECHAZADO_AUTO':'âŒ','RECHAZADO_MANUAL':'âŒ','RECHAZADO_TELEGRAM':'âŒ','REVERTIDO':'â†©ï¸','COMENTARIO':'ðŸ’¬','EDICION_RUBRO':'âœï¸','PENDIENTE':'â³','REGISTRO_MANUAL':'ðŸ“‹','RESCATADO':'â™»ï¸','RESCATADO_TELEGRAM':'â™»ï¸'};
 
   var filtersHTML =
     '<div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap;">' +
@@ -1839,7 +1839,7 @@ function renderHistory() {
     '<div style="font-size:10px;color:var(--gray);margin-bottom:8px;">'+filtered.length+' registro'+(filtered.length!==1?'s':'')+' encontrado'+(filtered.length!==1?'s':'')+'</div>';
 
   function fmtHistDate(val) {
-    if (!val) return '—';
+    if (!val) return 'â€”';
     var s = String(val).trim();
     // ISO format: 2026-04-09T06:00:00.000Z
     if (s.match(/^\d{4}-\d{2}-\d{2}/)) {
@@ -1861,14 +1861,14 @@ function renderHistory() {
     return new Date(0);
   }
 
-  // Orden cronológico unificado: más reciente arriba
+  // Orden cronolÃ³gico unificado: mÃ¡s reciente arriba
   filtered.sort(function(a,b){ return parseHistDate(b) - parseHistDate(a); });
 
   var sorted = filtered;
 
   var itemsHTML = sorted.slice(0,50).map(function(h){
     var cls   = iconMap[h.accion]  || 'h-comment';
-    var emoji = emojiMap[h.accion] || '📋';
+    var emoji = emojiMap[h.accion] || 'ðŸ“‹';
     var label = tipoLabels[h.accion] || h.accion.replace(/_/g,' ');
     var fechaFmt = fmtHistDate(h.fecha);
     var horaFmt  = String(h.hora||'').replace('T',' ').substring(0,8);
@@ -1876,8 +1876,8 @@ function renderHistory() {
     return '<div class="history-item">' +
       '<div class="history-icon '+cls+'">'+emoji+'</div>' +
       '<div class="history-content">' +
-        '<div class="history-action">'+label+' — '+h.estudiante+'</div>' +
-        '<div class="history-detail">'+(h.monto?fmt(h.monto)+' · ':'')+h.aprobador+(h.detalle?' · '+h.detalle.substring(0,50):'')+'</div>' +
+        '<div class="history-action">'+label+' â€” '+h.estudiante+'</div>' +
+        '<div class="history-detail">'+(h.monto?fmt(h.monto)+' Â· ':'')+h.aprobador+(h.detalle?' Â· '+h.detalle.substring(0,50):'')+'</div>' +
       '</div>' +
       '<div class="history-time">'+fechaFmt+(horaFmt?'<br>'+horaFmt:'')+'</div>' +
     '</div>';
@@ -1888,9 +1888,9 @@ function renderHistory() {
   el.innerHTML = filtersHTML + (filtered.length ? itemsHTML : '<div style="text-align:center;padding:24px;color:var(--gray);font-size:12px;">Sin resultados para este filtro</div>');
 }
 
-// ══════════════════════════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 //  JUSTIFY MODAL
-// ══════════════════════════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 function showJustify(title, sub, callback) {
   document.getElementById('justifyTitle').textContent = title;
   document.getElementById('justifySub').textContent   = sub;
@@ -1899,19 +1899,19 @@ function showJustify(title, sub, callback) {
   document.getElementById('justifyOverlay').classList.add('open');
   document.getElementById('justifyConfirm').onclick = function() {
     var text = document.getElementById('justifyText').value.trim();
-    if (!text) { alert('La justificación es obligatoria'); return; }
+    if (!text) { alert('La justificaciÃ³n es obligatoria'); return; }
     document.getElementById('justifyOverlay').classList.remove('open');
     callback(text);
   };
 }
 function closeJustify(){document.getElementById('justifyOverlay').classList.remove('open');}
 
-// ══════════════════════════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 //  SCRIPT COMMUNICATION (CORS-safe POST via fetch)
-// ══════════════════════════════════════════════════════════════
-// ══════════════════════════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 //  RECEIPT GENERATOR (HTML5 CANVAS)
-// ══════════════════════════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 function generateReceipt(studentNum, txId) {
   var s = null;
   for (var i=0;i<students.length;i++){if(students[i].num===studentNum){s=students[i];break;}}
@@ -1921,10 +1921,10 @@ function generateReceipt(studentNum, txId) {
   if (txId === 'pago_unico') {
     tx = {
       id: 'pago_unico',
-      tipo: 'Pago Único',
+      tipo: 'Pago Ãšnico',
       monto: s.total,
       fecha: s.fechaUnico || new Date().toLocaleDateString('es-CR'),
-      analisis: s.compUnicoAnalisis || { banco: 'SINPE Móvil', refSINPE: 'Manual' }
+      analisis: s.compUnicoAnalisis || { banco: 'SINPE MÃ³vil', refSINPE: 'Manual' }
     };
   } else {
     tx = s.abonos.find(function(a){return a.id === txId;});
@@ -1963,21 +1963,21 @@ function generateReceipt(studentNum, txId) {
     // Title Texts in Header
     ctx.fillStyle = '#ffffff';
     ctx.font = 'bold 26px sans-serif';
-    ctx.fillText('C.E.C. NUESTRA SEÑORA DE SIÓN', 200, 100);
+    ctx.fillText('C.E.C. NUESTRA SEÃ‘ORA DE SIÃ“N', 200, 100);
     ctx.font = '14px sans-serif';
     ctx.fillStyle = '#94a3b8';
-    ctx.fillText('Sistema Inteligente de Gestión de Actividades (S.I.G.A.)', 200, 130);
+    ctx.fillText('Sistema Inteligente de GestiÃ³n de Actividades (S.I.G.A.)', 200, 130);
     ctx.font = 'bold 16px sans-serif';
     ctx.fillStyle = '#fbbf24'; // Gold
-    var actName = window._actividad ? window._actividad.nombre : 'Festival Sión 2026';
-    ctx.fillText(actName.toUpperCase() + ' · SECCIÓN ' + s.seccion, 200, 160);
+    var actName = window._actividad ? window._actividad.nombre : 'Festival SiÃ³n 2026';
+    ctx.fillText(actName.toUpperCase() + ' Â· SECCIÃ“N ' + s.seccion, 200, 160);
 
     // Main Receipt Title
-    var isDev = tx.rawTipo === 'devolucion' || tx.tipo === 'Devolución';
+    var isDev = tx.rawTipo === 'devolucion' || tx.tipo === 'DevoluciÃ³n';
     ctx.fillStyle = isDev ? '#ef4444' : '#0f172a'; // Red if refund, Slate Navy if payment
     ctx.font = 'bold 32px sans-serif';
     ctx.textAlign = 'center';
-    ctx.fillText(isDev ? 'COMPROBANTE DE DEVOLUCIÓN' : 'COMPROBANTE DE PAGO', 400, 330);
+    ctx.fillText(isDev ? 'COMPROBANTE DE DEVOLUCIÃ“N' : 'COMPROBANTE DE PAGO', 400, 330);
 
     // Separator line
     ctx.strokeStyle = '#e2e8f0';
@@ -1998,7 +1998,7 @@ function generateReceipt(studentNum, txId) {
     ctx.fillStyle = '#475569';
     ctx.font = 'bold 15px sans-serif';
     ctx.fillText('ESTUDIANTE:', 110, 435);
-    ctx.fillText('SECCIÓN:', 110, 470);
+    ctx.fillText('SECCIÃ“N:', 110, 470);
     ctx.fillText('ENCARGADOS:', 110, 505);
 
     ctx.fillStyle = '#0f172a';
@@ -2006,18 +2006,18 @@ function generateReceipt(studentNum, txId) {
     ctx.fillText('#' + String(s.num).padStart(2,'0') + ' - ' + s.nombre, 240, 435);
     ctx.font = '16px sans-serif';
     ctx.fillText(s.seccion + ' (Docente: ' + (currentDocente || 'Control General') + ')', 240, 470);
-    ctx.fillText(s.padres.join(' · ') || 'No registrados', 240, 505);
+    ctx.fillText(s.padres.join(' Â· ') || 'No registrados', 240, 505);
 
     // Transaction details
     ctx.fillStyle = '#0f172a';
     ctx.font = 'bold 22px sans-serif';
-    ctx.fillText('Detalles de la Transacción', 80, 600);
+    ctx.fillText('Detalles de la TransacciÃ³n', 80, 600);
 
     var details = [
       { label: 'Concepto:', val: tx.tipo },
       { label: 'Fecha de Registro:', val: tx.fecha },
         { label: 'Fecha de Transacci\xA3n:', val: (tx.analisis?.fechaExtraida || tx.fecha || 'N/A') },
-      { label: 'Banco Emisor:', val: (tx.analisis?.banco || 'SINPE Móvil') },
+      { label: 'Banco Emisor:', val: (tx.analisis?.banco || 'SINPE MÃ³vil') },
       { label: 'Referencia SINPE:', val: (tx.analisis?.refSINPE || 'Manual') }
     ];
 
@@ -2050,7 +2050,7 @@ function generateReceipt(studentNum, txId) {
     ctx.textAlign = 'center';
     ctx.fillStyle = '#64748b';
     ctx.font = 'italic 13px sans-serif';
-    ctx.fillText('Documento digital generado automáticamente por S.I.G.A.', 400, 950);
+    ctx.fillText('Documento digital generado automÃ¡ticamente por S.I.G.A.', 400, 950);
     
     // Verified stamp
     ctx.strokeStyle = isDev ? '#ef4444' : '#10b981';
@@ -2098,9 +2098,9 @@ openImgViewer(canvas.toDataURL('image/png'), { filename: filename, isReceipt: tr
 
 async function callScript(data) {
   try {
-    // Incluir sección, año y actividadId si el payload no los especifica
+    // Incluir secciÃ³n, aÃ±o y actividadId si el payload no los especifica
     if (!data.seccion) data.seccion = currentSeccion;
-    if (!data.año) data.año = currentAnio;
+    if (!data.aÃ±o) data.aÃ±o = currentAnio;
     if (!data.actividadId && currentActividadId) data.actividadId = currentActividadId;
 
     var bodyStr = JSON.stringify(data);
@@ -2119,15 +2119,14 @@ async function callScript(data) {
   }
 }
 
-// ══════════════════════════════════════════════════════════════
-//  IMAGE VIEWER
-// ══════════════════════════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 function openImgViewer(driveUrl, data) {
   // Convert Drive view URL to direct image URL
-  var match = driveUrl.match(/\/d\/([a-zA-Z0-9_-]+)/);
-  var imgSrc = match
-    ? 'https://drive.google.com/thumbnail?id=' + match[1] + '&sz=w1200'
-    : driveUrl;
+  var imgSrc = driveUrl;
+  if (!driveUrl.startsWith('data:')) {
+    var match = driveUrl.match(/\/\/d\/\/([a-zA-Z0-9_-]+)/);
+    if (match) imgSrc = 'https://drive.google.com/thumbnail?id=' + match[1] + '&sz=w1200';
+  }
 
   var overlay = document.getElementById('imgViewerOverlay');
   var img     = document.getElementById('imgViewerImg');
@@ -2157,17 +2156,17 @@ extBtn.innerHTML = '&#128279; Abrir en Drive';
     var scoreClass = data.score >= 85 ? 'high' : data.score >= 50 ? 'mid' : 'low';
     var decisionColor = data.decision === 'APROBAR' ? '#1FB5AC' : data.decision === 'RECHAZAR' ? '#e74c3c' : '#E67E22';
     infoGrid.innerHTML =
-      '<div class="img-viewer-info-item"><div class="img-viewer-info-label">Monto</div><div class="img-viewer-info-val">₡ '+Number(data.monto||0).toLocaleString('es-CR')+'</div></div>' +
-      '<div class="img-viewer-info-item"><div class="img-viewer-info-label">Fecha</div><div class="img-viewer-info-val">'+(data.fecha||'—')+'</div></div>' +
-      '<div class="img-viewer-info-item"><div class="img-viewer-info-label">Banco</div><div class="img-viewer-info-val">'+(data.banco||'—')+'</div></div>' +
-      '<div class="img-viewer-info-item"><div class="img-viewer-info-label">Remitente</div><div class="img-viewer-info-val">'+(data.remitente||'—')+'</div></div>' +
+      '<div class="img-viewer-info-item"><div class="img-viewer-info-label">Monto</div><div class="img-viewer-info-val">â‚¡ '+Number(data.monto||0).toLocaleString('es-CR')+'</div></div>' +
+      '<div class="img-viewer-info-item"><div class="img-viewer-info-label">Fecha</div><div class="img-viewer-info-val">'+(data.fecha||'â€”')+'</div></div>' +
+      '<div class="img-viewer-info-item"><div class="img-viewer-info-label">Banco</div><div class="img-viewer-info-val">'+(data.banco||'â€”')+'</div></div>' +
+      '<div class="img-viewer-info-item"><div class="img-viewer-info-label">Remitente</div><div class="img-viewer-info-val">'+(data.remitente||'â€”')+'</div></div>' +
       (data.refSINPE ? '<div class="img-viewer-info-item"><div class="img-viewer-info-label">Ref. SINPE</div><div class="img-viewer-info-val" style="font-size:10px;">'+(data.refSINPE)+'</div></div>' : '') +
       (data.score !== undefined ? '<div class="img-viewer-info-item"><div class="img-viewer-info-label">Score IA</div><div class="img-viewer-info-val"><span class="img-viewer-score-badge '+scoreClass+'">'+data.score+'%</span></div></div>' : '') +
-      (data.decision ? '<div class="img-viewer-info-item"><div class="img-viewer-info-label">Decisión</div><div class="img-viewer-info-val" style="color:'+decisionColor+';">'+data.decision+'</div></div>' : '');
+      (data.decision ? '<div class="img-viewer-info-item"><div class="img-viewer-info-label">DecisiÃ³n</div><div class="img-viewer-info-val" style="color:'+decisionColor+';">'+data.decision+'</div></div>' : '');
     var flags = [];
-    if (data.isAlternate)  flags.push('<span class="img-viewer-flag alt">📱 Número alterno</span>');
-    if (data.isDuplicate)  flags.push('<span class="img-viewer-flag dup">🔁 Duplicado</span>');
-    if (data.isSuspect)    flags.push('<span class="img-viewer-flag sus">⚠️ Sospecha</span>');
+    if (data.isAlternate)  flags.push('<span class="img-viewer-flag alt">ðŸ“± NÃºmero alterno</span>');
+    if (data.isDuplicate)  flags.push('<span class="img-viewer-flag dup">ðŸ” Duplicado</span>');
+    if (data.isSuspect)    flags.push('<span class="img-viewer-flag sus">âš ï¸ Sospecha</span>');
     flagsEl.innerHTML = flags.join('');
     infoBox.classList.add('visible');
   } else {
@@ -2187,7 +2186,7 @@ function imgLoaded() {
 
 function imgError() {
   document.getElementById('imgViewerLoading').textContent =
-    '⚠️ No se pudo cargar la imagen. Abrila en Drive con el botón de abajo.';
+    'âš ï¸ No se pudo cargar la imagen. Abrila en Drive con el botÃ³n de abajo.';
   document.getElementById('imgViewerImg').style.display = 'none';
 }
 
@@ -2200,9 +2199,9 @@ function closeImgViewerDirect() {
   document.body.style.overflow = '';
 }
 
-// ══════════════════════════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 //  REPORTS
-// ══════════════════════════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 async function loadRejected() {
   var isReadonly = false || (isAdminMode && adminUser && adminUser.rol === 'docente');
   var el = document.getElementById('rejected-list');
@@ -2212,7 +2211,7 @@ async function loadRejected() {
     if (!resp.ok) { el.innerHTML = '<div style="color:var(--red);padding:16px;">'+resp.error+'</div>'; return; }
     var list = resp.rejected || [];
     if (!list.length) {
-      el.innerHTML = '<div style="text-align:center;padding:32px;color:var(--gray);font-size:13px;">✅ No hay comprobantes rechazados</div>';
+      el.innerHTML = '<div style="text-align:center;padding:32px;color:var(--gray);font-size:13px;">âœ… No hay comprobantes rechazados</div>';
       return;
     }
     el.innerHTML = '<div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--red);margin-bottom:10px;">'+list.length+' rechazado'+(list.length>1?'s':'')+'</div>' +
@@ -2221,18 +2220,18 @@ async function loadRejected() {
         return '<div class="pending-card" style="border-left-color:var(--red);">' +
           '<div class="pending-header">' +
             '<div class="pending-student">'+p.studentName+'</div>' +
-            '<div class="pending-amount">₡'+Number(p.monto).toLocaleString('es-CR')+'</div>' +
+            '<div class="pending-amount">â‚¡'+Number(p.monto).toLocaleString('es-CR')+'</div>' +
           '</div>' +
           '<div class="pending-meta">' +
-            '<span>🏦 '+(p.banco||'—')+'</span>' +
-            '<span>👩 '+(p.remitente||'—')+'</span>' +
+            '<span>ðŸ¦ '+(p.banco||'â€”')+'</span>' +
+            '<span>ðŸ‘© '+(p.remitente||'â€”')+'</span>' +
             '<span class="pending-score '+scoreClass+'">'+p.score+'%</span>' +
           '</div>' +
-          (p.driveLink ? '<div style="margin:6px 0;"><a href="'+p.driveLink+'" target="_blank" class="comp-link" style="display:inline-flex;">🔍 Ver comprobante</a></div>' : '') +
+          (p.driveLink ? '<div style="margin:6px 0;"><a href="'+p.driveLink+'" target="_blank" class="comp-link" style="display:inline-flex;">ðŸ” Ver comprobante</a></div>' : '') +
           (isReadonly ? '' : 
           '<div class="pending-actions">' +
             '<button class="pending-action-btn btn-approve-p" onclick="rescuePayment(this)" '+
-              'data-id="'+p.id+'" data-name="'+p.studentName+'" data-monto="'+p.monto+'">♻️ Rescatar y aprobar</button>' +
+              'data-id="'+p.id+'" data-name="'+p.studentName+'" data-monto="'+p.monto+'">â™»ï¸ Rescatar y aprobar</button>' +
           '</div>'
         ) +
         '</div>';
@@ -2246,26 +2245,26 @@ async function rescuePayment(btn) {
   var id     = btn.dataset.id;
   var name   = btn.dataset.name;
   var monto  = btn.dataset.monto;
-  var justif = prompt('♻️ Rescatar pago de '+name+' (₡'+Number(monto).toLocaleString('es-CR')+')\n\nMotivo de aprobación:');
+  var justif = prompt('â™»ï¸ Rescatar pago de '+name+' (â‚¡'+Number(monto).toLocaleString('es-CR')+')\n\nMotivo de aprobaciÃ³n:');
   if (!justif) return;
   btn.disabled = true;
   btn.textContent = 'Procesando...';
   try {
     var resp = await callScript({ action:'rescue', adminEmail:adminUser.email, pendingId:id, justificacion:justif });
     if (resp.ok) {
-      showToast('✅ Pago rescatado y aprobado correctamente');
+      showToast('âœ… Pago rescatado y aprobado correctamente');
       loadRejected();
       students = null;
       loadStudents();
     } else {
-      showToast('❌ ' + resp.error, true);
+      showToast('âŒ ' + resp.error, true);
       btn.disabled = false;
-      btn.textContent = '♻️ Rescatar y aprobar';
+      btn.textContent = 'â™»ï¸ Rescatar y aprobar';
     }
   } catch(e) {
-    showToast('❌ Error: ' + e.message, true);
+    showToast('âŒ Error: ' + e.message, true);
     btn.disabled = false;
-    btn.textContent = '♻️ Rescatar y aprobar';
+    btn.textContent = 'â™»ï¸ Rescatar y aprobar';
   }
 }
 
@@ -2284,19 +2283,19 @@ function renderReports() {
   
   var elRec = document.getElementById('kpi-recaudado');
   var elPen = document.getElementById('kpi-pendiente');
-  if (elRec) elRec.textContent = '₡' + totalRecaudado.toLocaleString();
-  if (elPen) elPen.textContent = '₡' + totalPendiente.toLocaleString();
+  if (elRec) elRec.textContent = 'â‚¡' + totalRecaudado.toLocaleString();
+  if (elPen) elPen.textContent = 'â‚¡' + totalPendiente.toLocaleString();
   
   // Calculate Egresos if available
   if (window.adminEgresosData) {
      var totalEg = 0;
      window.adminEgresosData.forEach(function(e) { totalEg += e.monto; });
      var elEg = document.getElementById('kpi-egresos');
-     if (elEg) elEg.textContent = '₡' + totalEg.toLocaleString();
+     if (elEg) elEg.textContent = 'â‚¡' + totalEg.toLocaleString();
   }
 
 
-  // ── Cálculos globales ──
+  // â”€â”€ CÃ¡lculos globales â”€â”€
   var totalEsperado   = students.reduce(function(s,x){ return s + (x.total||0); }, 0);
   var totalRecaudado  = 0;
   var totalPagados    = 0;
@@ -2307,7 +2306,7 @@ function renderReports() {
 
   // Rubros
   var rubroKeys   = ['bingo','camisaFest','camisaAdi','entrenador','vestPres','cuotaVentas','coreografo','hidratacion','maquillaje'];
-  var rubroLabels = {'bingo':'Bingo','camisaFest':'Camisa Festival','camisaAdi':'Camisa Adicional','entrenador':'Camisa Entrenador','vestPres':'Vest. Presentación','cuotaVentas':'Cuota Ventas','coreografo':'Coreógrafo','hidratacion':'Hidratación','maquillaje':'Maquillaje'};
+  var rubroLabels = {'bingo':'Bingo','camisaFest':'Camisa Festival','camisaAdi':'Camisa Adicional','entrenador':'Camisa Entrenador','vestPres':'Vest. PresentaciÃ³n','cuotaVentas':'Cuota Ventas','coreografo':'CoreÃ³grafo','hidratacion':'HidrataciÃ³n','maquillaje':'Maquillaje'};
   var rubroTotales = {};
   rubroKeys.forEach(function(k){ rubroTotales[k] = 0; });
 
@@ -2365,25 +2364,25 @@ function renderReports() {
     return { num:s.num, nombre:s.nombre, total:s.total, pagado:pagado, saldo:s.total-pagado, tienePendiente:s.tienePendiente, esPagado:esPagado };
   }).sort(function(a,b){ return a.num-b.num; });
 
-  // ── Render ──
+  // â”€â”€ Render â”€â”€
   var html = '';
 
   // KPIs
   html += '<div class="report-section">';
-  html += '<div class="report-section-title">📊 Resumen general</div>';
+  html += '<div class="report-section-title">ðŸ“Š Resumen general</div>';
   html += '<div class="report-kpi-grid">';
   html += '<div class="report-kpi accent"><div class="report-kpi-label">Total recaudado</div><div class="report-kpi-val">'+fmtShort(totalRecaudado)+'</div><div class="report-kpi-sub">de '+fmtShort(totalEsperado)+' esperado</div></div>';
   html += '<div class="report-kpi gold"><div class="report-kpi-label">Avance</div><div class="report-kpi-val">'+pctRecaudado+'%</div><div class="report-kpi-sub">'+fmtShort(pendiente)+' pendiente</div></div>';
   html += '<div class="report-kpi"><div class="report-kpi-label">Pagados completo</div><div class="report-kpi-val" style="color:#2E7D32;">'+totalPagados+'</div><div class="report-kpi-sub">de 23 estudiantes</div></div>';
-  html += '<div class="report-kpi"><div class="report-kpi-label">Sin pago</div><div class="report-kpi-val" style="color:var(--red);">'+totalSin+'</div><div class="report-kpi-sub">'+totalRevision+' en revisión · '+totalParciales+' parcial</div></div>';
+  html += '<div class="report-kpi"><div class="report-kpi-label">Sin pago</div><div class="report-kpi-val" style="color:var(--red);">'+totalSin+'</div><div class="report-kpi-sub">'+totalRevision+' en revisiÃ³n Â· '+totalParciales+' parcial</div></div>';
   html += '</div>';
 
   // Barra avance global
   var barClass = pctRecaudado >= 75 ? '' : pctRecaudado >= 40 ? 'warn' : 'danger';
   html += '<div class="report-progress-wrap">';
-  html += '<div class="report-progress-label"><span class="report-progress-name">Avance total de recaudación</span><span class="report-progress-pct">'+pctRecaudado+'%</span></div>';
+  html += '<div class="report-progress-label"><span class="report-progress-name">Avance total de recaudaciÃ³n</span><span class="report-progress-pct">'+pctRecaudado+'%</span></div>';
   html += '<div class="report-bar"><div class="report-bar-fill '+barClass+'" style="width:'+pctRecaudado+'%"></div></div>';
-  html += '<div class="report-bar-sub">'+fmt(totalRecaudado)+' recaudados · '+fmt(pendiente)+' por cobrar</div>';
+  html += '<div class="report-bar-sub">'+fmt(totalRecaudado)+' recaudados Â· '+fmt(pendiente)+' por cobrar</div>';
   html += '</div>';
   html += '</div>';
 
@@ -2391,17 +2390,17 @@ function renderReports() {
 
   // Estudiantes con saldo pendiente
   html += '<div class="report-section">';
-  html += '<div class="report-section-title">💰 Saldo pendiente por estudiante ('+conSaldo.length+')</div>';
+  html += '<div class="report-section-title">ðŸ’° Saldo pendiente por estudiante ('+conSaldo.length+')</div>';
   if (conSaldo.length === 0) {
-    html += '<div style="text-align:center;padding:20px;color:var(--gray);font-size:12px;">🎉 Todos los estudiantes han pagado</div>';
+    html += '<div style="text-align:center;padding:20px;color:var(--gray);font-size:12px;">ðŸŽ‰ Todos los estudiantes han pagado</div>';
   } else {
     html += '<div style="overflow-x:auto;"><table class="report-table">';
     html += '<thead><tr><th>#</th><th>Nombre</th><th style="text-align:right;">Total</th><th style="text-align:right;">Pagado</th><th style="text-align:right;">Saldo</th><th style="text-align:center;">Estado</th></tr></thead><tbody>';
     conSaldo.forEach(function(s) {
       var pct  = s.total > 0 ? Math.round(s.pagado/s.total*100) : 0;
       var badge, bclass;
-      if (s.tienePendiente)    { badge='⏳ Revisión'; bclass='rb-revision'; }
-      else if (s.esPagado)     { badge='✅ Pagado';   bclass='rb-pagado'; }
+      if (s.tienePendiente)    { badge='â³ RevisiÃ³n'; bclass='rb-revision'; }
+      else if (s.esPagado)     { badge='âœ… Pagado';   bclass='rb-pagado'; }
       else if (s.pagado === 0) { badge='Sin pago';    bclass='rb-sin'; }
       else                     { badge='Parcial '+pct+'%'; bclass='rb-parcial'; }
       html += '<tr>';
@@ -2421,7 +2420,7 @@ function renderReports() {
 
   // Desglose por rubro
   html += '<div class="report-section">';
-  html += '<div class="report-section-title">📋 Desglose por rubro</div>';
+  html += '<div class="report-section-title">ðŸ“‹ Desglose por rubro</div>';
   html += '<div style="background:var(--offwhite);border-radius:12px;padding:12px 14px;border:1px solid var(--border);">';
   rubrosSorted.forEach(function(k) {
     var tot = rubroTotales[k];
@@ -2437,9 +2436,9 @@ function renderReports() {
 
   // Timeline de pagos
   html += '<div class="report-section">';
-  html += '<div class="report-section-title">📅 Línea de tiempo de pagos ('+pagosTimeline.length+')</div>';
+  html += '<div class="report-section-title">ðŸ“… LÃ­nea de tiempo de pagos ('+pagosTimeline.length+')</div>';
   if (pagosTimeline.length === 0) {
-    html += '<div style="text-align:center;padding:20px;color:var(--gray);font-size:12px;">No hay pagos registrados aún</div>';
+    html += '<div style="text-align:center;padding:20px;color:var(--gray);font-size:12px;">No hay pagos registrados aÃºn</div>';
   } else {
     html += '<ul class="report-timeline">';
     pagosTimeline.forEach(function(p) {
@@ -2447,7 +2446,7 @@ function renderReports() {
       var dotClass = p.tipo==='abono' ? ' warn' : p.tipo==='final' ? ' final' : '';
       html += '<div class="report-tl-dot'+dotClass+'"></div>';
       html += '<div class="report-tl-date">'+p.fecha+'</div>';
-      var tipoLabel = p.tipo==='total' ? '<strong>Pago total ✓</strong>' : p.tipo==='final' ? '<strong>Abono final ✓</strong>' : 'Abono';
+      var tipoLabel = p.tipo==='total' ? '<strong>Pago total âœ“</strong>' : p.tipo==='final' ? '<strong>Abono final âœ“</strong>' : 'Abono';
       html += '<div class="report-tl-info"><div class="report-tl-name">'+p.nombre+'</div><div style="font-size:9px;color:var(--gray);">'+tipoLabel+'</div></div>';
       html += '<div class="report-tl-amt">'+fmt(p.monto)+'</div>';
       html += '</li>';
@@ -2458,17 +2457,17 @@ function renderReports() {
 
   html += '<div class="report-divider"></div>';
 
-  // Estadísticas — Charts
+  // EstadÃ­sticas â€” Charts
   html += '<div class="report-section">';
-  html += '<div class="report-section-title">📊 Estadísticas de pagos</div>';
+  html += '<div class="report-section-title">ðŸ“Š EstadÃ­sticas de pagos</div>';
   html += '<div style="display:flex;gap:6px;margin-bottom:12px;" id="stats-tabs-wrap">';
-  html += '<button class="report-export-btn" id="stab-timeline" onclick="showStatsTab(\'timeline\')" style="flex:1;background:var(--forest);padding:8px;">📅 Pagos por fecha</button>';
-  html += '<button class="report-export-btn" id="stab-pct" onclick="showStatsTab(\'pct\')" style="flex:1;background:var(--gray);padding:8px;">📊 Avance por estudiante</button>';
+  html += '<button class="report-export-btn" id="stab-timeline" onclick="showStatsTab(\'timeline\')" style="flex:1;background:var(--forest);padding:8px;">ðŸ“… Pagos por fecha</button>';
+  html += '<button class="report-export-btn" id="stab-pct" onclick="showStatsTab(\'pct\')" style="flex:1;background:var(--gray);padding:8px;">ðŸ“Š Avance por estudiante</button>';
   html += '</div>';
   html += '<div id="stats-timeline-view">';
   html += '<div style="display:flex;gap:14px;font-size:10px;color:var(--gray);margin-bottom:8px;">';
-  html += '<span style="display:flex;align-items:center;gap:4px;"><span style="width:8px;height:8px;border-radius:50%;background:var(--teal);display:inline-block;"></span><strong>Pago total ✓</strong></span>';
-  html += '<span style="display:flex;align-items:center;gap:4px;"><span style="width:8px;height:8px;border-radius:50%;background:#534AB7;display:inline-block;"></span><strong>Abono final ✓</strong></span>';
+  html += '<span style="display:flex;align-items:center;gap:4px;"><span style="width:8px;height:8px;border-radius:50%;background:var(--teal);display:inline-block;"></span><strong>Pago total âœ“</strong></span>';
+  html += '<span style="display:flex;align-items:center;gap:4px;"><span style="width:8px;height:8px;border-radius:50%;background:#534AB7;display:inline-block;"></span><strong>Abono final âœ“</strong></span>';
   html += '<span style="display:flex;align-items:center;gap:4px;"><span style="width:8px;height:8px;border-radius:50%;background:var(--orange);display:inline-block;"></span>Abono</span>';
   html += '</div>';
   html += '<div style="position:relative;height:200px;"><canvas id="reportTimelineChart" role="img" aria-label="Pagos recibidos por fecha">Montos recibidos por fecha de pago.</canvas></div>';
@@ -2489,10 +2488,10 @@ function renderReports() {
 
   // Exportar CSV
   html += '<div class="report-section">';
-  html += '<div class="report-section-title">📤 Exportar</div>';
-  html += '<button class="report-export-btn" onclick="exportReportCSV()" style="margin-bottom:8px;">⬇️ Descargar reporte CSV</button>';
-  html += '<button class="report-export-btn" onclick="exportReportPDF()" style="background:var(--red);margin-bottom:8px;">🖨️ Descargar reporte PDF</button>';
-  html += '<button class="report-export-btn" onclick="exportRendicionPDF()" style="background:#534AB7;">📄 Rendición de Cuentas</button>';
+  html += '<div class="report-section-title">ðŸ“¤ Exportar</div>';
+  html += '<button class="report-export-btn" onclick="exportReportCSV()" style="margin-bottom:8px;">â¬‡ï¸ Descargar reporte CSV</button>';
+  html += '<button class="report-export-btn" onclick="exportReportPDF()" style="background:var(--red);margin-bottom:8px;">ðŸ–¨ï¸ Descargar reporte PDF</button>';
+  html += '<button class="report-export-btn" onclick="exportRendicionPDF()" style="background:#534AB7;">ðŸ“„ RendiciÃ³n de Cuentas</button>';
   html += '</div>';
 
   el.innerHTML = html;
@@ -2540,7 +2539,7 @@ function buildStatsCharts(pagosTimeline, students) {
         plugins:{legend:{display:false}},
         scales:{
           x:{stacked:true, ticks:{font:{size:9}, autoSkip:false, maxRotation:45}, grid:{display:false}},
-          y:{stacked:true, ticks:{font:{size:9}, callback:function(v){return '₡'+Math.round(v/1000)+'K';}}}
+          y:{stacked:true, ticks:{font:{size:9}, callback:function(v){return 'â‚¡'+Math.round(v/1000)+'K';}}}
         }
       }
     });
@@ -2577,8 +2576,8 @@ function buildStatsCharts(pagosTimeline, students) {
 }
 
 function fmtShort(n) {
-  if (n >= 1000000) return '₡'+(n/1000000).toFixed(1)+'M';
-  if (n >= 1000)    return '₡'+(n/1000).toFixed(0)+'K';
+  if (n >= 1000000) return 'â‚¡'+(n/1000000).toFixed(1)+'M';
+  if (n >= 1000)    return 'â‚¡'+(n/1000).toFixed(0)+'K';
   return fmt(n);
 }
 
@@ -2587,7 +2586,7 @@ function exportReportCSV() {
   students.forEach(function(s) {
     var pagado = s.pagadoCompleto ? s.total : (s.abonos ? s.abonos.reduce(function(a,b){return a+b.monto;},0) : 0);
     var saldo  = (s.total||0) - pagado;
-    var estado = s.pagadoCompleto ? 'Pagado' : s.tienePendiente ? 'En revisión' : pagado > 0 ? 'Parcial' : 'Sin pago';
+    var estado = s.pagadoCompleto ? 'Pagado' : s.tienePendiente ? 'En revisiÃ³n' : pagado > 0 ? 'Parcial' : 'Sin pago';
     rows.push([s.num, s.nombre, (s.padres||[]).join(' / '), s.total||0, pagado, saldo, estado]);
   });
   var csv = rows.map(function(r){ return r.map(function(c){ return '"'+String(c).replace(/"/g,'""')+'"'; }).join(','); }).join('\n');
@@ -2604,7 +2603,7 @@ function exportReportPDF() {
   var totalRecaudado = 0;
   var totalPagados=0, totalParciales=0, totalSin=0, totalRevision=0;
   var rubroKeys   = ['bingo','camisaFest','camisaAdi','entrenador','vestPres','cuotaVentas','coreografo','hidratacion','maquillaje'];
-  var rubroLabels = {'bingo':'Bingo','camisaFest':'Camisa Festival','camisaAdi':'Camisa Adicional','entrenador':'Camisa Entrenador','vestPres':'Vest. Presentación','cuotaVentas':'Cuota Ventas','coreografo':'Coreógrafo','hidratacion':'Hidratación','maquillaje':'Maquillaje'};
+  var rubroLabels = {'bingo':'Bingo','camisaFest':'Camisa Festival','camisaAdi':'Camisa Adicional','entrenador':'Camisa Entrenador','vestPres':'Vest. PresentaciÃ³n','cuotaVentas':'Cuota Ventas','coreografo':'CoreÃ³grafo','hidratacion':'HidrataciÃ³n','maquillaje':'Maquillaje'};
   var rubroTotales = {}; rubroKeys.forEach(function(k){ rubroTotales[k]=0; });
 
   students.forEach(function(s){
@@ -2626,14 +2625,14 @@ function exportReportPDF() {
     var pagado = s.pagadoCompleto ? s.total : (s.abonos ? s.abonos.reduce(function(a,b){return a+b.monto;},0):0);
     var saldo  = (s.total||0)-pagado;
     var esPagado = s.pagadoCompleto || (s.total>0 && pagado>=s.total);
-    var estado = esPagado ? '✅ Pagado' : s.tienePendiente ? '⏳ Revisión' : pagado>0 ? '🔵 Parcial' : '❌ Sin pago';
+    var estado = esPagado ? 'âœ… Pagado' : s.tienePendiente ? 'â³ RevisiÃ³n' : pagado>0 ? 'ðŸ”µ Parcial' : 'âŒ Sin pago';
     var pctE   = s.total>0 ? Math.round(pagado/s.total*100) : 0;
     var color  = esPagado ? '#E8F5E9' : pagado>0 ? '#FFF3E0' : '#FFEBEE';
     return '<tr style="background:'+color+';">'+
       '<td style="padding:5px 8px;border-bottom:1px solid #ddd;color:#555;">'+s.num+'</td>'+
       '<td style="padding:5px 8px;border-bottom:1px solid #ddd;font-weight:600;">'+s.nombre+'</td>'+
-      '<td style="padding:5px 8px;border-bottom:1px solid #ddd;text-align:right;font-family:monospace;">₡'+pagado.toLocaleString('es-CR')+'</td>'+
-      '<td style="padding:5px 8px;border-bottom:1px solid #ddd;text-align:right;font-family:monospace;color:#C62828;">₡'+saldo.toLocaleString('es-CR')+'</td>'+
+      '<td style="padding:5px 8px;border-bottom:1px solid #ddd;text-align:right;font-family:monospace;">â‚¡'+pagado.toLocaleString('es-CR')+'</td>'+
+      '<td style="padding:5px 8px;border-bottom:1px solid #ddd;text-align:right;font-family:monospace;color:#C62828;">â‚¡'+saldo.toLocaleString('es-CR')+'</td>'+
       '<td style="padding:5px 8px;border-bottom:1px solid #ddd;text-align:center;font-size:11px;">'+estado+'</td>'+
       '<td style="padding:5px 8px;border-bottom:1px solid #ddd;text-align:right;">'+pctE+'%</td>'+
     '</tr>';
@@ -2645,13 +2644,13 @@ function exportReportPDF() {
     var pctR = totalEsperado>0 ? Math.round(tot/totalEsperado*100) : 0;
     return '<tr>'+
       '<td style="padding:5px 8px;border-bottom:1px solid #eee;">'+rubroLabels[k]+'</td>'+
-      '<td style="padding:5px 8px;border-bottom:1px solid #eee;text-align:right;font-family:monospace;font-weight:700;">₡'+tot.toLocaleString('es-CR')+'</td>'+
+      '<td style="padding:5px 8px;border-bottom:1px solid #eee;text-align:right;font-family:monospace;font-weight:700;">â‚¡'+tot.toLocaleString('es-CR')+'</td>'+
       '<td style="padding:5px 8px;border-bottom:1px solid #eee;text-align:right;color:#888;">'+pctR+'%</td>'+
     '</tr>';
   }).join('');
 
   var html = '<!DOCTYPE html><html><head><meta charset="UTF-8">'+
-    '<title>Reporte Festival Sión 2026</title>'+
+    '<title>Reporte Festival SiÃ³n 2026</title>'+
     '<style>'+
     'body{font-family:Arial,sans-serif;padding:24px;color:#1A2E27;font-size:12px;}'+
     'h1{font-size:20px;margin-bottom:4px;}h2{font-size:14px;margin:20px 0 10px;color:#1A2E27;border-bottom:2px solid #1A2E27;padding-bottom:4px;}'+
@@ -2667,29 +2666,29 @@ function exportReportPDF() {
     'th{background:#1A2E27;color:#fff;padding:7px 8px;text-align:left;font-size:10px;letter-spacing:.5px;}'+
     '@media print{body{padding:12px;}.no-print{display:none;}}'+
     '</style></head><body>'+
-    '<h1>🎭 Festival Sión 2026 — Reporte de Pagos</h1>'+
-    '<div class="sub">Sección 1-1 · Docente: '+currentDocente+' · Generado: '+fecha+'</div>'+
+    '<h1>ðŸŽ­ Festival SiÃ³n 2026 â€” Reporte de Pagos</h1>'+
+    '<div class="sub">SecciÃ³n 1-1 Â· Docente: '+currentDocente+' Â· Generado: '+fecha+'</div>'+
 
-    '<h2>📊 Resumen General</h2>'+
+    '<h2>ðŸ“Š Resumen General</h2>'+
     '<div class="kpis">'+
-      '<div class="kpi"><div class="kpi-label">Total esperado</div><div class="kpi-val">₡'+totalEsperado.toLocaleString('es-CR')+'</div></div>'+
-      '<div class="kpi"><div class="kpi-label">Recaudado</div><div class="kpi-val" style="color:#2E7D32;">₡'+totalRecaudado.toLocaleString('es-CR')+'</div></div>'+
-      '<div class="kpi"><div class="kpi-label">Pendiente</div><div class="kpi-val" style="color:#C62828;">₡'+(totalEsperado-totalRecaudado).toLocaleString('es-CR')+'</div></div>'+
+      '<div class="kpi"><div class="kpi-label">Total esperado</div><div class="kpi-val">â‚¡'+totalEsperado.toLocaleString('es-CR')+'</div></div>'+
+      '<div class="kpi"><div class="kpi-label">Recaudado</div><div class="kpi-val" style="color:#2E7D32;">â‚¡'+totalRecaudado.toLocaleString('es-CR')+'</div></div>'+
+      '<div class="kpi"><div class="kpi-label">Pendiente</div><div class="kpi-val" style="color:#C62828;">â‚¡'+(totalEsperado-totalRecaudado).toLocaleString('es-CR')+'</div></div>'+
       '<div class="kpi"><div class="kpi-label">Avance</div><div class="kpi-val">'+pct+'%</div></div>'+
     '</div>'+
     '<div class="bar-wrap"><div class="bar-fill" style="width:'+pct+'%;"></div></div>'+
-    '<div class="bar-label">✅ Pagados: '+totalPagados+' &nbsp;·&nbsp; 🔵 Parciales: '+totalParciales+' &nbsp;·&nbsp; ❌ Sin pago: '+totalSin+' &nbsp;·&nbsp; ⏳ En revisión: '+totalRevision+'</div>'+
+    '<div class="bar-label">âœ… Pagados: '+totalPagados+' &nbsp;Â·&nbsp; ðŸ”µ Parciales: '+totalParciales+' &nbsp;Â·&nbsp; âŒ Sin pago: '+totalSin+' &nbsp;Â·&nbsp; â³ En revisiÃ³n: '+totalRevision+'</div>'+
 
-    '<h2>📋 Desglose por Rubro</h2>'+
+    '<h2>ðŸ“‹ Desglose por Rubro</h2>'+
     '<table><thead><tr><th>Rubro</th><th style="text-align:right;">Total esperado</th><th style="text-align:right;">% del total</th></tr></thead>'+
     '<tbody>'+rubrosHTML+'</tbody></table>'+
 
-    '<h2>💰 Estado por Estudiante</h2>'+
+    '<h2>ðŸ’° Estado por Estudiante</h2>'+
     '<table><thead><tr>'+
       '<th>#</th><th>Estudiante</th><th style="text-align:right;">Pagado</th>'+
       '<th style="text-align:right;">Saldo</th><th style="text-align:center;">Estado</th><th style="text-align:right;">%</th>'+
     '</tr></thead><tbody>'+rows+'</tbody></table>'+
-    '<div style="margin-top:20px;font-size:10px;color:#999;text-align:center;border-top:1px solid #eee;padding-top:10px;">Festival Sión 2026 · SINPE 7022-8161 · Límite: 07/05/2026</div>'+
+    '<div style="margin-top:20px;font-size:10px;color:#999;text-align:center;border-top:1px solid #eee;padding-top:10px;">Festival SiÃ³n 2026 Â· SINPE 7022-8161 Â· LÃ­mite: 07/05/2026</div>'+
     '</body></html>';
 
   var w = window.open('','_blank');
@@ -2700,23 +2699,23 @@ function exportReportPDF() {
 }
 
 
-// ══════════════════════════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 function sendWhatsApp() {
   var s = activeStudent;
   var msg = s.pendiente > 0
-    ? 'Estimado/a encargado/a de *'+s.nombre+'*,\n\nLe recordamos que tiene un saldo pendiente de *'+fmt(s.pendiente)+'* para el Paquete Festival Sión 2026.\n\n📊 Estado de cuenta:\n• Cuota total: '+fmt(s.total)+'\n• Abonado: '+fmt(s.abonado)+'\n• Pendiente: *'+fmt(s.pendiente)+'*\n\n⏰ Fecha límite: *07 de mayo de 2026*\n💳 SINPE Móvil: *7022-8161*\n\nGracias por su colaboración.\n_Centro Educativo Nuestra Señora de Sión_'
-    : 'Estimado/a encargado/a de *'+s.nombre+'*,\n\nConfirmamos que su pago del Paquete Festival Sión 2026 está *completado* ✅.\n\n💰 Total pagado: *'+fmt(s.total)+'*\n\nMuchas gracias por su puntualidad.\n_Centro Educativo Nuestra Señora de Sión_';
+    ? 'Estimado/a encargado/a de *'+s.nombre+'*,\n\nLe recordamos que tiene un saldo pendiente de *'+fmt(s.pendiente)+'* para el Paquete Festival SiÃ³n 2026.\n\nðŸ“Š Estado de cuenta:\nâ€¢ Cuota total: '+fmt(s.total)+'\nâ€¢ Abonado: '+fmt(s.abonado)+'\nâ€¢ Pendiente: *'+fmt(s.pendiente)+'*\n\nâ° Fecha lÃ­mite: *07 de mayo de 2026*\nðŸ’³ SINPE MÃ³vil: *7022-8161*\n\nGracias por su colaboraciÃ³n.\n_Centro Educativo Nuestra SeÃ±ora de SiÃ³n_'
+    : 'Estimado/a encargado/a de *'+s.nombre+'*,\n\nConfirmamos que su pago del Paquete Festival SiÃ³n 2026 estÃ¡ *completado* âœ….\n\nðŸ’° Total pagado: *'+fmt(s.total)+'*\n\nMuchas gracias por su puntualidad.\n_Centro Educativo Nuestra SeÃ±ora de SiÃ³n_';
   navigator.clipboard.writeText(msg).then(function(){
     var btn = document.getElementById('m-whatsapp');
     var orig = btn.textContent;
-    btn.textContent = '✅ ¡Copiado al portapapeles!';
+    btn.textContent = 'âœ… Â¡Copiado al portapapeles!';
     setTimeout(function(){ btn.textContent = orig; }, 2500);
   });
 }
 
-// ══════════════════════════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 //  SWIPE & KEYBOARD
-// ══════════════════════════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 (function(){
   var startY=0;
   var modal=document.getElementById('modal');
@@ -2725,20 +2724,20 @@ function sendWhatsApp() {
 })();
 document.addEventListener('keydown',function(e){if(e.key==='Escape'){closeModal();closeAdminPanel();}});
 
-// ══════════════════════════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 //  INIT
-// ══════════════════════════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 function startAutoRefresh(){clearInterval(refreshTimer);refreshTimer=setInterval(loadData,REFRESH_MS);}
 
-// ── EGRESOS ───────────────────────────────────────────────────
+// â”€â”€ EGRESOS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 var egresosData = null;
 var CAT_COLORS = {
   'Bingo':             '#534AB7',
   'Cuota Ventas':      '#378ADD',
-  'Coreógrafo':        '#D4A84B',
+  'CoreÃ³grafo':        '#D4A84B',
   'Vestuario':         '#1FB5AC',
   'Camisas Festival':  '#1D9E75',
-  'Hidratación':       '#E67E22',
+  'HidrataciÃ³n':       '#E67E22',
   'Maquillaje':        '#C0392B',
   'Otros':             '#6B8278'
 };
@@ -2757,7 +2756,7 @@ async function exportRendicionPDF() {
   students.forEach(function(s){
     rubroKeys.forEach(function(k){ rubroTotales[k] += (s.desglose&&s.desglose[k])?s.desglose[k]:0; });
     if (s.pagadoCompleto && s.abonos.length===0) {
-      allPagos.push({nombre:s.nombre, fecha:s.fechaUnico||'—', monto:s.total, tipo:'Pago total unico', link:s.compUnico?driveViewUrl(s.compUnico):''});
+      allPagos.push({nombre:s.nombre, fecha:s.fechaUnico||'â€”', monto:s.total, tipo:'Pago total unico', link:s.compUnico?driveViewUrl(s.compUnico):''});
       totalRecaudado += s.total;
     } else if (s.abonos && s.abonos.length>0) {
       var acum=0;
@@ -2784,7 +2783,7 @@ async function exportRendicionPDF() {
 
   // Filas ingresos
   var ingFilas = allPagos.map(function(p,i){
-    var recibo = p.link ? '<a href="'+p.link+'" target="_blank" style="color:#1FB5AC;font-size:10px;">Ver recibo</a>' : '—';
+    var recibo = p.link ? '<a href="'+p.link+'" target="_blank" style="color:#1FB5AC;font-size:10px;">Ver recibo</a>' : 'â€”';
     return '<tr style="background:'+(i%2===0?'#F6FAF8':'#fff')+'">'+
       '<td>'+p.nombre+'</td>'+
       '<td style="text-align:center;white-space:nowrap;">'+p.fecha+'</td>'+
@@ -2814,7 +2813,7 @@ async function exportRendicionPDF() {
 
   // Filas egresos
   function fmtFecha(val) {
-    if (!val) return '—';
+    if (!val) return 'â€”';
     var s = String(val).trim();
     if (s.match(/^\d{4}-\d{2}-\d{2}/)) {
       var d = new Date(s);
@@ -2827,13 +2826,13 @@ async function exportRendicionPDF() {
   var egrFilas = egresos.length===0
     ? '<tr><td colspan="5" style="text-align:center;color:#888;padding:16px;">Sin egresos registrados</td></tr>'
     : egresos.map(function(e,i){
-        var recibo = e.driveLink ? '<a href="'+e.driveLink+'" target="_blank" style="color:#1FB5AC;font-size:10px;">Ver recibo</a>' : '—';
+        var recibo = e.driveLink ? '<a href="'+e.driveLink+'" target="_blank" style="color:#1FB5AC;font-size:10px;">Ver recibo</a>' : 'â€”';
         return '<tr style="background:'+(i%2===0?'#F6FAF8':'#fff')+'">'+
           '<td>'+e.concepto+'</td>'+
           '<td style="text-align:center;white-space:nowrap;">'+fmtFecha(e.fecha)+'</td>'+
           '<td>'+e.categoria+'</td>'+
           '<td style="text-align:right;font-family:monospace;font-weight:600;">'+fmt(e.monto)+'</td>'+
-          '<td style="font-style:italic;color:#666;font-size:10px;">'+(e.comentario||'—')+'</td>'+
+          '<td style="font-style:italic;color:#666;font-size:10px;">'+(e.comentario||'â€”')+'</td>'+
           '<td style="text-align:center;">'+recibo+'</td>'+
         '</tr>';
       }).join('');
@@ -2856,7 +2855,7 @@ async function exportRendicionPDF() {
   var totalPresup = Object.values(presupuestos).reduce(function(a,b){return a+b;},0);
 
   var html = '<!DOCTYPE html><html><head><meta charset="UTF-8">'+
-    '<title>Rendicion de Cuentas — Festival Sion 2026</title>'+
+    '<title>Rendicion de Cuentas â€” Festival Sion 2026</title>'+
     '<style>'+
       'body{font-family:Arial,sans-serif;padding:24px 32px;color:#1A2E27;font-size:11px;max-width:900px;margin:0 auto;}'+
       '.header{display:flex;align-items:center;gap:20px;border-bottom:3px solid #1A2E27;padding-bottom:14px;margin-bottom:18px;}'+
@@ -2884,8 +2883,8 @@ async function exportRendicionPDF() {
     '<div class="header">'+
       '<img src="'+ESCUDO+'" alt="Escudo Sion">'+
       '<div class="header-text">'+
-        '<h1>Centro Educativo Nuestra Senora de Sion &nbsp;·&nbsp; Seccion 1-1</h1>'+
-        '<h2>Rendicion de Cuentas — Festival Sion 2026</h2>'+
+        '<h1>Centro Educativo Nuestra Senora de Sion &nbsp;Â·&nbsp; Seccion 1-1</h1>'+
+        '<h2>Rendicion de Cuentas â€” Festival Sion 2026</h2>'+
         '<p>Docente: '+currentDocente+'</p>'+
         '<p>Fecha de emision: '+fecha+'</p>'+
       '</div>'+
@@ -2906,7 +2905,7 @@ async function exportRendicionPDF() {
       '</div>'+
     '</div>'+
 
-    '<h2 class="sec">Ingresos — Detalle de pagos recibidos ('+allPagos.length+' transacciones)</h2>'+
+    '<h2 class="sec">Ingresos â€” Detalle de pagos recibidos ('+allPagos.length+' transacciones)</h2>'+
     '<table style="page-break-inside:auto;">'+
       '<thead><tr><th>Estudiante</th><th style="text-align:center;">Fecha</th><th>Tipo</th><th style="text-align:right;">Monto</th><th style="text-align:center;">Recibo</th></tr></thead>'+
       '<tbody>'+ingFilas+'</tbody>'+
@@ -2915,7 +2914,7 @@ async function exportRendicionPDF() {
       '<span>TOTAL RECAUDADO</span><span style="font-family:monospace;">'+fmt(totalRecaudado)+'</span>'+
     '</div>'+
 
-    '<h2 class="sec">Ingresos — Totales esperados por rubro</h2>'+
+    '<h2 class="sec">Ingresos â€” Totales esperados por rubro</h2>'+
     '<div class="pie-wrap">'+
       svg+
       '<table style="flex:1;table-layout:auto;"><thead><tr><th>Rubro</th><th style="text-align:right;white-space:nowrap;">Monto</th><th style="text-align:right;white-space:nowrap;">%</th></tr></thead>'+
@@ -2924,7 +2923,7 @@ async function exportRendicionPDF() {
       '</table>'+
     '</div>'+
 
-    '<h2 class="sec">Egresos — Detalle de gastos</h2>'+
+    '<h2 class="sec">Egresos â€” Detalle de gastos</h2>'+
     '<table style="page-break-inside:auto;table-layout:fixed;width:100%;">'+
       '<thead><tr>'+
         '<th style="width:22%;">Concepto</th>'+
@@ -2940,7 +2939,7 @@ async function exportRendicionPDF() {
       '<span>TOTAL GASTADO</span><span style="font-family:monospace;">'+fmt(totalGastado)+'</span>'+
     '</div>'+
 
-    '<h2 class="sec">Egresos — Sobrantes por categoria</h2>'+
+    '<h2 class="sec">Egresos â€” Sobrantes por categoria</h2>'+
     '<table>'+
       '<thead><tr><th>Categoria</th><th style="text-align:right;">Presupuesto</th><th style="text-align:right;">Gastado</th><th style="text-align:right;">Sobrante</th></tr></thead>'+
       '<tbody>'+catFilas+
@@ -2960,7 +2959,7 @@ async function exportRendicionPDF() {
     '</div>'+
 
     '<p style="text-align:center;font-size:9px;color:#aaa;margin-top:24px;border-top:1px solid #eee;padding-top:10px;">'+
-      'Festival Sion 2026 · Centro Educativo Nuestra Senora de Sion · Generado el '+fecha+
+      'Festival Sion 2026 Â· Centro Educativo Nuestra Senora de Sion Â· Generado el '+fecha+
     '</p>'+
     '</body></html>';
 
@@ -3008,7 +3007,7 @@ function renderBalanceCard(data) {
   var actName = (window._actividad && window._actividad.nombre) || 'Actividad';
   var titleEl = document.getElementById('balanceEgrTitle');
   if (titleEl) {
-    titleEl.textContent = '💰 Balance de Actividad · ' + actName;
+    titleEl.textContent = 'ðŸ’° Balance de Actividad Â· ' + actName;
   }
 
   var recaudado = 0;
@@ -3025,7 +3024,7 @@ function renderBalanceCard(data) {
   document.getElementById('egr-gastado').textContent   = fmt(gastado);
   document.getElementById('egr-saldo').textContent     = fmt(saldo);
 
-  // Barras por categoría — usar presupuesto como referencia (igual que el modal)
+  // Barras por categorÃ­a â€” usar presupuesto como referencia (igual que el modal)
   var cats = data.totalesCat || {};
   var presupuestos = window._presupuestos || {};
   var catsHTML = '';
@@ -3057,7 +3056,7 @@ function closeEgresosModal() {
 function renderEgresosModal() {
   var body = document.getElementById('egresosModalBody');
   if (!egresosData || !egresosData.egresos) {
-    body.innerHTML = '<div style="text-align:center;padding:24px;color:var(--gray);">Sin egresos registrados aún.</div>';
+    body.innerHTML = '<div style="text-align:center;padding:24px;color:var(--gray);">Sin egresos registrados aÃºn.</div>';
     return;
   }
 
@@ -3065,12 +3064,12 @@ function renderEgresosModal() {
   var cats         = egresosData.totalesCat || {};
   var allCats      = Object.keys(CAT_COLORS).filter(function(c){ return c !== 'Otros' || cats[c]; });
 
-  // Tabla resumen por categoría
+  // Tabla resumen por categorÃ­a
   var tablaHTML = '<div class="egr-cats-section">' +
-    '<div class="egr-cats-title">Resumen por categoría</div>' +
+    '<div class="egr-cats-title">Resumen por categorÃ­a</div>' +
     '<table style="width:100%;border-collapse:collapse;font-size:11px;">' +
     '<thead><tr>' +
-      '<th style="text-align:left;padding:5px 6px;font-size:10px;font-weight:500;color:var(--gray);border-bottom:0.5px solid var(--border);">Categoría</th>' +
+      '<th style="text-align:left;padding:5px 6px;font-size:10px;font-weight:500;color:var(--gray);border-bottom:0.5px solid var(--border);">CategorÃ­a</th>' +
       '<th style="padding:5px 6px;font-size:10px;font-weight:500;color:var(--gray);border-bottom:0.5px solid var(--border);">Avance</th>' +
       '<th style="text-align:right;padding:5px 6px;font-size:10px;font-weight:500;color:var(--gray);border-bottom:0.5px solid var(--border);">Gastado</th>' +
       '<th style="text-align:right;padding:5px 6px;font-size:10px;font-weight:500;color:var(--gray);border-bottom:0.5px solid var(--border);">Presupuesto</th>' +
@@ -3095,8 +3094,8 @@ function renderEgresosModal() {
             '<div style="width:'+pct+'%;height:100%;background:'+barColor+';border-radius:3px;"></div></div>' +
           '<span style="font-size:10px;color:var(--gray);">'+pct+'%</span>' +
         '</div></td>' +
-      '<td style="text-align:right;padding:6px 6px;border-bottom:0.5px solid var(--border);font-weight:500;color:var(--forest);">'+(gastado?fmt(gastado):'—')+'</td>' +
-      '<td style="text-align:right;padding:6px 6px;border-bottom:0.5px solid var(--border);color:var(--gray);">'+(presup?fmt(presup):'—')+'</td>' +
+      '<td style="text-align:right;padding:6px 6px;border-bottom:0.5px solid var(--border);font-weight:500;color:var(--forest);">'+(gastado?fmt(gastado):'â€”')+'</td>' +
+      '<td style="text-align:right;padding:6px 6px;border-bottom:0.5px solid var(--border);color:var(--gray);">'+(presup?fmt(presup):'â€”')+'</td>' +
     '</tr>';
   });
 
@@ -3104,20 +3103,20 @@ function renderEgresosModal() {
     '<tr style="background:var(--offwhite);">' +
       '<td colspan="2" style="padding:7px 6px;font-weight:500;color:var(--forest);">Total</td>' +
       '<td style="text-align:right;padding:7px 6px;font-weight:500;color:var(--forest);">'+fmt(totalGastado)+'</td>' +
-      '<td style="text-align:right;padding:7px 6px;color:var(--gray);">'+(totalPresup?fmt(totalPresup):'—')+'</td>' +
+      '<td style="text-align:right;padding:7px 6px;color:var(--gray);">'+(totalPresup?fmt(totalPresup):'â€”')+'</td>' +
     '</tr></tfoot></table></div>';
 
   // Lista de egresos individuales
   var itemsHTML = egresosData.egresos.map(function(e){
     var color  = CAT_COLORS[e.categoria] || '#6B8278';
     var recibo = e.driveLink
-      ? '<button class="egr-recibo-btn" onclick="openImgViewer(\''+e.driveLink+'\')">📎 Ver recibo</button>'
+      ? '<button class="egr-recibo-btn" onclick="openImgViewer(\''+e.driveLink+'\')">ðŸ“Ž Ver recibo</button>'
       : '';
     return '<div class="egr-item">'+
       '<div class="egr-dot" style="background:'+color+';margin-top:4px;"></div>'+
       '<div class="egr-info">'+
         '<div class="egr-concepto">'+e.concepto+'</div>'+
-        '<div class="egr-meta">'+e.fecha+' · '+e.categoria+'</div>'+
+        '<div class="egr-meta">'+e.fecha+' Â· '+e.categoria+'</div>'+
         (e.comentario ? '<div class="egr-comment">"'+e.comentario+'"</div>' : '')+
       '</div>'+
       '<div class="egr-right">'+
@@ -3129,7 +3128,7 @@ function renderEgresosModal() {
 
   body.innerHTML = tablaHTML +
     '<div class="egr-cats-title" style="margin:12px 0 8px;">Detalle de gastos</div>' +
-    (egresosData.egresos.length ? itemsHTML : '<div style="text-align:center;padding:16px;color:var(--gray);font-size:12px;">Sin egresos registrados aún</div>');
+    (egresosData.egresos.length ? itemsHTML : '<div style="text-align:center;padding:16px;color:var(--gray);font-size:12px;">Sin egresos registrados aÃºn</div>');
 }
 
 async function loadEgresosAdmin(silent) {
@@ -3153,9 +3152,9 @@ function renderEgresosAdmin(data) {
   var formHTML = isReadonly ? '' : '<div class="egr-form-row">'+
     '<input class="egr-input" id="egr-concepto" placeholder="Concepto del gasto">'+
     '<div class="egr-row-2">'+
-      '<input class="egr-input" id="egr-monto" type="number" placeholder="Monto ₡">'+
+      '<input class="egr-input" id="egr-monto" type="number" placeholder="Monto â‚¡">'+
       '<select class="egr-input" id="egr-categoria">'+
-        ['Bingo','Cuota Ventas','Coreógrafo','Vestuario','Camisas Festival','Hidratación','Maquillaje','Otros'].map(function(c){
+        ['Bingo','Cuota Ventas','CoreÃ³grafo','Vestuario','Camisas Festival','HidrataciÃ³n','Maquillaje','Otros'].map(function(c){
           return '<option>'+c+'</option>';
         }).join('')+
       '</select>'+
@@ -3163,9 +3162,9 @@ function renderEgresosAdmin(data) {
     '<textarea class="egr-input" id="egr-comentario" rows="2" placeholder="Comentario (opcional)"></textarea>'+
     '<div class="egr-upload" onclick="document.getElementById(\'egr-file\').click()">'+
       '<input type="file" id="egr-file" accept="image/*,application/pdf" style="display:none;" onchange="previewEgrFile(this)">'+
-      '<span id="egr-file-label">📎 Tocar para subir recibo (JPG, PNG, PDF · Máx 10MB)</span>'+
+      '<span id="egr-file-label">ðŸ“Ž Tocar para subir recibo (JPG, PNG, PDF Â· MÃ¡x 10MB)</span>'+
     '</div>'+
-    '<button class="btn-sub" onclick="submitEgreso()" style="margin-top:4px;">💾 Registrar egreso</button>'+
+    '<button class="btn-sub" onclick="submitEgreso()" style="margin-top:4px;">ðŸ’¾ Registrar egreso</button>'+
   '</div>';
 
   // Lista
@@ -3177,18 +3176,18 @@ function renderEgresosAdmin(data) {
           '<div class="egr-dot" style="background:'+color+';flex-shrink:0;"></div>'+
           '<div class="egr-info" style="flex:1;min-width:0;">'+
             '<div class="egr-concepto">'+e.concepto+'</div>'+
-            '<div class="egr-meta">'+e.fecha+' · '+e.categoria+'</div>'+
+            '<div class="egr-meta">'+e.fecha+' Â· '+e.categoria+'</div>'+
           '</div>'+
           '<span style="font-size:12px;font-weight:600;white-space:nowrap;padding:0 8px;">'+fmt(e.monto)+'</span>'+
           '<div class="egr-admin-actions">'+
-            (e.driveLink ? '<button class="egr-admin-btn edit" onclick="window.open(\''+e.driveLink+'\',\'_blank\')">📎</button>' : '')+
-            (isReadonly ? '' : '<button class="egr-admin-btn del" onclick="deleteEgreso(\''+e.id+'\')">🗑️</button>')+
+            (e.driveLink ? '<button class="egr-admin-btn edit" onclick="window.open(\''+e.driveLink+'\',\'_blank\')">ðŸ“Ž</button>' : '')+
+            (isReadonly ? '' : '<button class="egr-admin-btn del" onclick="deleteEgreso(\''+e.id+'\')">ðŸ—‘ï¸</button>')+
           '</div>'+
         '</div>';
       }).join('');
 
-  // Categorías
-  var catHTML = '<div style="font-size:11px;font-weight:700;color:var(--gray);text-transform:uppercase;margin-bottom:8px;">Total por categoría</div>';
+  // CategorÃ­as
+  var catHTML = '<div style="font-size:11px;font-weight:700;color:var(--gray);text-transform:uppercase;margin-bottom:8px;">Total por categorÃ­a</div>';
   Object.keys(cats).forEach(function(c){
     if (!cats[c]) return;
     var pct   = Math.round(cats[c]/maxCat*100);
@@ -3204,9 +3203,9 @@ function renderEgresosAdmin(data) {
     '<span>Total gastado</span><span>'+fmt(data.totalGastado||0)+'</span></div>';
 
   el.innerHTML =
-    '<div style="font-size:12px;font-weight:700;color:var(--forest);margin-bottom:10px;">➕ Registrar egreso</div>'+
+    '<div style="font-size:12px;font-weight:700;color:var(--forest);margin-bottom:10px;">âž• Registrar egreso</div>'+
     formHTML+
-    '<div style="font-size:12px;font-weight:700;color:var(--forest);margin:14px 0 8px;">📋 Egresos registrados</div>'+
+    '<div style="font-size:12px;font-weight:700;color:var(--forest);margin:14px 0 8px;">ðŸ“‹ Egresos registrados</div>'+
     listaHTML+
     '<div style="background:var(--offwhite);border-radius:10px;padding:12px;margin-top:12px;">'+catHTML+'</div>';
 }
@@ -3214,7 +3213,7 @@ function renderEgresosAdmin(data) {
 function previewEgrFile(input) {
   var label = document.getElementById('egr-file-label');
   if (input.files && input.files[0]) {
-    label.textContent = '✅ ' + input.files[0].name;
+    label.textContent = 'âœ… ' + input.files[0].name;
   }
 }
 
@@ -3249,7 +3248,7 @@ async function submitEgreso() {
       base64Image, mimeType
     });
     if (resp.ok) {
-      showToast('✅ Egreso registrado correctamente');
+      showToast('âœ… Egreso registrado correctamente');
       await loadEgresosAdmin(true);
       await loadEgresos();
       // Reset form after reload (DOM was rebuilt)
@@ -3257,35 +3256,35 @@ async function submitEgreso() {
       var m = document.getElementById('egr-monto');    if(m) m.value='';
       var cm = document.getElementById('egr-comentario'); if(cm) cm.value='';
       var lbl = document.getElementById('egr-file-label');
-      if(lbl) lbl.textContent='📎 Tocar para subir recibo (JPG, PNG, PDF · Máx 10MB)';
+      if(lbl) lbl.textContent='ðŸ“Ž Tocar para subir recibo (JPG, PNG, PDF Â· MÃ¡x 10MB)';
       var fi = document.getElementById('egr-file'); if(fi) fi.value='';
-      // Rehabilitar botón (silent=true no rehace el DOM)
+      // Rehabilitar botÃ³n (silent=true no rehace el DOM)
       var btnOk = document.querySelector('#egresos-admin-content .btn-sub');
-      if (btnOk) { btnOk.disabled=false; btnOk.textContent='💾 Registrar egreso'; }
+      if (btnOk) { btnOk.disabled=false; btnOk.textContent='ðŸ’¾ Registrar egreso'; }
     } else {
-      showToast('❌ ' + resp.error, true);
+      showToast('âŒ ' + resp.error, true);
       var btn2 = document.querySelector('#egresos-admin-content .btn-sub');
-      if (btn2) { btn2.disabled=false; btn2.textContent='💾 Registrar egreso'; }
+      if (btn2) { btn2.disabled=false; btn2.textContent='ðŸ’¾ Registrar egreso'; }
     }
   } catch(e) {
-    showToast('❌ Error: '+e.message, true);
+    showToast('âŒ Error: '+e.message, true);
     var btn3 = document.querySelector('#egresos-admin-content .btn-sub');
-    if (btn3) { btn3.disabled=false; btn3.textContent='💾 Registrar egreso'; }
+    if (btn3) { btn3.disabled=false; btn3.textContent='ðŸ’¾ Registrar egreso'; }
   }
 }
 
 async function deleteEgreso(id) {
-  if (!confirm('¿Eliminar este egreso?')) return;
+  if (!confirm('Â¿Eliminar este egreso?')) return;
   try {
     var resp = await callScript({ action:'deleteEgreso', adminEmail:adminUser.email, id });
     if (resp.ok) { showToast('Egreso eliminado'); loadEgresosAdmin(); loadEgresos(); }
-    else showToast('❌ ' + resp.error, true);
-  } catch(e) { showToast('❌ ' + e.message, true); }
+    else showToast('âŒ ' + resp.error, true);
+  } catch(e) { showToast('âŒ ' + e.message, true); }
 }
 
-// ══════════════════════════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 //  ASISTENTE IA (GEMINI CHATBOT)
-// ══════════════════════════════════════════════════════════════
+// â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
 async function sendAssistantMessage() {
   var input = document.getElementById('assistantInput');
   var query = input.value.trim();
@@ -3327,7 +3326,7 @@ async function sendAssistantMessage() {
         .replace(/\n/g, '<br>');
       aiDiv.innerHTML = cleanText;
     } else {
-      aiDiv.innerHTML = '<span style="color:#ef4444;">⚠️ Error: ' + result.error + '</span>';
+      aiDiv.innerHTML = '<span style="color:#ef4444;">âš ï¸ Error: ' + result.error + '</span>';
     }
     
     chatHistory.appendChild(aiDiv);
@@ -3336,7 +3335,7 @@ async function sendAssistantMessage() {
     loadingDiv.remove();
     var errDiv = document.createElement('div');
     errDiv.style = 'background:#fee2e2;border:1px solid #fca5a5;padding:10px 14px;border-radius:12px;max-width:85%;align-self:flex-start;font-size:13px;line-height:1.4;color:#991b1b;margin-right:auto;';
-    errDiv.innerHTML = '⚠️ Error de conexión: ' + err.message;
+    errDiv.innerHTML = 'âš ï¸ Error de conexiÃ³n: ' + err.message;
     chatHistory.appendChild(errDiv);
     chatHistory.scrollTop = chatHistory.scrollHeight;
   }
