@@ -1,0 +1,14 @@
+﻿node_modules/
+scratch/
+*.log
+*.mjs
+fix_*.js
+test*.js
+test*.html
+rebuild*.js
+clean_main*.js
+frontend.js
+index_github.html
+worker.js
+package.json
+package-lock.json
