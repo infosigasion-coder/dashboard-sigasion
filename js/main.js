@@ -778,7 +778,8 @@ async function loadData() {
     document.getElementById('updatedBadge').textContent = '✅ ' + now;
     if (json.totalPendientes > 0) updateAdminBadge(json.totalPendientes);
     loadEgresos();
-  } catch(err) {
+      if (window.isAdminMode && typeof setAdminTab === 'function') setAdminTab(currentAdminTab);
+    } catch(err) {
     showError(err.message);
     document.getElementById('updatedBadge').textContent = '⚠️ Error — click para reintentar';
   }
@@ -2578,8 +2579,6 @@ function buildStatsCharts(pagosTimeline, students) {
 }
 
 function fmtShort(n) {
-  if (n >= 1000000) return '₡'+(n/1000000).toFixed(1)+'M';
-  if (n >= 1000)    return '₡'+(n/1000).toFixed(0)+'K';
   return fmt(n);
 }
 
@@ -2841,9 +2840,18 @@ async function exportRendicionPDF() {
 
   // Filas categorias
   var catKeys = Object.keys(CAT_COLORS).filter(function(c){return c!=='Otros';});
+  var catIngresos = {
+    'Bingo': rubroTotales['bingo']||0,
+    'Cuota Ventas': rubroTotales['cuotaVentas']||0,
+    'Coreógrafo': rubroTotales['coreografo']||0,
+    'Vestuario': rubroTotales['vestPres']||0,
+    'Camisas Festival': (rubroTotales['camisaFest']||0) + (rubroTotales['camisaAdi']||0) + (rubroTotales['entrenador']||0),
+    'Hidratación': rubroTotales['hidratacion']||0,
+    'Maquillaje': rubroTotales['maquillaje']||0
+  };
   var catFilas = catKeys.map(function(c){
     var gastado = (egresosData&&egresosData.totalesCat&&egresosData.totalesCat[c])||0;
-    var presup  = presupuestos[c]||0;
+    var presup  = catIngresos[c]||0;
     var sobrante = presup - gastado;
     if (!gastado && !presup) return '';
     return '<tr>'+
@@ -2997,7 +3005,9 @@ async function loadEgresos() {
     var resp = await callScript({ action:'getEgresos' });
     if (!resp.ok) return;
     egresosData = resp;
-    renderBalanceCard(resp);
+      window.adminEgresosData = resp.egresos;
+      if(typeof renderKPIs === 'function') renderKPIs();
+      renderBalanceCard(resp);
   } catch(e) {}
 }
 
