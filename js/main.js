@@ -2124,10 +2124,11 @@ async function callScript(data) {
 // ══════════════════════════════════════════════════════════════
 function openImgViewer(driveUrl, data) {
   // Convert Drive view URL to direct image URL
-  var match = driveUrl.match(/\/d\/([a-zA-Z0-9_-]+)/);
-  var imgSrc = match
-    ? 'https://drive.google.com/thumbnail?id=' + match[1] + '&sz=w1200'
-    : driveUrl;
+  var imgSrc = driveUrl;
+  if (!driveUrl.startsWith('data:')) {
+    var match = driveUrl.match(/\/d\/([a-zA-Z0-9_-]+)/);
+    if (match) imgSrc = 'https://drive.google.com/thumbnail?id=' + match[1] + '&sz=w1200';
+  }
 
   var overlay = document.getElementById('imgViewerOverlay');
   var img     = document.getElementById('imgViewerImg');
