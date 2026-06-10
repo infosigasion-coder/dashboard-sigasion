@@ -2,7 +2,7 @@
 // ══════════════════════════════════════════════════════════════
 //  CONFIGURACIÓN
 // ══════════════════════════════════════════════════════════════
-const SCRIPT_URL = "https://saga-backend.2510maag.workers.dev";
+const SCRIPT_URL = "https://saga-backend.2510maag.workers.dev/api";
 let currentSeccion = localStorage.getItem('saga_seccion') || '1-1';
 let currentAnio = localStorage.getItem('saga_año') || '2027';
 let currentActividadId = localStorage.getItem('siga_actividad_id') || null;
@@ -151,7 +151,7 @@ async function handleGoogleSignIn(response) {
   
   document.getElementById('updatedBadge').textContent = '🔑 Verificando acceso...';
   try {
-    const res = await fetch(SCRIPT_URL + '/api/login', {
+    const res = await fetch(SCRIPT_URL + '/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email: email })
@@ -230,7 +230,7 @@ async function submitPasswordLogin() {
   
   document.getElementById('updatedBadge').textContent = '🔑 Verificando...';
   try {
-    const res = await fetch(SCRIPT_URL + '/api/login', {
+    const res = await fetch(SCRIPT_URL + '/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ username, password })

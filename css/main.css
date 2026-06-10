@@ -21,7 +21,7 @@
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 html{-webkit-text-size-adjust:100%;}
-body{font-family:"DM Sans",sans-serif;background:radial-gradient(at 0% 0%, #f1f5f9 0, transparent 55%), radial-gradient(at 100% 0%, #e2e8f0 0, transparent 55%), #f8fafc;color:var(--forest);min-height:100vh;overflow-x:hidden;background-attachment:fixed;}
+body{display:flex;flex-direction:column;margin:0;font-family:"DM Sans",sans-serif;background:radial-gradient(at 0% 0%, #f1f5f9 0, transparent 55%), radial-gradient(at 100% 0%, #e2e8f0 0, transparent 55%), #f8fafc;color:var(--forest);min-height:100vh;overflow-x:hidden;background-attachment:fixed;}
 
 /* HEADER */
 .header{background:var(--forest);position:sticky;top:0;z-index:200;box-shadow:0 2px 20px rgba(0,0,0,.3);padding-top:var(--safe-top);}
@@ -45,14 +45,14 @@ body{font-family:"DM Sans",sans-serif;background:radial-gradient(at 0% 0%, #f1f5
 @keyframes urgentPulse{0%,100%{opacity:1;}50%{opacity:.7;}}
 
 /* ADMIN BUTTON IN HEADER */
-.admin-btn{display:none;align-items:center;gap:6px;background:rgba(212,168,75,.2);border:1px solid rgba(212,168,75,.4);color:var(--gold);font-size:11px;font-weight:700;padding:5px 12px;border-radius:20px;cursor:pointer;white-space:nowrap;position:relative;}
+.admin-btn{height:36px;box-sizing:border-box;display:flex;align-items:center;display:none;align-items:center;gap:6px;background:rgba(212,168,75,.2);border:1px solid rgba(212,168,75,.4);color:var(--gold);font-size:11px;font-weight:700;padding:5px 12px;border-radius:20px;cursor:pointer;white-space:nowrap;position:relative;}
 .admin-btn.visible{display:flex;}
 .admin-badge-count{background:var(--red);color:#fff;border-radius:50%;width:16px;height:16px;font-size:9px;display:flex;align-items:center;justify-content:center;font-weight:700;}
 .google-login-btn{display:none;align-items:center;gap:6px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.7);font-size:11px;font-weight:600;padding:5px 12px;border-radius:20px;cursor:pointer;white-space:nowrap;}
 .google-login-btn.visible{display:flex;}
 
 /* SAGA SELECTS IN HEADER */
-.saga-select {
+.saga-select { height: 36px !important; box-sizing: border-box; 
   background: rgba(255,255,255,0.12);
   border: 1px solid rgba(255,255,255,0.25);
   color: #ffffff;
@@ -526,7 +526,7 @@ body{font-family:"DM Sans",sans-serif;background:radial-gradient(at 0% 0%, #f1f5
 .test-toggle input{cursor:pointer;}
 
 /* FOOTER */
-.footer{background:var(--forest);padding:14px 20px calc(14px + var(--safe-bottom));text-align:center;font-size:10px;color:rgba(255,255,255,.35);letter-spacing:.5px;margin-top:24px;}
+.footer{margin-top:auto;background:var(--forest);padding:14px 20px calc(14px + var(--safe-bottom));text-align:center;font-size:10px;color:rgba(255,255,255,.35);letter-spacing:.5px;margin-top:24px;}
 
 /* REPORTS */
 .report-section{margin-bottom:20px;}
@@ -899,7 +899,7 @@ body{font-family:"DM Sans",sans-serif;background:radial-gradient(at 0% 0%, #f1f5
   align-items: center;
   gap: 12px;
 }
-.sinpe-badge-new {
+.sinpe-badge-new { height: 36px; box-sizing: border-box; display: flex; align-items: center; 
   font-size: 11px;
   font-weight: 600;
   color: rgba(255,255,255,0.7);
