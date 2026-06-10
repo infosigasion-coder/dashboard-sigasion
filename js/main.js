@@ -1446,6 +1446,7 @@ function setAdminTab(tab) {
     var view = document.getElementById('admin-' + t + '-view');
     if (view) view.style.display = t === tab ? 'block' : 'none';
   });
+  if (tab==='pending')  loadPending();
   if (tab==='history')  loadHistory();
   if (tab==='reports')  renderReports();
   if (tab==='rejected') loadRejected();
@@ -2270,7 +2271,7 @@ function renderReports() {
   var totalRecaudado = 0;
   var totalPendiente = 0;
   students.forEach(function(s) {
-    if (s.pagado) totalRecaudado += s.pagado;
+    if (s.abonado) totalRecaudado += s.abonado;
     if (s.pendiente) totalPendiente += s.pendiente;
   });
   
