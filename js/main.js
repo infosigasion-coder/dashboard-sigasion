@@ -3397,7 +3397,6 @@ window.handleDragOver = handleDragOver;
 window.handleDrop = handleDrop;
 window.toggleTestMode = toggleTestMode;
 window.uploadComprobante = uploadComprobante;
-window.setStep = setStep;
 window.saveComment = saveComment;
 window.editRubro = editRubro;
 window.closeEditRubroModal = closeEditRubroModal;
