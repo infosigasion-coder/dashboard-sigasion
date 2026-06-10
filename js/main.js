@@ -2154,7 +2154,7 @@ extBtn.innerHTML = '&#128279; Abrir en Drive';
   name.textContent = 'Comprobante de pago';
 
   // Info card
-  if (data) {
+  if (data && !data.isReceipt) {
     var scoreClass = data.score >= 85 ? 'high' : data.score >= 50 ? 'mid' : 'low';
     var decisionColor = data.decision === 'APROBAR' ? '#1FB5AC' : data.decision === 'RECHAZAR' ? '#e74c3c' : '#E67E22';
     infoGrid.innerHTML =
