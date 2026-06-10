@@ -716,7 +716,7 @@ function triggerGoogleLoginDirect() {
 function initGoogleBtn() {
   if (typeof google !== 'undefined' && google.accounts) {
     google.accounts.id.initialize({
-      client_id: "294691456942-019pblg05t2sc5h3f5ofb2fclbshv5a3.apps.googleusercontent.com",
+      client_id: "788989901068-hs787j085opuvmocifqt4jcgtuum5vmd.apps.googleusercontent.com",
       callback: handleGoogleSignIn,
       context: "signin",
       ux_mode: "popup"
@@ -1957,7 +1957,7 @@ function generateReceipt(studentNum, txId) {
 
   // Load logo
   var logo = new Image();
-  logo.src = 'escudo_color.png';
+  logo.src = 'escudo_white.png';
   
   var drawRest = function() {
     // Title Texts in Header
@@ -2005,7 +2005,7 @@ function generateReceipt(studentNum, txId) {
     ctx.font = 'bold 18px sans-serif';
     ctx.fillText('#' + String(s.num).padStart(2,'0') + ' - ' + s.nombre, 240, 435);
     ctx.font = '16px sans-serif';
-    ctx.fillText(s.seccion + ' (Docente: ' + (window.currentDocente || 'Control General') + ')', 240, 470);
+    ctx.fillText(s.seccion + ' (Docente: ' + (currentDocente || 'Control General') + ')', 240, 470);
     ctx.fillText(s.padres.join(' · ') || 'No registrados', 240, 505);
 
     // Transaction details
@@ -2080,7 +2080,7 @@ function generateReceipt(studentNum, txId) {
   }
 
   logo.onload = function() {
-    ctx.drawImage(logo, 80, 70, 100, 100);
+    ctx.drawImage(logo, 40, 75, 140, 73);
     drawRest();
   };
   logo.onerror = function() {
@@ -2094,7 +2094,7 @@ function generateReceipt(studentNum, txId) {
     ctx.textAlign = 'left';
     drawRest();
   };
-  logo.src = 'escudo_color.png';
+  logo.src = 'escudo_white.png';
 }
 
 async function callScript(data) {
@@ -2142,7 +2142,15 @@ function openImgViewer(driveUrl, data) {
   img.style.display = 'none';
   loading.style.display = 'block';
   img.src     = imgSrc;
-  extBtn.href = driveUrl;
+  if (driveUrl.startsWith('data:')) {
+extBtn.href = driveUrl;
+extBtn.download = data ? data.filename : 'recibo.png';
+extBtn.innerHTML = '&#128229; Descargar Recibo';
+} else {
+extBtn.href = driveUrl;
+extBtn.removeAttribute('download');
+extBtn.innerHTML = '&#128279; Abrir en Drive';
+}
   name.textContent = 'Comprobante de pago';
 
   // Info card
