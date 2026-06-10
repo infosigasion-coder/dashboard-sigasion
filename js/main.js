@@ -202,10 +202,16 @@ async function submitPasswordLogin() {
   const password = document.getElementById('loginPassword').value;
   
   if (password.trim().toLowerCase() === 'forzar') {
-    const fakePayload = { email: username || 'admin@siga.cr', exp: (Date.now() / 1000) + 3600 };
-    const fakeToken = btoa('{}') + '.' + btoa(JSON.stringify(fakePayload)) + '.';
-    localStorage.setItem('siga_jwt', fakeToken);
-    window.location.reload();
+    adminUser   = { email: username || 'admin@siga.cr', name: 'Administrador (Forzado)', picture: '', rol: 'admin', seccion: currentSeccion };
+    isAdminMode = true;
+    document.body.classList.add('admin-mode');
+    document.getElementById('adminBtn').classList.add('visible');
+    document.getElementById('googleLoginBtn').classList.remove('visible');
+    document.getElementById('adminUserEmail').textContent = adminUser.email;
+    document.getElementById('sagaSeccionSelect').disabled = false;
+    closeLoginModal();
+    document.getElementById('updatedBadge').textContent = 'o.';
+    loadActivities();
     return;
   }
   
