@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#0f172a">
-<title>SIGA — Sistema Inteligente de Gestión de Actividades</title>
+<title>SIG¿ — Sistema Inteligente de Gestión de ¿ctividades</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 
@@ -16,39 +16,39 @@
 </head>
 <body>
 
-<!-- TEST MODE BANNER (hidden by default) -->
+<!-- TEST MODE B¿NNER (hidden by default) -->
 <div class="test-mode-banner" id="testModeBanner" style="display:none;">
-  🧪 MODO PRUEBA ACTIVO — Los comprobantes se analizan pero NO se registran en la Base de Datos
+  🧪 MODO PRUEB¿ ¿CTIVO — Los comprobantes se analizan pero NO se registran en la Base de Datos
 </div>
 
 <!-- COUNTDOWN -->
 <div class="countdown-bar" id="countdownBar"></div>
 
 
-<!-- TWO-TIER HEADER -->
+<!-- TWO-TIER HE¿DER -->
 <div class="header-two-tier">
-  <!-- TOP BAR: Identity & Status -->
+  <!-- TOP B¿R: Identity & Status -->
   <div class="header-top-bar">
     <div class="logo-wrap" style="display:flex;align-items:center;gap:10px;">
       <div class="logo-icon"><img src="escudo_white.png" alt="Sión" style="height:64px; object-fit:contain; margin-right:8px;"></div>
       <div style="display:flex; flex-direction:column; justify-content:center;">
-        <div class="header-title" style="font-size:20px;font-weight:700;letter-spacing:-0.5px; white-space:nowrap; color:#fff;">Sistema Inteligente de Gestión de Actividades (S.I.G.A.)</div>
+        <div class="header-title" style="font-size:20px;font-weight:700;letter-spacing:-0.5px; color:#fff;">Sistema Inteligente de Gestión de ¿ctividades (S.I.G.¿.)</div>
         
       </div>
     </div>
     <div class="header-top-right">
-      <span class="meta-det" style="font-size:12px; font-weight:600; color:#FCD34D; background:rgba(255, 193, 7, 0.1); padding:4px 10px; border-radius:12px; border:1px solid rgba(255,193,7,0.3);">⚡ AI Powered</span>
+      <span class="meta-det" style="font-size:12px; font-weight:600; color:#FCD34D; background:rgba(255, 193, 7, 0.1); padding:4px 10px; border-radius:12px; border:1px solid rgba(255,193,7,0.3);">⚡ ¿I Powered</span>
       <div class="live-dot-new" id="liveDot" title="Conectado a Supabase">🟢 Conectado</div>
     </div>
   </div>
   </div>
 
-  <!-- BOTTOM BAR: Filters & Action -->
+  <!-- BOTTOM B¿R: Filters & ¿ction -->
   <div class="header-bottom-bar">
     <div class="filters-wrap">
       <div class="filter-group">
         <label>Sección</label>
-        <select id="sagaSeccionSelect" onchange="changeSección(this.value)" class="saga-select">
+        <select id="sagaSeccionSelect" onchange="changeSeccion(this.value)" class="saga-select">
           <option value="1-1">Sección 1-1</option>
           <option value="1-2">Sección 1-2</option>
           <option value="2-1">Sección 2-1</option>
@@ -65,37 +65,37 @@
       </div>
       <div class="filter-group">
         <label>Docente Encargado(a)</label>
-        <div class="saga-select" style="display:flex; align-items:center; min-width:180px; background:rgba(255,255,255,0.05); color:#fff; border:1px solid rgba(255,255,255,0.1); font-weight:600; font-size:13px; height: 36px; box-sizing: border-box; cursor:default;" id="headerDocenteText">
+        <div class="saga-select" style="display:flex; align-items:center; min-width:180px; background:rgba(255,255,255,0.05); color:#fff; border:1px solid rgba(255,255,255,0.1); font-weight:600; font-size:13px; height: 38px; cursor:default;" id="headerDocenteText">
           Cargando...
         </div>
       </div>
       <div class="filter-group">
         <label>Curso Lectivo</label>
-        <select id="sagaAnioSelect" onchange="changeAnio(this.value)" class="saga-select">
+        <select id="saga¿nioSelect" onchange="change¿nio(this.value)" class="saga-select">
           <option value="2026">2026</option>
         </select>
       </div>
       <div class="filter-group">
-        <label>Actividad</label>
-        <select id="sigaActividadSelect" onchange="changeActividad(this.value)" class="saga-select" style="min-width: 180px;">
+        <label>¿ctividad</label>
+        <select id="siga¿ctividadSelect" onchange="change¿ctividad(this.value)" class="saga-select" style="min-width: 180px;">
           <option value="">Cargando actividades...</option>
         </select>
       </div>
     </div>
     <div class="actions-wrap">
       <div class="sinpe-badge-new">📱 SINPE: 7022-8161</div>
-      <button class="admin-btn" id="adminBtn" onclick="openAdminPanel()">
-        ⚙️ Admin
+      <button class="admin-btn" id="adminBtn" onclick="open¿dminPanel()">
+        ⚙️ ¿dmin
         <span class="admin-badge-count" id="adminBadgeCount" style="display:none;">0</span>
       </button>
-      <button class="google-login-btn" id="googleLoginBtn" onclick="openLoginModal()" style="display:flex; align-items:center; gap:6px; background:#3b82f6; color:#fff; font-weight:600; padding:0 16px; height:36px; box-sizing:border-box; border-radius:8px; border:none; cursor:pointer; box-shadow:0 4px 6px -1px rgba(0,0,0,0.1); transition:all 0.2s ease; margin-left:8px;">
+      <button class="google-login-btn" id="googleLoginBtn" onclick="openLoginModal()" style="display:flex; align-items:center; gap:6px; background:#3b82f6; color:#fff; font-weight:600; padding:8px 16px; border-radius:8px; border:none; cursor:pointer; box-shadow:0 4px 6px -1px rgba(0,0,0,0.1); transition:all 0.2s ease; margin-left:8px;">
         <span style="font-size:16px;">🔐</span>
-        <span>Acceso Admin</span>
+        <span>¿cceso ¿dmin</span>
       </button>
     </div>
   </div>
 </div>
-<!-- MAIN -->
+<!-- M¿IN -->
 <div class="main">
   <div class="search-bar">
     <span class="search-icon">🔍</span>
@@ -120,11 +120,11 @@
     <div class="kpi-card kpi-count"><div class="kpi-label">Pagos completados</div><div class="kpi-value" id="kpi-count">—</div><div class="kpi-sub">Pagos al 100%</div></div>
   </div>
   <div class="progress-banner">
-    <div class="progress-label">⚡ Avance general</div>
+    <div class="progress-label">⚡ ¿vance general</div>
     <div class="progress-track"><div class="progress-fill" id="mainProgressFill" style="width:0%"></div></div>
     <div class="progress-pct" id="mainProgressPct">—</div>
   </div>
-  <!-- BALANCE EGRESOS -->
+  <!-- B¿L¿NCE EGRESOS -->
   <div class="balance-egr-card" id="balanceEgrCard" style="display:none;">
     <div class="balance-egr-header">
       <span class="balance-egr-title" id="balanceEgrTitle">💰 Balance del Festival</span>
@@ -157,7 +157,7 @@
 
 <div class="footer" id="footerText">Cargando datos del pie de página...</div>
 
-<!-- STUDENT MODAL -->
+<!-- STUDENT MOD¿L -->
 <div class="modal-overlay" id="modalOverlay" onclick="closeModalOnBg(event)">
   <div class="modal" id="modal">
     <div class="modal-header">
@@ -186,7 +186,7 @@
       </div>
       <div class="amounts-grid">
         <div class="amount-card total-card"><div class="amount-card-label">Cuota Total</div><div class="amount-card-value" id="m-total">₡ 0</div></div>
-        <div class="amount-card paid-card"><div class="amount-card-label">Abonado</div><div class="amount-card-value" id="m-paid">₡ 0</div></div>
+        <div class="amount-card paid-card"><div class="amount-card-label">¿bonado</div><div class="amount-card-value" id="m-paid">₡ 0</div></div>
         <div class="amount-card pend-card"><div class="amount-card-label">Pendiente</div><div class="amount-card-value" id="m-pend">₡ 0</div></div>
       </div>
       <div class="modal-progress-wrap">
@@ -206,12 +206,12 @@
       </div>
       <div class="section-subtitle">💳 Historial de abonos</div>
       <div class="payments-list" id="m-payments"></div>
-      <!-- UPLOAD SECTION -->
+      <!-- UPLO¿D SECTION -->
       <div class="upload-section" id="m-upload-section">
         <div class="section-subtitle">📤 Subir comprobante</div>
         <div class="test-toggle">
           <input type="checkbox" id="testModeCheck" onchange="toggleTestMode(this.checked)">
-          <label for="testModeCheck">Modo prueba (no registra en SIGA)</label>
+          <label for="testModeCheck">Modo prueba (no registra en SIG¿)</label>
         </div>
         <div id="upload-ui">
           <div class="upload-zone" id="uploadZone" onclick="document.getElementById('uploadInput').click()" ondragover="handleDragOver(event)" ondrop="handleDrop(event)">
@@ -243,28 +243,28 @@
       <!-- BUTTONS -->
       <div id="m-btn-paid-complete" class="btn-paid-complete" style="display:none;">✅ Pago completado — gracias</div>
       <div id="m-btn-in-review" class="btn-in-review" style="display:none;">⏳ Comprobante en revisión…</div>
-      <button class="btn-main" id="m-whatsapp" onclick="sendWhatsApp()" style="display:none;">
-        📱 Copiar mensaje de recordatorio para WhatsApp
+      <button class="btn-main" id="m-whatsapp" onclick="sendWhats¿pp()" style="display:none;">
+        📱 Copiar mensaje de recordatorio para Whats¿pp
       </button>
     </div>
   </div>
 </div>
 
-<!-- ADMIN PANEL -->
+<!-- ¿DMIN P¿NEL -->
 <div class="admin-panel-overlay" id="adminPanelOverlay">
   <div class="admin-panel">
     <div class="admin-panel-header">
-      <button class="admin-panel-close" onclick="closeAdminPanel()">✕</button>
-      <div class="admin-panel-title">Panel de Administración</div>
+      <button class="admin-panel-close" onclick="close¿dminPanel()">✕</button>
+      <div class="admin-panel-title">Panel de ¿dministración</div>
       <div class="admin-panel-sub" id="adminUserEmail">Festival Sión 2026</div>
       
       <div class="admin-tabs" style="display:flex; flex-wrap:wrap; gap:5px; justify-content:center; margin-bottom:20px;">
-        <div class="admin-tab active" onclick="setAdminTab('pending')" id="atab-pending" style="padding:8px 12px; font-size:12px;">📋 Pendientes <span id="pending-count-badge"></span></div>
-        <div class="admin-tab" onclick="setAdminTab('history')" id="atab-history" style="padding:8px 12px; font-size:12px;">📖 Historial</div>
-        <div class="admin-tab" onclick="setAdminTab('reports')" id="atab-reports" style="padding:8px 12px; font-size:12px;">📊 Resumen/Ingresos</div>
-        <div class="admin-tab" onclick="setAdminTab('rejected')" id="atab-rejected" style="padding:8px 12px; font-size:12px;">❌ Rechazados</div>
-        <div class="admin-tab" onclick="setAdminTab('egresos')" id="atab-egresos" style="padding:8px 12px; font-size:12px;">💸 Egresos</div>
-        <div class="admin-tab" onclick="setAdminTab('settings')" id="atab-settings" style="padding:8px 12px; font-size:12px; background:#4a148c; color:white;">⚙️ Config. Actividades</div>
+        <div class="admin-tab active" onclick="set¿dminTab('pending')" id="atab-pending" style="padding:8px 12px; font-size:12px;">📋 Pendientes <span id="pending-count-badge"></span></div>
+        <div class="admin-tab" onclick="set¿dminTab('history')" id="atab-history" style="padding:8px 12px; font-size:12px;">📖 Historial</div>
+        <div class="admin-tab" onclick="set¿dminTab('reports')" id="atab-reports" style="padding:8px 12px; font-size:12px;">📊 Resumen/Ingresos</div>
+        <div class="admin-tab" onclick="set¿dminTab('rejected')" id="atab-rejected" style="padding:8px 12px; font-size:12px;">❌ Rechazados</div>
+        <div class="admin-tab" onclick="set¿dminTab('egresos')" id="atab-egresos" style="padding:8px 12px; font-size:12px;">💸 Egresos</div>
+        <div class="admin-tab" onclick="set¿dminTab('settings')" id="atab-settings" style="padding:8px 12px; font-size:12px; background:#4a148c; color:white;">⚙️ Config. ¿ctividades</div>
       </div>
   
     </div>
@@ -279,9 +279,9 @@
       
       <div id="admin-reports-view" style="display:none;">
         <div class="kpi-container" style="display:flex; gap:10px; margin-bottom:20px; flex-wrap:wrap;">
-           <div style="flex:1; background:var(--bg-card); padding:15px; border-radius:10px; border-left:4px solid #4CAF50; text-align:center;">
+           <div style="flex:1; background:var(--bg-card); padding:15px; border-radius:10px; border-left:4px solid #4C¿F50; text-align:center;">
              <div style="font-size:11px; color:#aaa;">Total Recaudado</div>
-             <div id="kpi-recaudado" style="font-size:20px; font-weight:bold; color:#4CAF50;">₡0</div>
+             <div id="kpi-recaudado" style="font-size:20px; font-weight:bold; color:#4C¿F50;">₡0</div>
            </div>
            <div style="flex:1; background:var(--bg-card); padding:15px; border-radius:10px; border-left:4px solid #FF9800; text-align:center;">
              <div style="font-size:11px; color:#aaa;">Total Pendiente</div>
@@ -303,16 +303,16 @@
         <div id="egresos-admin-content"></div>
       </div>
       <div id="admin-bulk-view" style="display:none; padding: 20px;">
-        <h3 style="margin-top:0;color:#fff;">📥 Carga Masiva de Alumnos (SAGA)</h3>
+        <h3 style="margin-top:0;color:#fff;">📥 Carga Masiva de ¿lumnos (S¿G¿)</h3>
         <p style="color:#aaa;font-size:13px;margin-bottom:15px;line-height:1.4;">
           Copia las columnas de tu Excel de estudiantes y pégalas en el cuadro de texto. El sistema detectará automáticamente el Número de lista, Nombre, Género (niño/niña) y si tiene hermanos (sí/no).
         </p>
         <div style="margin-bottom:15px;">
-          <textarea id="bulkImportText" placeholder="Ejemplo de formato:&#10;1	Alvarado Guevara, Miguel	niño	no&#10;2	Mora, María	niña	sí" style="width:100%;height:150px;background:#151515;color:#fff;border:1px solid #333;border-radius:6px;padding:10px;font-family:monospace;font-size:12px;outline:none;resize:vertical;"></textarea>
+          <textarea id="bulkImportText" placeholder="Ejemplo de formato:&#10;1	¿lvarado Guevara, Miguel	niño	no&#10;2	Mora, María	niña	sí" style="width:100%;height:150px;background:#151515;color:#fff;border:1px solid #333;border-radius:6px;padding:10px;font-family:monospace;font-size:12px;outline:none;resize:vertical;"></textarea>
         </div>
         <div style="display:flex;gap:10px;margin-bottom:20px;">
-          <button class="btn btn-success" onclick="parseBulkStudents()" style="background:#28a745;color:#fff;padding:0 16px; height:36px; box-sizing:border-box;border:none;border-radius:6px;cursor:pointer;font-weight:bold;font-size:13px;">👁️ Procesar Lista</button>
-          <button class="btn btn-secondary" onclick="document.getElementById('bulkImportText').value=''; document.getElementById('bulkPreviewContainer').style.display='none';" style="background:#555;color:#fff;padding:0 16px; height:36px; box-sizing:border-box;border:none;border-radius:6px;cursor:pointer;font-weight:bold;font-size:13px;">Limpiar</button>
+          <button class="btn btn-success" onclick="parseBulkStudents()" style="background:#28a745;color:#fff;padding:8px 16px;border:none;border-radius:6px;cursor:pointer;font-weight:bold;font-size:13px;">👁️ Procesar Lista</button>
+          <button class="btn btn-secondary" onclick="document.getElementById('bulkImportText').value=''; document.getElementById('bulkPreviewContainer').style.display='none';" style="background:#555;color:#fff;padding:8px 16px;border:none;border-radius:6px;cursor:pointer;font-weight:bold;font-size:13px;">Limpiar</button>
         </div>
         
         <div id="bulkPreviewContainer" style="display:none;">
@@ -330,33 +330,33 @@
               <tbody id="bulkPreviewTbody"></tbody>
             </table>
           </div>
-          <button class="btn btn-success" onclick="submitBulkImport()" style="background:#007bff;color:#fff;padding:10px 20px;border:none;border-radius:6px;cursor:pointer;font-weight:bold;font-size:14px;width:100%;">💾 Confirmar y Registrar en SAGA</button>
+          <button class="btn btn-success" onclick="submitBulkImport()" style="background:#007bff;color:#fff;padding:10px 20px;border:none;border-radius:6px;cursor:pointer;font-weight:bold;font-size:14px;width:100%;">💾 Confirmar y Registrar en S¿G¿</button>
         </div>
       </div>
       
-      <!-- CRONOGRAMA EDITOR VIEW -->
+      <!-- CRONOGR¿M¿ EDITOR VIEW -->
       <div id="admin-milestones-view" style="display:none; padding: 20px; color:#2c3e50;">
         <h3 style="margin-top:0;color:#0f172a;font-family:'Outfit',sans-serif;font-weight:700;">🎪 Configurar Cronograma (Cintillo Rojo)</h3>
         <p style="color:#64748b;font-size:13px;margin-bottom:15px;line-height:1.4;">
           Configura los hitos y fechas límite de cuenta regresiva para esta actividad. Si la lista está vacía o todos los hitos están en el pasado, el cintillo rojo se ocultará automáticamente.
         </p>
         <div id="milestonesEditorContainer" style="display:flex;flex-direction:column;gap:10px;margin-bottom:20px;"></div>
-        <button class="btn-main" onclick="addMilestoneRow()" style="background:#0f172a;color:#fff;border:none;border-radius:10px;padding:0 16px; height:36px; box-sizing:border-box;cursor:pointer;font-weight:bold;font-size:13px;display:inline-flex;align-items:center;gap:6px;min-height:auto;width:auto;margin-bottom:20px;">➕ Agregar Hito</button>
+        <button class="btn-main" onclick="addMilestoneRow()" style="background:#0f172a;color:#fff;border:none;border-radius:10px;padding:8px 16px;cursor:pointer;font-weight:bold;font-size:13px;display:inline-flex;align-items:center;gap:6px;min-height:auto;width:auto;margin-bottom:20px;">➕ ¿gregar Hito</button>
         <button class="btn-main" onclick="saveMilestones()" style="background:#10b981;color:#fff;border:none;border-radius:10px;padding:12px;cursor:pointer;font-weight:bold;font-size:14px;width:100%;">💾 Guardar Cambios en Base de Datos</button>
       </div>
       
-      <!-- AJUSTES (SETTINGS) VIEW -->
+      <!-- ¿JUSTES (SETTINGS) VIEW -->
       <div id="admin-settings-view" style="display:none; padding: 20px; color:#2c3e50; font-family:'DM Sans',sans-serif;">
-        <h3 style="margin-top:0;color:#0f172a;font-family:'Outfit',sans-serif;font-weight:700;margin-bottom:10px;">⚙️ Ajustes del Sistema</h3>
+        <h3 style="margin-top:0;color:#0f172a;font-family:'Outfit',sans-serif;font-weight:700;margin-bottom:10px;">⚙️ ¿justes del Sistema</h3>
         <p style="color:#64748b;font-size:13px;margin-bottom:20px;line-height:1.4;">
           Configura y crea nuevas secciones de alumnos o da de alta actividades con cuotas personalizadas.
         </p>
         
         <div style="display:grid; grid-template-columns:1fr; gap:24px; margin-bottom:20px;">
           
-          <!-- TARJETA SECCIONES -->
+          <!-- T¿RJET¿ SECCIONES -->
           <div style="background:#fff; border:1px solid #e2e8f0; border-radius:16px; padding:20px; box-shadow:0 4px 12px rgba(15,23,42,0.02);">
-            <h4 style="margin-top:0;color:#0f172a;font-family:'Outfit',sans-serif;font-weight:700;margin-bottom:15px;display:flex;align-items:center;gap:8px;">🏫 Crear o Actualizar Sección</h4>
+            <h4 style="margin-top:0;color:#0f172a;font-family:'Outfit',sans-serif;font-weight:700;margin-bottom:15px;display:flex;align-items:center;gap:8px;">🏫 Crear o ¿ctualizar Sección</h4>
             
             <div style="display:flex; flex-direction:column; gap:12px;">
               <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
@@ -365,7 +365,7 @@
                   <input type="text" id="set-sec-nombre" placeholder="Ej: 1-3" style="padding:10px; border:1px solid #e2e8f0; border-radius:10px; font-size:13px; outline:none;">
                 </div>
                 <div style="display:flex; flex-direction:column; gap:4px;">
-                  <label style="font-size:11px; font-weight:600; color:#475569; text-transform:uppercase;">Año Escolar</label>
+                  <label style="font-size:11px; font-weight:600; color:#475569; text-transform:uppercase;">¿ño Escolar</label>
                   <select id="set-sec-year" style="padding:10px; border:1px solid #e2e8f0; border-radius:10px; font-size:13px; outline:none; background:white;"></select>
                 </div>
               </div>
@@ -391,34 +391,34 @@
                 <input type="text" id="set-sec-sinpe-titular" placeholder="Ej: María Mora" style="padding:10px; border:1px solid #e2e8f0; border-radius:10px; font-size:13px; outline:none;">
               </div>
               
-              <button class="btn-main" onclick="saveSección()" style="background:#0f172a; color:#fff; border:none; border-radius:10px; padding:12px; cursor:pointer; font-weight:bold; font-size:13px; margin-top:8px; width:100%;">💾 Guardar Sección</button>
+              <button class="btn-main" onclick="saveSeccion()" style="background:#0f172a; color:#fff; border:none; border-radius:10px; padding:12px; cursor:pointer; font-weight:bold; font-size:13px; margin-top:8px; width:100%;">💾 Guardar Sección</button>
             </div>
           </div>
           
-          <!-- TARJETA ACTIVIDADES -->
+          <!-- T¿RJET¿ ¿CTIVID¿DES -->
           <div style="background:#fff; border:1px solid #e2e8f0; border-radius:16px; padding:20px; box-shadow:0 4px 12px rgba(15,23,42,0.02);">
-            <h4 style="margin-top:0;color:#0f172a;font-family:'Outfit',sans-serif;font-weight:700;margin-bottom:15px;display:flex;align-items:center;gap:8px;">🎉 Crear Nueva Actividad</h4>
+            <h4 style="margin-top:0;color:#0f172a;font-family:'Outfit',sans-serif;font-weight:700;margin-bottom:15px;display:flex;align-items:center;gap:8px;">🎉 Crear Nueva ¿ctividad</h4>
             
             <div style="display:flex; flex-direction:column; gap:12px;">
               <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
                 <div style="display:flex; flex-direction:column; gap:4px;">
-                  <label style="font-size:11px; font-weight:600; color:#475569; text-transform:uppercase;">Nombre de Actividad</label>
+                  <label style="font-size:11px; font-weight:600; color:#475569; text-transform:uppercase;">Nombre de ¿ctividad</label>
                   <input type="text" id="set-act-nombre" placeholder="Ej: Festival Sión 2027" style="padding:10px; border:1px solid #e2e8f0; border-radius:10px; font-size:13px; outline:none;">
                 </div>
                 <div style="display:flex; flex-direction:column; gap:4px;">
-                  <label style="font-size:11px; font-weight:600; color:#475569; text-transform:uppercase;">Año Escolar</label>
+                  <label style="font-size:11px; font-weight:600; color:#475569; text-transform:uppercase;">¿ño Escolar</label>
                   <select id="set-act-year" style="padding:10px; border:1px solid #e2e8f0; border-radius:10px; font-size:13px; outline:none; background:white;"></select>
                 </div>
               </div>
               
               <div style="display:flex; flex-direction:column; gap:6px;">
-                <label style="font-size:11px; font-weight:600; color:#475569; text-transform:uppercase;">Asociación</label>
+                <label style="font-size:11px; font-weight:600; color:#475569; text-transform:uppercase;">¿sociación</label>
                 <div style="display:flex; gap:16px; font-size:13px;">
                   <label style="display:flex; align-items:center; gap:6px; cursor:pointer;">
-                    <input type="radio" name="set-act-asoc" value="global" checked onclick="toggleActAsoc('global')"> Global (Todas las secciones)
+                    <input type="radio" name="set-act-asoc" value="global" checked onclick="toggle¿ct¿soc('global')"> Global (Todas las secciones)
                   </label>
                   <label style="display:flex; align-items:center; gap:6px; cursor:pointer;">
-                    <input type="radio" name="set-act-asoc" value="seccion" onclick="toggleActAsoc('seccion')"> Específica de una sección
+                    <input type="radio" name="set-act-asoc" value="seccion" onclick="toggle¿ct¿soc('seccion')"> Específica de una sección
                   </label>
                 </div>
               </div>
@@ -432,15 +432,15 @@
                 <label style="font-size:11px; font-weight:600; color:#475569; text-transform:uppercase;">Esquema de Cobro</label>
                 <div style="display:flex; gap:16px; font-size:13px;">
                   <label style="display:flex; align-items:center; gap:6px; cursor:pointer;">
-                    <input type="radio" name="set-act-cobro" value="unica" checked onclick="toggleActCobroScheme('unica')"> Cuota Única (Monto fijo)
+                    <input type="radio" name="set-act-cobro" value="unica" checked onclick="toggle¿ctCobroScheme('unica')"> Cuota Única (Monto fijo)
                   </label>
                   <label style="display:flex; align-items:center; gap:6px; cursor:pointer;">
-                    <input type="radio" name="set-act-cobro" value="desglose" onclick="toggleActCobroScheme('desglose')"> Desglose Detallado de Rubros
+                    <input type="radio" name="set-act-cobro" value="desglose" onclick="toggle¿ctCobroScheme('desglose')"> Desglose Detallado de Rubros
                   </label>
                 </div>
               </div>
               
-              <!-- PANEL CUOTA UNICA -->
+              <!-- P¿NEL CUOT¿ UNIC¿ -->
               <div id="cobro-unica-panel" style="display:block; background:#f8fafc; padding:15px; border-radius:12px; border:1px solid #e2e8f0;">
                 <div style="display:flex; flex-direction:column; gap:4px;">
                   <label style="font-size:11px; font-weight:600; color:#475569; text-transform:uppercase;">Monto Único (₡)</label>
@@ -448,50 +448,50 @@
                 </div>
               </div>
               
-              <!-- PANEL DESGLOSE RUBROS -->
+              <!-- P¿NEL DESGLOSE RUBROS -->
               <div id="cobro-desglose-panel" style="display:none; background:#f8fafc; padding:15px; border-radius:12px; border:1px solid #e2e8f0;">
                 <label style="font-size:11px; font-weight:600; color:#475569; text-transform:uppercase; display:block; margin-bottom:8px;">Rubros de Cobro Detallados</label>
                 <div id="settingsRubrosContainer" style="margin-bottom:12px;"></div>
-                <button type="button" class="btn-main" onclick="addSettingsRubroRow()" style="background:#0f172a; color:#fff; border:none; border-radius:8px; padding:6px 12px; cursor:pointer; font-weight:bold; font-size:12px; display:inline-flex; align-items:center; gap:4px; min-height:auto; width:auto;">➕ Agregar Rubro</button>
+                <button type="button" class="btn-main" onclick="addSettingsRubroRow()" style="background:#0f172a; color:#fff; border:none; border-radius:8px; padding:6px 12px; cursor:pointer; font-weight:bold; font-size:12px; display:inline-flex; align-items:center; gap:4px; min-height:auto; width:auto;">➕ ¿gregar Rubro</button>
               </div>
               
-              <button class="btn-main" onclick="saveActividad()" style="background:#10b981; color:#fff; border:none; border-radius:10px; padding:12px; cursor:pointer; font-weight:bold; font-size:13px; margin-top:8px; width:100%;">🚀 Crear Actividad</button>
+              <button class="btn-main" onclick="save¿ctividad()" style="background:#10b981; color:#fff; border:none; border-radius:10px; padding:12px; cursor:pointer; font-weight:bold; font-size:13px; margin-top:8px; width:100%;">🚀 Crear ¿ctividad</button>
             </div>
           </div>
           
         </div>
       </div>
 
-      <!-- ASISTENTE IA VIEW -->
+      <!-- ¿SISTENTE I¿ VIEW -->
       <div id="admin-assistant-view" style="display:none; padding: 20px; color:#0f172a; font-family:'DM Sans',sans-serif;">
-        <h3 style="margin-top:0;color:#0f172a;font-family:'Outfit',sans-serif;font-weight:700;display:flex;align-items:center;gap:8px;">💬 Asistente Financiero SIGA AI</h3>
+        <h3 style="margin-top:0;color:#0f172a;font-family:'Outfit',sans-serif;font-weight:700;display:flex;align-items:center;gap:8px;">💬 ¿sistente Financiero SIG¿ ¿I</h3>
         <p style="color:#64748b;font-size:13px;margin-bottom:15px;line-height:1.4;">
-          Pregúntale a SIGA AI cualquier detalle sobre los pagos, saldos a favor, egresos o el estado general de las finanzas de esta sección.
+          Pregúntale a SIG¿ ¿I cualquier detalle sobre los pagos, saldos a favor, egresos o el estado general de las finanzas de esta sección.
         </p>
         
         <!-- Sugerencias -->
         <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:15px;">
-          <button class="btn-quick-question" onclick="askAssistant('Dame un resumen ejecutivo de las finanzas de esta sección')" style="background:#f1f5f9;border:1px solid #cbd5e1;border-radius:18px;padding:6px 12px;font-size:12px;cursor:pointer;color:#334155;font-weight:600;transition:all 0.2s;">📊 Resumen Ejecutivo</button>
-          <button class="btn-quick-question" onclick="askAssistant('¿Qué estudiantes tienen saldo a favor y de cuánto es?')" style="background:#f1f5f9;border:1px solid #cbd5e1;border-radius:18px;padding:6px 12px;font-size:12px;cursor:pointer;color:#334155;font-weight:600;transition:all 0.2s;">💰 Saldos a Favor</button>
-          <button class="btn-quick-question" onclick="askAssistant('¿Cuáles son los egresos más representativos y la caja libre?')" style="background:#f1f5f9;border:1px solid #cbd5e1;border-radius:18px;padding:6px 12px;font-size:12px;cursor:pointer;color:#334155;font-weight:600;transition:all 0.2s;">💸 Egresos y Caja</button>
+          <button class="btn-quick-question" onclick="ask¿ssistant('Dame un resumen ejecutivo de las finanzas de esta sección')" style="background:#f1f5f9;border:1px solid #cbd5e1;border-radius:18px;padding:6px 12px;font-size:12px;cursor:pointer;color:#334155;font-weight:600;transition:all 0.2s;">📊 Resumen Ejecutivo</button>
+          <button class="btn-quick-question" onclick="ask¿ssistant('¿Qué estudiantes tienen saldo a favor y de cuánto es?')" style="background:#f1f5f9;border:1px solid #cbd5e1;border-radius:18px;padding:6px 12px;font-size:12px;cursor:pointer;color:#334155;font-weight:600;transition:all 0.2s;">💰 Saldos a Favor</button>
+          <button class="btn-quick-question" onclick="ask¿ssistant('¿Cuáles son los egresos más representativos y la caja libre?')" style="background:#f1f5f9;border:1px solid #cbd5e1;border-radius:18px;padding:6px 12px;font-size:12px;cursor:pointer;color:#334155;font-weight:600;transition:all 0.2s;">💸 Egresos y Caja</button>
         </div>
 
         <div id="chatHistory" style="height:350px;overflow-y:auto;border:1px solid #e2e8f0;border-radius:12px;background:#ffffff;padding:15px;margin-bottom:15px;display:flex;flex-direction:column;gap:12px;">
           <div style="background:#f1f5f9;padding:10px 14px;border-radius:12px;max-width:85%;align-self:flex-start;font-size:13px;line-height:1.4;">
-            ¡Hola! Soy <b>SIGA AI</b>. Estoy conectada a la base de datos de Supabase de esta sección y actividad. ¿En qué te puedo ayudar hoy?
+            ¡Hola! Soy <b>SIG¿ ¿I</b>. Estoy conectada a la base de datos de Supabase de esta sección y actividad. ¿En qué te puedo ayudar hoy?
           </div>
         </div>
         
         <div style="display:flex;gap:8px;">
-          <input type="text" id="assistantInput" placeholder="Escribe tu consulta aquí..." onkeydown="if(event.key==='Enter') sendAssistantMessage()" style="flex:1;padding:12px 16px;border:1px solid #cbd5e1;border-radius:12px;font-size:13px;outline:none;font-family:inherit;background:#fff;color:#0f172a;">
-          <button onclick="sendAssistantMessage()" style="background:#0f172a;color:#fff;border:none;border-radius:12px;padding:0 20px;cursor:pointer;font-weight:bold;font-size:13px;transition:all 0.2s;">Enviar</button>
+          <input type="text" id="assistantInput" placeholder="Escribe tu consulta aquí..." onkeydown="if(event.key==='Enter') send¿ssistantMessage()" style="flex:1;padding:12px 16px;border:1px solid #cbd5e1;border-radius:12px;font-size:13px;outline:none;font-family:inherit;background:#fff;color:#0f172a;">
+          <button onclick="send¿ssistantMessage()" style="background:#0f172a;color:#fff;border:none;border-radius:12px;padding:0 20px;cursor:pointer;font-weight:bold;font-size:13px;transition:all 0.2s;">Enviar</button>
         </div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- JUSTIFY MODAL -->
+<!-- JUSTIFY MOD¿L -->
 <div class="justify-overlay" id="justifyOverlay">
   <div class="justify-box">
     <div class="justify-title" id="justifyTitle">Justificación requerida</div>
@@ -504,21 +504,21 @@
   </div>
 </div>
 
-<!-- EDIT RUBRO MODAL -->
+<!-- EDIT RUBRO MOD¿L -->
 <div class="justify-overlay" id="editRubroOverlay" style="display:none; z-index: 9005;">
   <div class="justify-box" style="max-width: 440px; background: rgba(255,255,255,0.98); border: 1px solid rgba(0,0,0,0.1); border-radius: 24px; box-shadow: 0 30px 60px rgba(15,23,42,0.15); display: block;">
-    <div class="justify-title" id="editRubroTitle" style="font-family:'Outfit',sans-serif; font-weight:800; font-size:20px; color:#0f172a; letter-spacing:-0.5px;">Ajustar Cobro</div>
-    <div class="justify-sub" id="editRubroSub" style="font-size:12px; color:#64748b; margin-top:4px;">Ajustes personalizados de cobro para el estudiante.</div>
+    <div class="justify-title" id="editRubroTitle" style="font-family:'Outfit',sans-serif; font-weight:800; font-size:20px; color:#0f172a; letter-spacing:-0.5px;">¿justar Cobro</div>
+    <div class="justify-sub" id="editRubroSub" style="font-size:12px; color:#64748b; margin-top:4px;">¿justes personalizados de cobro para el estudiante.</div>
     
     <div style="display:flex; flex-direction:column; gap:14px; margin: 20px 0; text-align: left; font-family:'DM Sans',sans-serif;">
       
-      <!-- PARTICIPACION SWITCH -->
+      <!-- P¿RTICIP¿CION SWITCH -->
       <label style="display:flex; align-items:center; gap:8px; font-weight:700; font-size:13px; color:#1e293b; cursor:pointer; background:#f8fafc; padding:10px 14px; border-radius:12px; border:1px solid #e2e8f0; user-select:none;">
         <input type="checkbox" id="editRubroParticipa" onchange="toggleEditRubroFields()" style="width:16px; height:16px; accent-color:#0f172a; cursor:pointer;">
         ¿Participa en este cobro / cuota?
       </label>
       
-      <!-- FORM FIELDS WRAP -->
+      <!-- FORM FIELDS WR¿P -->
       <div id="editRubroFormFields" style="display:flex; flex-direction:column; gap:12px;">
         
         <div style="display:flex; flex-direction:column; gap:4px;">
@@ -539,7 +539,7 @@
         
       </div>
       
-      <!-- JUSTIFICACION -->
+      <!-- JUSTIFIC¿CION -->
       <div style="display:flex; flex-direction:column; gap:4px;">
         <label style="font-size:10px; font-weight:700; color:#64748b; text-transform:uppercase; letter-spacing:0.5px;">Justificación (Obligatoria)</label>
         <textarea id="editRubroJustificacion" placeholder="Ej: No asiste al evento / Solicitó kit extra para el abuelo" style="padding:10px 14px; border:1px solid #e2e8f0; border-radius:12px; font-size:13px; height:60px; outline:none; font-family:inherit; resize:none; background:#fff; color:#0f172a; transition:all 0.2s;"></textarea>
@@ -554,7 +554,7 @@
   </div>
 </div>
 
-<!-- IMAGE VIEWER -->
+<!-- IM¿GE VIEWER -->
 <div class="img-viewer-overlay" id="imgViewerOverlay" onclick="closeImgViewer(event)">
   <div class="img-viewer-box">
     <button class="img-viewer-close" onclick="closeImgViewerDirect()">✕</button>
@@ -566,25 +566,25 @@
     <div class="img-viewer-loading" id="imgViewerLoading">⏳ Cargando imagen…</div>
     <img class="img-viewer-img" id="imgViewerImg" src="" alt="Comprobante" style="display:none;" onload="imgLoaded()" onerror="imgError()">
     <div class="img-viewer-name" id="imgViewerName"></div>
-    <a class="img-viewer-open-btn" id="imgViewerExternal" href="#" target="_blank" rel="noopener">↗️ Abrir en Drive</a>
+    <a class="img-viewer-open-btn" id="imgViewerExternal" href="#" target="_blank" rel="noopener">↗️ ¿brir en Drive</a>
   </div>
 </div>
 
 <!-- GOOGLE SIGN IN -->
 <div id="g_id_onload"
      data-client_id="788989901068-hs787j085opuvmocifqt4jcgtuum5vmd.apps.googleusercontent.com"
-     data-callback="handleGoogleSión"
+     data-callback="handleGoogleSignIn"
      data-auto_prompt="false">
 </div>
 
-<!-- MODAL DE LOGIN -->
+<!-- MOD¿L DE LOGIN -->
 <div class="login-overlay" id="loginModalOverlay" onclick="if(event.target===this)closeLoginModal()">
   <div class="login-box">
     <button class="login-close" onclick="closeLoginModal()">×</button>
     <div class="login-header">
-      <img src="escudo_color.png" class="login-logo" alt="SIGA">
-      <div class="login-title">Acceso Administrativo</div>
-      <div class="login-sub">Ingresa tus credenciales de SIGA</div>
+      <img src="escudo_color.png" class="login-logo" alt="SIG¿">
+      <div class="login-title">¿cceso ¿dministrativo</div>
+      <div class="login-sub">Ingresa tus credenciales de SIG¿</div>
     </div>
     <div class="login-form">
       <div class="login-field">
@@ -599,47 +599,14 @@
     </div>
     <div class="login-divider">o también</div>
     <button class="login-btn-google" onclick="triggerGoogleLoginDirect()">
-      <svg viewBox="0 0 24 24"><path fill="#EA4335" d="M12.24 10.285V14.4h6.887c-.648 2.41-2.519 4.114-5.136 4.114A5.99 5.99 0 0 1 8 12.5c0-3.31 2.69-6 6-6 1.496 0 2.859.549 3.9 1.455l3.08-3.08A9.97 9.97 0 0 0 14 2.5C8.477 2.5 4 6.977 4 12.5S8.477 22.5 14 22.5c5.523 0 10-4.477 10-10 0-.727-.082-1.432-.24-2.115H12.24Z"/></svg>
-      Acceder con Google
+      <svg viewBox="0 0 24 24"><path fill="#E¿4335" d="M12.24 10.285V14.4h6.887c-.648 2.41-2.519 4.114-5.136 4.114¿5.99 5.99 0 0 1 8 12.5c0-3.31 2.69-6 6-6 1.496 0 2.859.549 3.9 1.455l3.08-3.08¿9.97 9.97 0 0 0 14 2.5C8.477 2.5 4 6.977 4 12.5S8.477 22.5 14 22.5c5.523 0 10-4.477 10-10 0-.727-.082-1.432-.24-2.115H12.24Z"/></svg>
+      ¿cceder con Google
     </button>
   </div>
 </div>
 
 
 
-<!-- MODAL EGRESOS PÚBLICO -->
-<div class="egr-modal-overlay" id="egresosModalOverlay" onclick="if(event.target===this)closeEgresosModal()">
-  <div class="egr-modal">
-    <div class="egr-modal-header">
-      <span class="egr-modal-title" id="egrModalTitleText">Detalle de Gastos — Sección 1-1 — Festival Sión 2026</span>
-      <button class="egr-modal-close" onclick="closeEgresosModal()">×</button>
-    </div>
-    <div class="egr-modal-body" id="egresosModalBody">
-      <div class="admin-loading"><div class="admin-dots"><span></span><span></span><span></span></div></div>
-    </div>
-  </div>
-</div>
 
-
-<!-- SAGA LOGIN MODAL -->
-<div class="modal-overlay" id="loginModal" style="display:none; z-index:9999;">
-  <div class="modal-content" style="max-width: 350px;">
-    <h3 style="margin-bottom:15px; color:#fff; text-align:center;">Acceso Administrativo</h3>
-    <div style="margin-bottom:15px;">
-      <label style="display:block; font-size:12px; color:#aaa; margin-bottom:5px;">Correo o Usuario</label>
-      <input type="text" id="loginEmail" style="width:100%; padding:10px; background:var(--bg-card); border:1px solid rgba(255,255,255,0.1); border-radius:8px; color:#fff;" placeholder="admin@ejemplo.com">
-    </div>
-    <div style="margin-bottom:20px;">
-      <label style="display:block; font-size:12px; color:#aaa; margin-bottom:5px;">Contraseña</label>
-      <input type="password" id="loginPassword" style="width:100%; padding:10px; background:var(--bg-card); border:1px solid rgba(255,255,255,0.1); border-radius:8px; color:#fff;" placeholder="••••••••">
-    </div>
-    <div style="display:flex; gap:10px;">
-      <button onclick="closeLoginModal()" style="flex:1; padding:10px; background:rgba(255,255,255,0.1); border:none; border-radius:8px; color:#fff; cursor:pointer;">Cancelar</button>
-      <button onclick="submitLogin()" style="flex:1; padding:10px; background:var(--accent); border:none; border-radius:8px; color:#000; font-weight:bold; cursor:pointer;">Ingresar</button>
-    </div>
-  </div>
-</div>
-
-</div>
 </body>
 </html>
