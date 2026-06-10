@@ -715,6 +715,12 @@ function triggerGoogleLoginDirect() {
 
 function initGoogleBtn() {
   if (typeof google !== 'undefined' && google.accounts) {
+    google.accounts.id.initialize({
+      client_id: "294691456942-019pblg05t2sc5h3f5ofb2fclbshv5a3.apps.googleusercontent.com",
+      callback: handleGoogleSignIn,
+      context: "signin",
+      ux_mode: "popup"
+    });
     document.getElementById('googleLoginBtn').classList.add('visible');
   } else {
     setTimeout(initGoogleBtn, 500);
