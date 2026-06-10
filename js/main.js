@@ -2060,11 +2060,9 @@ function generateReceipt(studentNum, txId) {
     ctx.fillText(isDev ? 'REEMBOLSADO' : 'VERIFICADO IA', 400, 1012);
 
     // Download the image
-    var link = document.createElement('a');
     var refClean = (tx.analisis?.refSINPE || tx.id.substring(0, 6)).replace(/[^a-zA-Z0-9]/g, '');
-    link.download = (isDev ? 'Reembolso_' : 'Recibo_') + s.nombre.replace(/\s+/g, '_') + '_' + refClean + '.png';
-    link.href = canvas.toDataURL('image/png');
-    link.click();
+var filename = (isDev ? 'Reembolso_' : 'Recibo_') + s.nombre.replace(/\s+/g, '_') + '_' + refClean + '.png';
+openImgViewer(canvas.toDataURL('image/png'), { filename: filename, isReceipt: true });
   };
 
   if (window.location.protocol === 'file:') {
