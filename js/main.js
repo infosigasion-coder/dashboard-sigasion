@@ -163,15 +163,20 @@ async function handleGoogleSignIn(response) {
   
   isAdminMode = true;
   document.body.classList.add('admin-mode');
-  document.getElementById('adminBtn').classList.add('visible');
-  document.getElementById('googleLoginBtn').classList.remove('visible');
-  document.getElementById('adminUserEmail').textContent = email;
+  const adminBtn = document.getElementById('adminBtn');
+  if (adminBtn) adminBtn.classList.add('visible');
+  const googleBtn = document.getElementById('googleLoginBtn');
+  if (googleBtn) googleBtn.classList.remove('visible');
+  const adminEmailEl = document.getElementById('adminUserEmail');
+  if (adminEmailEl) adminEmailEl.textContent = email;
   
-  document.getElementById('sagaSeccionSelect').disabled = false;
+  const seccionSelect = document.getElementById('sagaSeccionSelect');
+  if (seccionSelect) seccionSelect.disabled = false;
   if (activeStudent) reopenModal(activeStudent.num);
   
   closeLoginModal();
-  document.getElementById('updatedBadge').textContent = '✅';
+  const updatedBadge = document.getElementById('updatedBadge');
+  if (updatedBadge) updatedBadge.textContent = '✅';
   loadActivities();
 }
 
@@ -187,14 +192,19 @@ function parseJwt(token) {
 //  LOGIN MODAL & PASSWORD CHANGE FUNCTIONS
 // ══════════════════════════════════════════════════════════════
 function openLoginModal() {
-  document.getElementById('loginModalOverlay').classList.add('open');
-  document.getElementById('loginUsername').focus();
+  const overlay = document.getElementById('loginModalOverlay');
+  if (overlay) overlay.classList.add('open');
+  const user = document.getElementById('loginUsername');
+  if (user) user.focus();
 }
 
 function closeLoginModal() {
-  document.getElementById('loginModalOverlay').classList.remove('open');
-  document.getElementById('loginUsername').value = '';
-  document.getElementById('loginPassword').value = '';
+  const overlay = document.getElementById('loginModalOverlay');
+  if (overlay) overlay.classList.remove('open');
+  const user = document.getElementById('loginUsername');
+  if (user) user.value = '';
+  const pass = document.getElementById('loginPassword');
+  if (pass) pass.value = '';
 }
 
 async function submitPasswordLogin() {
@@ -205,10 +215,10 @@ async function submitPasswordLogin() {
     adminUser   = { email: username || 'admin@siga.cr', name: 'Administrador (Forzado)', picture: '', rol: 'admin', seccion: currentSeccion };
     isAdminMode = true;
     document.body.classList.add('admin-mode');
-    document.getElementById('adminBtn').classList.add('visible');
-    document.getElementById('googleLoginBtn').classList.remove('visible');
+    if(document.getElementById('adminBtn')) document.getElementById('adminBtn').classList.add('visible');
+    if(document.getElementById('googleLoginBtn')) document.getElementById('googleLoginBtn').classList.remove('visible');
     document.getElementById('adminUserEmail').textContent = adminUser.email;
-    document.getElementById('sagaSeccionSelect').disabled = false;
+    if(document.getElementById('sagaSeccionSelect')) document.getElementById('sagaSeccionSelect').disabled = false;
     closeLoginModal();
     document.getElementById('updatedBadge').textContent = 'o.';
     loadActivities();
@@ -274,6 +284,7 @@ async function submitPasswordLogin() {
 
 function openChangePasswordForm(username, oldPassword) {
   const box = document.querySelector('.login-box');
+  if (!box) return;
   box.innerHTML = `
     <button class="login-close" onclick="closeLoginModal(); location.reload();">×</button>
     <div class="login-header">
@@ -343,6 +354,7 @@ async function submitChangePassword(username, oldPassword) {
 
 function resetLoginModalHtml() {
   const overlay = document.getElementById('loginModalOverlay');
+  if (!overlay) return;
   overlay.innerHTML = `
     <div class="login-box">
       <button class="login-close" onclick="closeLoginModal()">×</button>
