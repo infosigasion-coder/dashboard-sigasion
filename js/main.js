@@ -234,7 +234,12 @@ async function submitPasswordLogin() {
   try {
     const res = await fetch(SCRIPT_URL + '/login', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: (() => { 
+  const h = { 'Content-Type': 'application/json' };
+  const t = localStorage.getItem('siga_jwt');
+  if (t) h['Authorization'] = 'Bearer ' + t;
+  return h;
+})(),
       body: JSON.stringify({ email: username, password })
     });
     const result = await res.json();
@@ -331,7 +336,12 @@ async function submitChangePassword(username, oldPassword) {
   try {
     const res = await fetch(SCRIPT_URL + '/change-password', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: (() => { 
+  const h = { 'Content-Type': 'application/json' };
+  const t = localStorage.getItem('siga_jwt');
+  if (t) h['Authorization'] = 'Bearer ' + t;
+  return h;
+})(),
       body: JSON.stringify({ username, oldPassword, newPassword: pass1 })
     });
     const result = await res.json();
@@ -479,7 +489,12 @@ async function saveMilestones() {
   try {
     const res = await fetch(SCRIPT_URL + '/activities/milestones', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: (() => { 
+  const h = { 'Content-Type': 'application/json' };
+  const t = localStorage.getItem('siga_jwt');
+  if (t) h['Authorization'] = 'Bearer ' + t;
+  return h;
+})(),
       body: JSON.stringify({
         actividadId: window._actividad.id,
         milestones: milestones,
@@ -570,7 +585,12 @@ async function saveSeccion() {
   try {
     const res = await fetch(SCRIPT_URL + '/config/secciones', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: (() => { 
+  const h = { 'Content-Type': 'application/json' };
+  const t = localStorage.getItem('siga_jwt');
+  if (t) h['Authorization'] = 'Bearer ' + t;
+  return h;
+})(),
       body: JSON.stringify({
         adminEmail: adminUser.email,
         seccion,
@@ -688,7 +708,12 @@ async function saveActividad() {
   try {
     const res = await fetch(SCRIPT_URL + '/config/actividades', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: (() => { 
+  const h = { 'Content-Type': 'application/json' };
+  const t = localStorage.getItem('siga_jwt');
+  if (t) h['Authorization'] = 'Bearer ' + t;
+  return h;
+})(),
       body: JSON.stringify({
         adminEmail: adminUser.email,
         nombre,
@@ -2120,7 +2145,12 @@ async function callScript(data) {
     console.log('callScript action:', data.action, 'size:', bodyStr.length);
     var resp = await fetch(SCRIPT_URL + '/' + data.action, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: (() => { 
+  const h = { 'Content-Type': 'application/json' };
+  const t = localStorage.getItem('siga_jwt');
+  if (t) h['Authorization'] = 'Bearer ' + t;
+  return h;
+})(),
       body: bodyStr
     });
     var result = await resp.json();
