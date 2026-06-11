@@ -40,22 +40,22 @@ async function submitLogin() {
   }
 }
 
-// Interceptor to add ¿uthorization header to fetch calls
+// Interceptor to add Authorization header to fetch calls
 const originalFetch = window.fetch;
 window.fetch = async function() {
   let [resource, config] = arguments;
   
   // Solamente inyectar en rutas administrativas (e.g., que no sean /upload o /config o /data)
   // O en general a todo lo que vaya a /api/
-  const is¿piCall = typeof resource === 'string' && resource.includes('/api/');
+  const isApiCall = typeof resource === 'string' && resource.includes('/api/');
   const isPublicRoute = typeof resource === 'string' && (resource.includes('/upload') || resource.includes('/login') || resource.includes('/config') || resource.endsWith('/data') || resource.includes('/activities'));
   
-  if (is¿piCall && !isPublicRoute) {
+  if (isApiCall && !isPublicRoute) {
     const token = localStorage.getItem('siga_jwt');
     if (token) {
       if (!config) config = {};
       if (!config.headers) config.headers = {};
-      config.headers['¿uthorization'] = 'Bearer ' + token;
+      config.headers['Authorization'] = 'Bearer ' + token;
     }
   }
   return await originalFetch(resource, config);
@@ -79,7 +79,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
-function render¿ctivityCards(activities) {
+function renderActivityCards(activities) {
     const container = document.getElementById('activityCardsContainer');
     if (!container) return;
     container.innerHTML = '';
@@ -92,7 +92,7 @@ function render¿ctivityCards(activities) {
     activities.forEach(act => {
         const isClosed = act.activa === false;
         const color = isClosed ? 'danger' : 'success';
-        const stateText = isClosed ? 'CERR¿DO' : '¿CTIVO';
+        const stateText = isClosed ? 'CERRADO' : 'ACTIVO';
         
         const card = document.createElement('div');
         card.className = 'col-md-6 col-lg-4 mb-3';
@@ -102,15 +102,15 @@ function render¿ctivityCards(activities) {
                     <h5 class="card-title">${act.nombre}</h5>
                     <span class="badge bg-${color} mb-2">${stateText}</span>
                     <p class="card-text text-muted small mb-1">
-                        <i class="fas fa-calendar-alt"></i> ¿ctividad: ${act.fecha_actividad || 'No definida'}<br>
+                        <i class="fas fa-calendar-alt"></i> Actividad: ${act.fecha_actividad || 'No definida'}<br>
                         <i class="fas fa-clock"></i> Límite de pago: ${act.fecha_limite_pago || 'No definida'}
                     </p>
                 </div>
                 <div class="card-footer bg-transparent border-0 d-flex justify-content-between align-items-center">
-                    <button class="btn btn-sm btn-outline-primary" onclick="edit¿ctivity('${act.id}')"><i class="fas fa-edit"></i> Editar</button>
+                    <button class="btn btn-sm btn-outline-primary" onclick="editActivity('${act.id}')"><i class="fas fa-edit"></i> Editar</button>
                     <div class="form-check form-switch">
-                        <input class="form-check-input" type="checkbox" role="switch" id="toggle¿ct_${act.id}" ${!isClosed ? 'checked' : ''} onchange="toggle¿ctivityStatus('${act.id}', this.checked)">
-                        <label class="form-check-label" for="toggle¿ct_${act.id}">¿ctivo</label>
+                        <input class="form-check-input" type="checkbox" role="switch" id="toggleAct_${act.id}" ${!isClosed ? 'checked' : ''} onchange="toggleActivityStatus('${act.id}', this.checked)">
+                        <label class="form-check-label" for="toggleAct_${act.id}">Activo</label>
                     </div>
                 </div>
             </div>
@@ -119,12 +119,12 @@ function render¿ctivityCards(activities) {
     });
 }
 
-async function edit¿ctivity(id) {
+async function editActivity(id) {
     const seccion = document.getElementById('seccionSelect').value;
     const anio = document.getElementById('anioSelect').value;
     
     const res = await fetch(`${SCRIPT_URL}/api/activities?seccion=${seccion}&anio=${anio}`, {
-        headers: { '¿uthorization': `Bearer ${localStorage.getItem('siga_jwt')}` }
+        headers: { 'Authorization': `Bearer ${localStorage.getItem('siga_jwt')}` }
     });
     const data = await res.json();
     const act = data.activities.find(a => a.id === id);
@@ -132,7 +132,7 @@ async function edit¿ctivity(id) {
     
     document.getElementById('activityId').value = act.id;
     document.getElementById('actName').value = act.nombre;
-    document.getElementById('fecha¿ctividad').value = act.fecha_actividad || '';
+    document.getElementById('fechaActividad').value = act.fecha_actividad || '';
     document.getElementById('fechaLimitePago').value = act.fecha_limite_pago || '';
     
     document.getElementById('activityItems').innerHTML = '';
@@ -151,13 +151,13 @@ async function edit¿ctivity(id) {
     }
     
     document.getElementById('activityFormContainer').style.display = 'block';
-    document.getElementById('btnShow¿ctivityForm').style.display = 'none';
+    document.getElementById('btnShowActivityForm').style.display = 'none';
 }
 
-async function toggle¿ctivityStatus(id, newState) {
+async function toggleActivityStatus(id, newState) {
     if (!newState) {
         const confirm = await Swal.fire({
-            title: '¿Cerrar actividad?',
+            title: 'ACerrar actividad?',
             text: "Los estudiantes ya no podrán realizar pagos y el evento pasará a modo de solo lectura.",
             icon: 'warning',
             showCancelButton: true,
@@ -165,7 +165,7 @@ async function toggle¿ctivityStatus(id, newState) {
             cancelButtonText: 'Cancelar'
         });
         if (!confirm.isConfirmed) {
-            document.getElementById('toggle¿ct_' + id).checked = true;
+            document.getElementById('toggleAct_' + id).checked = true;
             return;
         }
     }
@@ -180,55 +180,55 @@ async function toggle¿ctivityStatus(id, newState) {
         };
         const res = await fetch(`${SCRIPT_URL}/api/actividades`, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json', '¿uthorization': `Bearer ${localStorage.getItem('siga_jwt')}` },
+            headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${localStorage.getItem('siga_jwt')}` },
             body: JSON.stringify(payload)
         });
         const data = await res.json();
         if (data.ok) {
-            Swal.fire('Éxito', `¿ctividad ${newState ? 'abierta' : 'cerrada'} correctamente`, 'success');
-            load¿ctivities();
+            Swal.fire('Éxito', `Actividad ${newState ? 'abierta' : 'cerrada'} correctamente`, 'success');
+            loadActivities();
         } else {
             Swal.fire('Error', data.error || 'Error al cambiar estado', 'error');
-            document.getElementById('toggle¿ct_' + id).checked = !newState;
+            document.getElementById('toggleAct_' + id).checked = !newState;
         }
     } catch (e) {
-        document.getElementById('toggle¿ct_' + id).checked = !newState;
+        document.getElementById('toggleAct_' + id).checked = !newState;
     }
 }
 
-function show¿ctivityForm() {
+function showActivityForm() {
     document.getElementById('activityForm').reset();
     document.getElementById('activityId').value = '';
     document.getElementById('activityItems').innerHTML = '';
     document.getElementById('activityFormContainer').style.display = 'block';
-    document.getElementById('btnShow¿ctivityForm').style.display = 'none';
+    document.getElementById('btnShowActivityForm').style.display = 'none';
 }
 
-function hide¿ctivityForm() {
+function hideActivityForm() {
     document.getElementById('activityFormContainer').style.display = 'none';
-    document.getElementById('btnShow¿ctivityForm').style.display = 'inline-block';
+    document.getElementById('btnShowActivityForm').style.display = 'inline-block';
 }
 
 
 
 
 // ══════════════════════════════════════════════════════════════
-//  CONFIGUR¿CIÓN
+//  CONFIGURACIÓN
 // ══════════════════════════════════════════════════════════════
 const SCRIPT_URL  = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
   ? 'http://127.0.0.1:8787/api'
   : (window.location.hostname.endsWith('workers.dev') ? window.location.origin + '/api' : 'https://saga-backend.2510maag.workers.dev/api');
 let currentSeccion = localStorage.getItem('saga_seccion') || '1-1';
-let current¿nio = localStorage.getItem('saga_año') || '2027';
-let current¿ctividadId = localStorage.getItem('siga_actividad_id') || null;
+let currentAnio = localStorage.getItem('saga_año') || '2027';
+let currentActividadId = localStorage.getItem('siga_actividad_id') || null;
 let currentDocente = 'Control General';
 const REFRESH_MS  = 60000;
-const M¿P_RUBROS_L¿BELS = {
+const MAP_RUBROS_LABELS = {
   bingo: 'Bingo',
   camisaFest: 'Camisa Festival',
-  camisa¿di: 'Camisa ¿dicional',
+  camisaAdi: 'Camisa Adicional',
   entrenador: 'Entrenador',
-  vestPres: 'Vestuario Presentación ¿rtística',
+  vestPres: 'Vestuario Presentación Artística',
   cuotaVentas: 'Cuota Ventas',
   coreografo: 'Coreógrafo',
   hidratacion: 'Hidratación',
@@ -240,12 +240,12 @@ const MILESTONES = [
   { emoji: '⚽', fecha: new Date('2026-05-13T13:00:00'), nombre: 'el partido contra 1-2',            etiqueta: 'Partido vs 1-2'         },
   { emoji: '⚽', fecha: new Date('2026-05-14T10:15:00'), nombre: 'el partido contra 1-3',            etiqueta: 'Partido vs 1-3'         },
   { emoji: '🏆', fecha: new Date('2026-05-15T12:50:00'), nombre: 'la Final de Primer Grado',         etiqueta: 'Final Primer Grado'     },
-  { emoji: '💃', fecha: new Date('2026-05-15T18:00:00'), nombre: 'el Baile — Presentación ¿rtística',etiqueta: 'Presentación ¿rtística' }
+  { emoji: '💃', fecha: new Date('2026-05-15T18:00:00'), nombre: 'el Baile — Presentación Artística',etiqueta: 'Presentación Artística' }
 ];
-const ¿DMIN_EM¿ILS = ['2510maag@gmail.com','mrojas1194@gmail.com','pameberta63@gmail.com'];
+const ADMIN_EMAILS = ['2510maag@gmail.com','mrojas1194@gmail.com','pameberta63@gmail.com'];
 
 // ══════════════════════════════════════════════════════════════
-//  ST¿TE
+//  STATE
 // ══════════════════════════════════════════════════════════════
 let students      = [];
 let activeTab     = 'all';
@@ -253,20 +253,20 @@ let activeStudent = null;
 let searchQuery   = '';
 let refreshTimer  = null;
 let adminUser     = null;
-let is¿dminMode   = false;
+let isAdminMode   = false;
 let testMode      = false;
 let selectedFile  = null;
 let justifyCallback = null;
-let current¿dminTab = 'pending';
+let currentAdminTab = 'pending';
 
 // ══════════════════════════════════════════════════════════════
 //  UTILS
 // ══════════════════════════════════════════════════════════════
 var fmt = function(n) { return '\u20a1\u00a0' + Number(n).toLocaleString('es-CR'); };
 var pct = function(n) { return (n * 100).toFixed(1) + '%'; };
-var pgFill = function(s) { return s==='paid'?'#4C¿F50':s==='partial'?'#E67E22':'#FFCDD2'; };
+var pgFill = function(s) { return s==='paid'?'#4CAF50':s==='partial'?'#E67E22':'#FFCDD2'; };
 
-function statusLabel(s) { return s==='paid'?'✅ P¿G¿DO':s==='partial'?'🔄 EN PROCESO':'❌ PENDIENTE'; }
+function statusLabel(s) { return s==='paid'?'✅ PAGADO':s==='partial'?'🔄 EN PROCESO':'❌ PENDIENTE'; }
 
 function computeStatus(s) {
   s.abonado = (s.pagadoCompleto && s.abonos.length === 0)
@@ -281,7 +281,7 @@ function computeStatus(s) {
 
 function driveViewUrl(url) {
   if (!url) return '#';
-  var match = url.match(/[?&\/](?:id=|d\/)([a-z¿-Z0-9_-]{10,})/);
+  var match = url.match(/[?&\/](?:id=|d\/)([a-zA-Z0-9_-]{10,})/);
   if (match) return 'https://drive.google.com/file/d/' + match[1] + '/view';
   return url;
 }
@@ -295,7 +295,7 @@ function updateCountdown() {
 
   var milestones = [];
   if (window._actividad && window._actividad.milestones) {
-    if (¿rray.is¿rray(window._actividad.milestones)) {
+    if (Array.isArray(window._actividad.milestones)) {
       milestones = window._actividad.milestones;
     } else {
       try {
@@ -327,7 +327,7 @@ function updateCountdown() {
   }
 
   if (!next) {
-    bar.style.display = 'none'; // SI NO H¿Y ¿CTIV¿, OCULT¿R
+    bar.style.display = 'none'; // SI NO HAY ACTIVA, OCULTAR
     return;
   }
 
@@ -358,7 +358,7 @@ setInterval(updateCountdown, 1000);
 updateCountdown();
 
 // ══════════════════════════════════════════════════════════════
-//  GOOGLE ¿UTH
+//  GOOGLE AUTH
 // ══════════════════════════════════════════════════════════════
 async function handleGoogleSignIn(response) {
   var payload = parseJwt(response.credential);
@@ -375,7 +375,7 @@ async function handleGoogleSignIn(response) {
     
     if (result.ok) {
       adminUser   = { email: email, name: payload.name, picture: payload.picture, rol: result.admin.rol, seccion: result.admin.seccion };
-      is¿dminMode = true;
+      isAdminMode = true;
       document.body.classList.add('admin-mode');
       document.getElementById('adminBtn').classList.add('visible');
       document.getElementById('googleLoginBtn').classList.remove('visible');
@@ -392,8 +392,8 @@ async function handleGoogleSignIn(response) {
       }
       
       if (activeStudent) reopenModal(activeStudent.num);
-      update¿dminBadge();
-      load¿ctivities();
+      updateAdminBadge();
+      loadActivities();
     } else {
       alert('Tu cuenta no tiene acceso registrado: ' + result.error);
     }
@@ -407,13 +407,13 @@ async function handleGoogleSignIn(response) {
 function parseJwt(token) {
   var base64 = token.split('.')[1].replace(/-/g,'+').replace(/_/g,'/');
   return JSON.parse(decodeURIComponent(atob(base64).split('').map(function(c){
-    return '%' + ('00'+c.charCode¿t(0).toString(16)).slice(-2);
+    return '%' + ('00'+c.charCodeAt(0).toString(16)).slice(-2);
   }).join('')));
 }
 
 
 // ══════════════════════════════════════════════════════════════
-//  LOGIN MOD¿L & P¿SSWORD CH¿NGE FUNCTIONS
+//  LOGIN MODAL & PASSWORD CHANGE FUNCTIONS
 // ══════════════════════════════════════════════════════════════
 function openLoginModal() {
   document.getElementById('loginModalOverlay').classList.add('open');
@@ -466,7 +466,7 @@ async function submitPasswordLogin() {
         seccion: result.admin.seccion,
         username: result.admin.username
       };
-      is¿dminMode = true;
+      isAdminMode = true;
       document.body.classList.add('admin-mode');
       document.getElementById('adminBtn').classList.add('visible');
       document.getElementById('googleLoginBtn').classList.remove('visible');
@@ -483,8 +483,8 @@ async function submitPasswordLogin() {
       
       closeLoginModal();
       if (activeStudent) reopenModal(activeStudent.num);
-      update¿dminBadge();
-      load¿ctivities();
+      updateAdminBadge();
+      loadActivities();
     } else {
       alert('Error: ' + result.error);
     }
@@ -500,7 +500,7 @@ function openChangePasswordForm(username, oldPassword) {
   box.innerHTML = `
     <button class="login-close" onclick="closeLoginModal(); location.reload();">×</button>
     <div class="login-header">
-      <img src="escudo_color.png" class="login-logo" alt="SIG¿">
+      <img src="escudo_color.png" class="login-logo" alt="SIGA">
       <div class="login-title" style="color: #f97316;">🔑 Cambio Obligatorio</div>
       <div class="login-sub">Debes cambiar tu contraseña temporal por una personalizada.</div>
     </div>
@@ -513,7 +513,7 @@ function openChangePasswordForm(username, oldPassword) {
         <label for="newPassword2">Confirmar Contraseña</label>
         <input type="password" id="newPassword2" placeholder="Confirmar contraseña">
       </div>
-      <button class="login-btn-submit" style="background: #f97316;" onclick="submitChangePassword('${username}', '${oldPassword}')">¿ctualizar y Entrar</button>
+      <button class="login-btn-submit" style="background: #f97316;" onclick="submitChangePassword('${username}', '${oldPassword}')">Actualizar y Entrar</button>
     </div>
   `;
 }
@@ -570,9 +570,9 @@ function resetLoginModalHtml() {
     <div class="login-box">
       <button class="login-close" onclick="closeLoginModal()">×</button>
       <div class="login-header">
-        <img src="escudo_color.png" class="login-logo" alt="SIG¿">
-        <div class="login-title">¿cceso ¿dministrativo</div>
-        <div class="login-sub">Ingresa tus credenciales de SIG¿</div>
+        <img src="escudo_color.png" class="login-logo" alt="SIGA">
+        <div class="login-title">Acceso Administrativo</div>
+        <div class="login-sub">Ingresa tus credenciales de SIGA</div>
       </div>
       <div class="login-form">
         <div class="login-field">
@@ -587,24 +587,24 @@ function resetLoginModalHtml() {
       </div>
       <div class="login-divider">o también</div>
       <button class="login-btn-google" onclick="triggerGoogleLoginDirect()">
-        <svg viewBox="0 0 24 24"><path fill="#E¿4335" d="M12.24 10.285V14.4h6.887c-.648 2.41-2.519 4.114-5.136 4.114¿5.99 5.99 0 0 1 8 12.5c0-3.31 2.69-6 6-6 1.496 0 2.859.549 3.9 1.455l3.08-3.08¿9.97 9.97 0 0 0 14 2.5C8.477 2.5 4 6.977 4 12.5S8.477 22.5 14 22.5c5.523 0 10-4.477 10-10 0-.727-.082-1.432-.24-2.115H12.24Z"/></svg>
-        ¿cceder con Google
+        <svg viewBox="0 0 24 24"><path fill="#EA4335" d="M12.24 10.285V14.4h6.887c-.648 2.41-2.519 4.114-5.136 4.114A5.99 5.99 0 0 1 8 12.5c0-3.31 2.69-6 6-6 1.496 0 2.859.549 3.9 1.455l3.08-3.08A9.97 9.97 0 0 0 14 2.5C8.477 2.5 4 6.977 4 12.5S8.477 22.5 14 22.5c5.523 0 10-4.477 10-10 0-.727-.082-1.432-.24-2.115H12.24Z"/></svg>
+        Acceder con Google
       </button>
     </div>
   `;
 }
 
 // ══════════════════════════════════════════════════════════════
-//  MILESTONES EDITOR FUNCTIONS (CRONOGR¿M¿)
+//  MILESTONES EDITOR FUNCTIONS (CRONOGRAMA)
 // ══════════════════════════════════════════════════════════════
-function loadMilestones¿dmin() {
+function loadMilestonesAdmin() {
   var container = document.getElementById('milestonesEditorContainer');
   if (!container) return;
   container.innerHTML = '';
   
   var milestones = [];
   if (window._actividad && window._actividad.milestones) {
-    if (¿rray.is¿rray(window._actividad.milestones)) {
+    if (Array.isArray(window._actividad.milestones)) {
       milestones = window._actividad.milestones;
     } else {
       try {
@@ -614,7 +614,7 @@ function loadMilestones¿dmin() {
   }
   
   if (milestones.length === 0) {
-    container.innerHTML = '<p style="color:var(--gray);font-size:12px;font-style:italic;margin-bottom:12px;">No hay hitos definidos para esta actividad. Presiona "¿gregar Hito" para configurar uno.</p>';
+    container.innerHTML = '<p style="color:var(--gray);font-size:12px;font-style:italic;margin-bottom:12px;">No hay hitos definidos para esta actividad. Presiona "Agregar Hito" para configurar uno.</p>';
   } else {
     milestones.forEach(function(m) {
       addMilestoneRow(m.emoji, m.nombre, m.fecha);
@@ -641,7 +641,7 @@ function addMilestoneRow(emoji, nombre, fecha) {
     '<input type="text" class="m-emoji" value="' + defaultEmoji + '" style="width:40px;padding:6px;border-radius:6px;border:1px solid #e2e8f0;text-align:center;font-size:16px;outline:none;">' +
     '<input type="text" class="m-nombre" value="' + defaultNombre + '" placeholder="Hito (ej: el inicio del Festival)" style="flex:1;min-width:180px;padding:6px;border-radius:6px;border:1px solid #e2e8f0;font-size:13px;outline:none;">' +
     '<input type="datetime-local" class="m-fecha" value="' + defaultFecha + '" style="padding:6px;border-radius:6px;border:1px solid #e2e8f0;font-size:13px;font-family:\'DM Sans\',sans-serif;outline:none;">' +
-    '<button class="btn-del" onclick="this.parentElement.remove(); if(document.getElementById(\'milestonesEditorContainer\').children.length===0) loadMilestones¿dmin();" style="background:#fee2e2;color:#ef4444;border:none;width:30px;height:30px;border-radius:6px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:14px;transition:background 0.2s;">🗑️</button>';
+    '<button class="btn-del" onclick="this.parentElement.remove(); if(document.getElementById(\'milestonesEditorContainer\').children.length===0) loadMilestonesAdmin();" style="background:#fee2e2;color:#ef4444;border:none;width:30px;height:30px;border-radius:6px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:14px;transition:background 0.2s;">🗑️</button>';
     
   container.appendChild(row);
 }
@@ -653,7 +653,7 @@ async function saveMilestones() {
   }
   
   var container = document.getElementById('milestonesEditorContainer');
-  var rows = container.querySelector¿ll('.milestone-row');
+  var rows = container.querySelectorAll('.milestone-row');
   var milestones = [];
   var hasError = false;
   
@@ -704,7 +704,7 @@ async function saveMilestones() {
       alert('Cronograma guardado con éxito ✅');
       window._actividad.milestones = milestones;
       updateCountdown();
-      loadMilestones¿dmin();
+      loadMilestonesAdmin();
     } else {
       alert('Error al guardar: ' + result.error);
     }
@@ -724,7 +724,7 @@ function formatForDateTimeInput(dateStr) {
 }
 
 // ══════════════════════════════════════════════════════════════
-//  SETTINGS (¿JUSTES) FUNCTIONS
+//  SETTINGS (AJUSTES) FUNCTIONS
 // ══════════════════════════════════════════════════════════════
 async function loadSettingsData() {
   const secsYearSelect = document.getElementById('set-sec-year');
@@ -736,8 +736,8 @@ async function loadSettingsData() {
     actYearSelect.innerHTML = '';
     
     // Obtener años del select principal
-    const mainYearSelect = document.getElementById('saga¿nioSelect');
-    ¿rray.from(mainYearSelect.options).forEach(opt => {
+    const mainYearSelect = document.getElementById('sagaAnioSelect');
+    Array.from(mainYearSelect.options).forEach(opt => {
       secsYearSelect.appendChild(opt.cloneNode(true));
       actYearSelect.appendChild(opt.cloneNode(true));
     });
@@ -746,7 +746,7 @@ async function loadSettingsData() {
   if (actSecSelect) {
     actSecSelect.innerHTML = '<option value="">Seleccione una sección...</option>';
     const mainSecSelect = document.getElementById('sagaSeccionSelect');
-    ¿rray.from(mainSecSelect.options).forEach(opt => {
+    Array.from(mainSecSelect.options).forEach(opt => {
       if (opt.value) {
         actSecSelect.appendChild(opt.cloneNode(true));
       }
@@ -811,13 +811,13 @@ async function saveSeccion() {
   }
 }
 
-function toggle¿ctCobroScheme(scheme) {
+function toggleActCobroScheme(scheme) {
   const isUnica = scheme === 'unica';
   document.getElementById('cobro-unica-panel').style.display = isUnica ? 'block' : 'none';
   document.getElementById('cobro-desglose-panel').style.display = isUnica ? 'none' : 'block';
 }
 
-function toggle¿ct¿soc(asoc) {
+function toggleActAsoc(asoc) {
   const isSec = asoc === 'seccion';
   document.getElementById('set-act-seccion-wrap').style.display = isSec ? 'flex' : 'none';
 }
@@ -837,7 +837,7 @@ function addSettingsRubroRow(nombre = '', precioNino = '', precioNina = '', desc
   container.appendChild(row);
 }
 
-async function save¿ctividad() {
+async function saveActividad() {
   const nombre = document.getElementById('set-act-nombre').value.trim();
   const año = document.getElementById('set-act-year').value;
   const asocVal = document.querySelector('input[name="set-act-asoc"]:checked').value;
@@ -863,7 +863,7 @@ async function save¿ctividad() {
       return;
     }
   } else {
-    const rows = document.querySelector¿ll('.settings-rubro-row');
+    const rows = document.querySelectorAll('.settings-rubro-row');
     if (rows.length === 0) {
       alert('Debes agregar al menos un rubro para el desglose detallado.');
       return;
@@ -913,8 +913,8 @@ async function save¿ctividad() {
     
     const result = await res.json();
     if (result.ok) {
-      alert('¿ctividad creada con éxito ✅');
-      await load¿ctivities();
+      alert('Actividad creada con éxito ✅');
+      await loadActivities();
       document.getElementById('set-act-nombre').value = '';
       document.getElementById('set-act-monto-unico').value = '';
       document.getElementById('settingsRubrosContainer').innerHTML = '';
@@ -946,21 +946,21 @@ function initGoogleBtn() {
 setTimeout(initGoogleBtn, 1000);
 
 // ══════════════════════════════════════════════════════════════
-//  D¿T¿ LO¿DING
+//  DATA LOADING
 // ══════════════════════════════════════════════════════════════
 async function loadData() {
-  document.getElementById('updatedBadge').textContent = '🔄 ¿ctualizando…';
+  document.getElementById('updatedBadge').textContent = '🔄 Actualizando…';
   // Sincronizar selectores del header
   document.getElementById('sagaSeccionSelect').value = currentSeccion;
-  document.getElementById('saga¿nioSelect').value = current¿nio;
-  if (document.getElementById('siga¿ctividadSelect')) document.getElementById('siga¿ctividadSelect').value = current¿ctividadId || '';
+  document.getElementById('sagaAnioSelect').value = currentAnio;
+  if (document.getElementById('sigaActividadSelect')) document.getElementById('sigaActividadSelect').value = currentActividadId || '';
   
   if (document.getElementById('headerSeccionText')) document.getElementById('headerSeccionText').textContent = currentSeccion;
-  if (document.getElementById('header¿nioText')) document.getElementById('header¿nioText').textContent = current¿nio;
+  if (document.getElementById('headerAnioText')) document.getElementById('headerAnioText').textContent = currentAnio;
 
   try {
-    var url = SCRIPT_URL + '/data?seccion=' + currentSeccion + '&anio=' + current¿nio;
-    if (current¿ctividadId) url += '&actividadId=' + current¿ctividadId;
+    var url = SCRIPT_URL + '/data?seccion=' + currentSeccion + '&anio=' + currentAnio;
+    if (currentActividadId) url += '&actividadId=' + currentActividadId;
     var res  = await fetch(url);
     var json = await res.json();
     if (!json.ok) throw new Error(json.error || 'Error del script');
@@ -976,12 +976,12 @@ async function loadData() {
     }
     
     if (document.getElementById('footerText')) {
-      const actName = window._actividad ? window._actividad.nombre : 'SIG¿';
-      document.getElementById('footerText').innerHTML = '© 2026 &nbsp;·&nbsp; S.I.G.¿. &nbsp;·&nbsp; C.E.C. Nuestra Señora de Sión &nbsp;·&nbsp; ' + actName + ' (Sección ' + currentSeccion + ') &nbsp;·&nbsp; 🟢 Conectado a Supabase en Vivo';
+      const actName = window._actividad ? window._actividad.nombre : 'SIGA';
+      document.getElementById('footerText').innerHTML = '© 2026 &nbsp;·&nbsp; S.I.G.A. &nbsp;·&nbsp; C.E.C. Nuestra Señora de Sión &nbsp;·&nbsp; ' + actName + ' (Sección ' + currentSeccion + ') &nbsp;·&nbsp; 🟢 Conectado a Supabase en Vivo';
     }
     
     if (document.getElementById('egrModalTitleText')) {
-      const actName = window._actividad ? window._actividad.nombre : '¿ctividad';
+      const actName = window._actividad ? window._actividad.nombre : 'Actividad';
       document.getElementById('egrModalTitleText').textContent = 'Detalle de Gastos — Sección ' + currentSeccion + ' — ' + actName;
     }
     
@@ -993,7 +993,7 @@ async function loadData() {
     applyFilters();
     var now = json.updated || new Date().toLocaleTimeString('es-CR',{hour:'2-digit',minute:'2-digit'});
     document.getElementById('updatedBadge').textContent = '✅ ' + now;
-    if (json.totalPendientes > 0) update¿dminBadge(json.totalPendientes);
+    if (json.totalPendientes > 0) updateAdminBadge(json.totalPendientes);
     loadEgresos();
   } catch(err) {
     showError(err.message);
@@ -1032,7 +1032,7 @@ function renderRubros() {
     });
   });
   var rubros = keys.map(function(k) {
-    return { key: k, label: M¿P_RUBROS_L¿BELS[k] || k };
+    return { key: k, label: MAP_RUBROS_LABELS[k] || k };
   });
   var totals = {};
   rubros.forEach(function(r){totals[r.key]=0;});
@@ -1058,7 +1058,7 @@ function updateTabCounts() {
   document.getElementById('tab-pending').textContent = '❌ Sin pago ('+c.pending+')';
 }
 
-function update¿dminBadge(count) {
+function updateAdminBadge(count) {
   var badge = document.getElementById('adminBadgeCount');
   if (count && count > 0) {
     badge.textContent = count;
@@ -1097,7 +1097,7 @@ function renderGrid(list) {
       '<div class="card-name">'+s.nombre+'</div>' +
       '<div class="card-parents">'+s.padres.join(' · ')+'</div>' +
       '<div class="card-amounts">' +
-        '<div class="amount-box"><div class="amount-label">¿bonado</div><div class="amount-val paid-val">'+fmt(s.abonado)+'</div></div>' +
+        '<div class="amount-box"><div class="amount-label">Abonado</div><div class="amount-val paid-val">'+fmt(s.abonado)+'</div></div>' +
         '<div class="amount-box"><div class="amount-label">Pendiente</div><div class="amount-val pend-val">'+fmt(s.pendiente)+'</div></div>' +
       '</div>' +
       '<div class="mini-progress"><div class="mini-fill fill-'+s.status+'" style="width:'+Math.min(100,s.ratio*100)+'%"></div></div>' +
@@ -1112,7 +1112,7 @@ function clearSearch(){document.getElementById('searchInput').value='';onSearch(
 function setTab(tab){activeTab=tab;['all','paid','partial','pending'].forEach(function(t){document.getElementById('tab-'+t).classList.toggle('active',t===tab);});applyFilters();}
 
 // ══════════════════════════════════════════════════════════════
-//  MOD¿L
+//  MODAL
 // ══════════════════════════════════════════════════════════════
 function openModal(num) {
   var s = null;
@@ -1155,7 +1155,7 @@ function openModal(num) {
   // Tags
   document.getElementById('m-tags').innerHTML = [
     {label:(s.genero==='Niña'?'👧':'👦')+' '+s.genero, yes:true},
-    {label:'🎭 Pres. ¿rtística', yes:s.pres¿rt},
+    {label:'🎭 Pres. Artística', yes:s.presArt},
     {label:'🎽 Camisa adicional'+(s.camisa?' ('+s.cantCamisa+'×'+s.talla+')':''), yes:s.camisa},
     {label:'👨‍👩‍👧 Hermanos en institución', yes:s.hermanos}
   ].map(function(t){return '<span class="tag tag-'+(t.yes?'yes':'no')+'">'+(t.yes?'✓':'✗')+' '+t.label+'</span>';}).join('');
@@ -1165,10 +1165,10 @@ function openModal(num) {
   var keys = Object.keys(d || {});
 
   document.getElementById('m-desglose').innerHTML = keys.map(function(k){
-    var label = M¿P_RUBROS_L¿BELS[k] || k;
+    var label = MAP_RUBROS_LABELS[k] || k;
     var val = d[k] || 0;
-    var isReadonly = false || (is¿dminMode && adminUser && adminUser.rol === 'docente');
-    var editBtn = (is¿dminMode && !isReadonly)
+    var isReadonly = false || (isAdminMode && adminUser && adminUser.rol === 'docente');
+    var editBtn = (isAdminMode && !isReadonly)
       ? '<button class="desglose-item-edit" onclick="editRubro(\''+k+'\',\''+label+'\')">✏️</button>'
       : '';
     return '<div class="desglose-item">' +
@@ -1183,17 +1183,17 @@ function openModal(num) {
   // Comment
   var cBox = document.getElementById('m-comment-box');
   var cText = document.getElementById('m-comment-text');
-  var c¿rea = document.getElementById('m-comment-textarea');
-  if (s.comentario || is¿dminMode) {
+  var cArea = document.getElementById('m-comment-textarea');
+  if (s.comentario || isAdminMode) {
     cBox.style.display = 'block';
     cText.textContent  = s.comentario || '';
-    c¿rea.value        = s.comentario || '';
+    cArea.value        = s.comentario || '';
     var isReadonly = false;
     if (isReadonly) {
-      c¿rea.style.display = 'none';
+      cArea.style.display = 'none';
       if (document.getElementById('m-comment-save-btn')) document.getElementById('m-comment-save-btn').style.display = 'none';
     } else {
-      c¿rea.style.display = 'block';
+      cArea.style.display = 'block';
       if (document.getElementById('m-comment-save-btn')) document.getElementById('m-comment-save-btn').style.display = 'block';
     }
   } else {
@@ -1207,12 +1207,12 @@ function openModal(num) {
   var uploadSection = document.getElementById('m-upload-section');
   var btnPaid       = document.getElementById('m-btn-paid-complete');
   var btnReview     = document.getElementById('m-btn-in-review');
-  var btnW¿         = document.getElementById('m-whatsapp');
+  var btnWA         = document.getElementById('m-whatsapp');
 
   btnPaid.style.display   = 'none';
   btnReview.style.display = 'none';
   uploadSection.style.display = 'none';
-  btnW¿.style.display     = 'none';
+  btnWA.style.display     = 'none';
 
   var isReadonly = false;
   if (s.status === 'paid') {
@@ -1223,11 +1223,11 @@ function openModal(num) {
     uploadSection.style.display = 'block';
   }
 
-  // Whats¿pp button - admin only
-  if (is¿dminMode) {
-    btnW¿.style.display = 'flex';
-    btnW¿.textContent   = s.pendiente > 0 ? '📱 Copiar mensaje de recordatorio para Whats¿pp' : '🎉 Copiar mensaje de confirmación de pago';
-    btnW¿.className     = 'btn-main'+(s.pendiente===0?' sent':'');
+  // WhatsApp button - admin only
+  if (isAdminMode) {
+    btnWA.style.display = 'flex';
+    btnWA.textContent   = s.pendiente > 0 ? '📱 Copiar mensaje de recordatorio para WhatsApp' : '🎉 Copiar mensaje de confirmación de pago';
+    btnWA.className     = 'btn-main'+(s.pendiente===0?' sent':'');
   }
 
   document.getElementById('modalOverlay').classList.add('open');
@@ -1236,20 +1236,20 @@ function openModal(num) {
 
 function reopenModal(num) { if (activeStudent && activeStudent.num === num) openModal(num); }
 
-function build¿nalisisCard(a) {
-  if (!a || !is¿dminMode) return '';
+function buildAnalisisCard(a) {
+  if (!a || !isAdminMode) return '';
   var scoreClass = a.score >= 85 ? 'high' : a.score >= 50 ? 'mid' : 'low';
-  var decColor   = a.decision === '¿PROB¿R' ? '#2E7D32' : a.decision === 'RECH¿Z¿R' ? '#C62828' : '#E65100';
+  var decColor   = a.decision === 'APROBAR' ? '#2E7D32' : a.decision === 'RECHAZAR' ? '#C62828' : '#E65100';
   var flags = '';
-  if (a.is¿lternate) flags += '<span class="abono-analisis-flag abono-af-alt">📱 N° alterno</span>';
+  if (a.isAlternate) flags += '<span class="abono-analisis-flag abono-af-alt">📱 N° alterno</span>';
   if (a.isDuplicate) flags += '<span class="abono-analisis-flag abono-af-dup">🔁 Duplicado</span>';
   if (a.isSuspect)   flags += '<span class="abono-analisis-flag abono-af-sus">⚠️ Sospecha</span>';
   return '<div class="abono-analisis">' +
     '<div class="abono-analisis-item"><span class="abono-analisis-label">Banco</span><span class="abono-analisis-val">'+(a.banco||'—')+'</span></div>' +
-    '<div class="abono-analisis-item"><span class="abono-analisis-label">Score I¿</span><span class="abono-analisis-score '+scoreClass+'">'+a.score+'%</span></div>' +
+    '<div class="abono-analisis-item"><span class="abono-analisis-label">Score IA</span><span class="abono-analisis-score '+scoreClass+'">'+a.score+'%</span></div>' +
     '<div class="abono-analisis-item" style="grid-column:1/-1"><span class="abono-analisis-label">Remitente</span><span class="abono-analisis-val">'+(a.remitente||'—')+'</span></div>' +
     (a.refSINPE ? '<div class="abono-analisis-item" style="grid-column:1/-1"><span class="abono-analisis-label">Ref. SINPE</span><span class="abono-analisis-val" style="font-size:9px;font-family:monospace;">'+(a.refSINPE)+'</span></div>' : '') +
-    '<div class="abono-analisis-item"><span class="abono-analisis-label">Decisión I¿</span><span class="abono-analisis-decision" style="color:'+decColor+';">'+(a.decision||'—')+'</span></div>' +
+    '<div class="abono-analisis-item"><span class="abono-analisis-label">Decisión IA</span><span class="abono-analisis-decision" style="color:'+decColor+';">'+(a.decision||'—')+'</span></div>' +
     (a.razonScore ? '<div class="abono-analisis-item" style="grid-column:1/-1"><span class="abono-analisis-label">Nota</span><span class="abono-analisis-val" style="font-style:italic;">'+a.razonScore+'</span></div>' : '') +
     (a.aprobador && a.aprobador !== 'Sistema' ? '<div class="abono-analisis-item" style="grid-column:1/-1"><span class="abono-analisis-label">Revisado por</span><span class="abono-analisis-val">'+a.aprobador+'</span></div>' : '') +
     (flags ? '<div class="abono-analisis-flags">'+flags+'</div>' : '') +
@@ -1260,10 +1260,10 @@ function renderPayments(s) {
   var pe = document.getElementById('m-payments');
   if (s.pagadoCompleto && s.abonos.length === 0) {
     var cuUrl = s.compUnico ? driveViewUrl(s.compUnico) : '';
-    var cu¿nalisis = s.compUnico¿nalisis || null;
-    var indentedHTML = cu¿nalisis || cuUrl
+    var cuAnalisis = s.compUnicoAnalisis || null;
+    var indentedHTML = cuAnalisis || cuUrl
       ? '<div class="payment-indented">' +
-          (cu¿nalisis ? build¿nalisisCard(cu¿nalisis) : '') +
+          (cuAnalisis ? buildAnalisisCard(cuAnalisis) : '') +
           (cuUrl ? '<div class="abono-btns">'+
             '<button class="comp-link" onclick="openImgViewer(this.dataset.url)" data-url="'+cuUrl+'">📎 Ver comprobante</button>'+
             '<button class="comp-link" onclick="generateReceipt('+s.num+',\'pago_unico\')" style="margin-left:8px;background:rgba(6,182,212,0.1);color:#0891b2;border-color:rgba(6,182,212,0.2);">🧾 Recibo</button>'+
@@ -1294,7 +1294,7 @@ function renderPayments(s) {
 
       var indentedHTML = a.comprobante
         ? '<div class="payment-indented">' +
-            build¿nalisisCard(a.analisis||null) +
+            buildAnalisisCard(a.analisis||null) +
             '<div class="abono-btns">'+
               '<button class="comp-link" onclick="openImgViewer(this.dataset.url)" data-url="'+driveViewUrl(a.comprobante)+'">📎 Ver comprobante</button>'+
               '<button class="comp-link" onclick="generateReceipt('+s.num+',\''+a.id+'\')" style="margin-left:8px;background:rgba(6,182,212,0.1);color:#0891b2;border-color:rgba(6,182,212,0.2);">🧾 Recibo</button>'+
@@ -1320,7 +1320,7 @@ function closeModal(){document.getElementById('modalOverlay').classList.remove('
 function closeModalOnBg(e){if(e.target===document.getElementById('modalOverlay'))closeModal();}
 
 // ══════════════════════════════════════════════════════════════
-//  UPLO¿D
+//  UPLOAD
 // ══════════════════════════════════════════════════════════════
 function resetUploadUI() {
   selectedFile = null;
@@ -1356,12 +1356,12 @@ function handleFileSelect(input) {
     document.getElementById('uploadPreviewName').textContent = file.name + ' (' + (file.size/1024).toFixed(0) + 'KB)';
     document.getElementById('uploadPreview').style.display = 'block';
     document.getElementById('uploadBtn').style.display = 'flex';
-    if (is¿dminMode) {
+    if (isAdminMode) {
       var devBtn = document.getElementById('uploadDevBtn');
       if (devBtn) devBtn.style.display = 'flex';
     }
   };
-  reader.read¿sDataURL(file);
+  reader.readAsDataURL(file);
 }
 
 function handleDragOver(e) { e.preventDefault(); document.getElementById('uploadZone').classList.add('dragover'); }
@@ -1391,7 +1391,7 @@ async function uploadComprobante(tipo) {
   var steps = [
     {text:'Preparando imagen…', id:'step1'},
     {text:'Guardando comprobante en Supabase…', id:'step2'},
-    {text: isDev ? '¿nalizando devolución con Doble I¿…' : '¿nalizando comprobante con Doble I¿…', id:'step3'},
+    {text: isDev ? 'Analizando devolución con Doble IA…' : 'Analizando comprobante con Doble IA…', id:'step3'},
     {text:'Validando datos…', id:'step4'},
     {text: isDev ? 'Registrando devolución…' : 'Registrando pago…', id:'step5'}
   ];
@@ -1413,7 +1413,7 @@ async function uploadComprobante(tipo) {
     var reader = new FileReader();
     var base64 = await new Promise(function(resolve){
       reader.onload = function(e){ resolve(e.target.result.split(',')[1]); };
-      reader.read¿sDataURL(selectedFile);
+      reader.readAsDataURL(selectedFile);
     });
     setStep('step1','done'); setStep('step2','active');
 
@@ -1443,23 +1443,23 @@ async function uploadComprobante(tipo) {
       document.getElementById('result-ui').innerHTML =
         '<div class="result-success" style="background:#F3E5F5;border-color:#CE93D8;">' +
           '<div class="result-success-icon">🧪</div>' +
-          '<div class="result-success-title" style="color:#6¿1B9¿;">MODO PRUEB¿ — Sin registrar en SIG¿</div>' +
+          '<div class="result-success-title" style="color:#6A1B9A;">MODO PRUEBA — Sin registrar en SIGA</div>' +
           '<div class="result-data">' +
             '<div class="result-data-row"><span class="result-data-label">Monto</span><span class="result-data-val">'+fmt(d.monto||0)+'</span></div>' +
             '<div class="result-data-row"><span class="result-data-label">Fecha</span><span class="result-data-val">'+(d.fecha||'—')+'</span></div>' +
             '<div class="result-data-row"><span class="result-data-label">Banco</span><span class="result-data-val">'+(d.banco||'—')+'</span></div>' +
             '<div class="result-data-row"><span class="result-data-label">Remitente</span><span class="result-data-val">'+(d.remitente||'—')+'</span></div>' +
-            '<div class="result-data-row"><span class="result-data-label">Score I¿</span><span class="result-data-val">'+(d.score||0)+'%</span></div>' +
+            '<div class="result-data-row"><span class="result-data-label">Score IA</span><span class="result-data-val">'+(d.score||0)+'%</span></div>' +
             '<div class="result-data-row"><span class="result-data-label">Decisión</span><span class="result-data-val">'+(d.decision||'—')+'</span></div>' +
             '<div class="result-data-row"><span class="result-data-label">Duplicado</span><span class="result-data-val">'+(d.isDuplicate?'⚠️ SÍ':'✅ No')+'</span></div>' +
-            '<div class="result-data-row"><span class="result-data-label">N° alterno</span><span class="result-data-val">'+(d.is¿lternate?'⚠️ SÍ':'✅ No')+'</span></div>' +
+            '<div class="result-data-row"><span class="result-data-label">N° alterno</span><span class="result-data-val">'+(d.isAlternate?'⚠️ SÍ':'✅ No')+'</span></div>' +
           '</div>' +
-          '<div style="font-size:10px;color:#6¿1B9¿;margin-top:8px;text-align:center;">Imagen guardada en Drive: <a href="'+result.driveLink+'" target="_blank" style="color:#6¿1B9¿;">ver</a></div>' +
+          '<div style="font-size:10px;color:#6A1B9A;margin-top:8px;text-align:center;">Imagen guardada en Drive: <a href="'+result.driveLink+'" target="_blank" style="color:#6A1B9A;">ver</a></div>' +
         '</div>';
 
-    } else if (result.status === '¿PROB¿DO') {
+    } else if (result.status === 'APROBADO') {
       setStep('step5','done');
-      var altWarn = result.is¿lternate ? '<div class="result-alternate-warning" style="display:block;">⚠️ Pago recibido en número alterno (8382-3869)</div>' : '';
+      var altWarn = result.isAlternate ? '<div class="result-alternate-warning" style="display:block;">⚠️ Pago recibido en número alterno (8382-3869)</div>' : '';
       document.getElementById('result-ui').innerHTML =
         '<div class="result-success">' +
           '<div class="result-success-icon">✅</div>' +
@@ -1468,7 +1468,7 @@ async function uploadComprobante(tipo) {
             '<div class="result-data-row"><span class="result-data-label">Monto</span><span class="result-data-val">'+fmt(result.datos.monto)+'</span></div>' +
             '<div class="result-data-row"><span class="result-data-label">Fecha</span><span class="result-data-val">'+result.datos.fecha+'</span></div>' +
             '<div class="result-data-row"><span class="result-data-label">Banco</span><span class="result-data-val">'+result.datos.banco+'</span></div>' +
-            '<div class="result-data-row"><span class="result-data-label">Score I¿</span><span class="result-data-val">'+result.datos.score+'%</span></div>' +
+            '<div class="result-data-row"><span class="result-data-label">Score IA</span><span class="result-data-val">'+result.datos.score+'%</span></div>' +
           '</div>' +
           altWarn +
         '</div>';
@@ -1487,8 +1487,8 @@ async function uploadComprobante(tipo) {
       var errMsg = result.razon || result.message || result.error || JSON.stringify(result);
       document.getElementById('result-ui').innerHTML =
         '<div class="result-error">' +
-          '<div style="font-size:24px;margin-bottom:4px;">' + (result.status === 'RECH¿Z¿DO' ? '❌' : '⚠️') + '</div>' +
-          '<div style="font-size:12px;font-weight:700;color:#C62828;">' + (result.status === 'RECH¿Z¿DO' ? 'Comprobante rechazado' : 'Error') + '</div>' +
+          '<div style="font-size:24px;margin-bottom:4px;">' + (result.status === 'RECHAZADO' ? '❌' : '⚠️') + '</div>' +
+          '<div style="font-size:12px;font-weight:700;color:#C62828;">' + (result.status === 'RECHAZADO' ? 'Comprobante rechazado' : 'Error') + '</div>' +
           '<div style="font-size:11px;color:#C62828;margin-top:4px;">'+errMsg+'</div>' +
         '</div>';
       console.log('Upload result:', JSON.stringify(result));
@@ -1507,12 +1507,12 @@ async function uploadComprobante(tipo) {
 }
 
 // ══════════════════════════════════════════════════════════════
-//  ¿DMIN ¿CTIONS
+//  ADMIN ACTIONS
 // ══════════════════════════════════════════════════════════════
 function saveComment() {
-  if (!is¿dminMode || !activeStudent) return;
+  if (!isAdminMode || !activeStudent) return;
   var text = document.getElementById('m-comment-textarea').value;
-  showJustify('Guardar observación', '¿Confirmar guardar esta observación?', function(justif) {
+  showJustify('Guardar observación', 'AConfirmar guardar esta observación?', function(justif) {
     callScript({action:'saveComment', studentNum:activeStudent.num, comentario:text, adminEmail:adminUser.email}).then(function(res){
       if (res.ok) {
         activeStudent.comentario = text;
@@ -1541,8 +1541,8 @@ function editRubro(rubroKey, rubroLabel) {
   };
   
   // Rellenar los campos del modal
-  document.getElementById('editRubroTitle').textContent = '¿justar: ' + rubroLabel;
-  document.getElementById('editRubroSub').textContent = '¿juste para Estudiante #' + activeStudent.num + ': ' + activeStudent.nombre;
+  document.getElementById('editRubroTitle').textContent = 'Ajustar: ' + rubroLabel;
+  document.getElementById('editRubroSub').textContent = 'Ajuste para Estudiante #' + activeStudent.num + ': ' + activeStudent.nombre;
   
   document.getElementById('editRubroParticipa').checked = detail.participa;
   document.getElementById('editRubroMonto').value = detail.precioOverride !== null ? detail.precioOverride : detail.precioBase;
@@ -1551,12 +1551,12 @@ function editRubro(rubroKey, rubroLabel) {
   document.getElementById('editRubroJustificacion').value = '';
   
   // Ocultar/mostrar talla si no aplica (solo aplica a camisas o vestuario)
-  const isTalla¿pplies = rubroKey.toLowerCase().includes('camisa') || rubroKey.toLowerCase().includes('vest') || rubroLabel.toLowerCase().includes('camisa') || rubroLabel.toLowerCase().includes('vest');
-  document.getElementById('editRubroTallaWrap').style.display = isTalla¿pplies ? 'flex' : 'none';
+  const isTallaApplies = rubroKey.toLowerCase().includes('camisa') || rubroKey.toLowerCase().includes('vest') || rubroLabel.toLowerCase().includes('camisa') || rubroLabel.toLowerCase().includes('vest');
+  document.getElementById('editRubroTallaWrap').style.display = isTallaApplies ? 'flex' : 'none';
   
   toggleEditRubroFields();
   
-  // ¿brir modal
+  // Abrir modal
   document.getElementById('editRubroOverlay').style.display = 'flex';
 }
 
@@ -1602,8 +1602,8 @@ async function submitEditRubro() {
       justificacion: justificacion,
       adminEmail: adminUser.email,
       seccion: currentSeccion,
-      año: Number(current¿nio),
-      actividadId: current¿ctividadId
+      año: Number(currentAnio),
+      actividadId: currentActividadId
     });
     
     if (res.ok) {
@@ -1622,7 +1622,7 @@ async function submitEditRubro() {
 }
 
 function revertPayment(btn) {
-  if (!is¿dminMode) return;
+  if (!isAdminMode) return;
   var studentNum  = btn.dataset.num;
   var abonoIndex  = btn.dataset.idx;
   var driveLink   = btn.dataset.link;
@@ -1634,9 +1634,9 @@ function revertPayment(btn) {
 }
 
 // ══════════════════════════════════════════════════════════════
-//  ¿DMIN P¿NEL
+//  ADMIN PANEL
 // ══════════════════════════════════════════════════════════════
-async function open¿dminPanel() {
+async function openAdminPanel() {
   document.getElementById('adminPanelOverlay').classList.add('open');
   document.body.style.overflow = 'hidden';
   if (adminUser && adminUser.rol === 'docente') {
@@ -1652,10 +1652,10 @@ async function open¿dminPanel() {
   }
   await loadPending();
 }
-function close¿dminPanel(){document.getElementById('adminPanelOverlay').classList.remove('open');document.body.style.overflow='';}
+function closeAdminPanel(){document.getElementById('adminPanelOverlay').classList.remove('open');document.body.style.overflow='';}
 
-function set¿dminTab(tab) {
-  current¿dminTab = tab;
+function setAdminTab(tab) {
+  currentAdminTab = tab;
   var tabs = ['pending', 'history', 'reports', 'rejected', 'egresos', 'bulk', 'milestones', 'assistant', 'settings'];
   tabs.forEach(function(t) {
     var el = document.getElementById('atab-' + t);
@@ -1666,25 +1666,25 @@ function set¿dminTab(tab) {
   if (tab==='history')  loadHistory();
   if (tab==='reports')  renderReports();
   if (tab==='rejected') loadRejected();
-  if (tab==='egresos')  loadEgresos¿dmin();
-  if (tab==='milestones') loadMilestones¿dmin();
+  if (tab==='egresos')  loadEgresosAdmin();
+  if (tab==='milestones') loadMilestonesAdmin();
   if (tab==='settings') loadSettingsData();
 }
 
 function changeSeccion(val) {
   currentSeccion = val;
   localStorage.setItem('saga_seccion', val);
-  load¿ctivities();
+  loadActivities();
 }
 
-function change¿nio(val) {
-  current¿nio = val;
+function changeAnio(val) {
+  currentAnio = val;
   localStorage.setItem('saga_año', val);
-  load¿ctivities();
+  loadActivities();
 }
 
-function change¿ctividad(val) {
-  current¿ctividadId = val;
+function changeActividad(val) {
+  currentActividadId = val;
   localStorage.setItem('siga_actividad_id', val);
   loadData();
 }
@@ -1705,7 +1705,7 @@ async function loadConfig() {
         seccionSelect.appendChild(opt);
       });
       
-      const añoSelect = document.getElementById('saga¿nioSelect');
+      const añoSelect = document.getElementById('sagaAnioSelect');
       añoSelect.innerHTML = '';
       data.years.forEach(yr => {
         const opt = document.createElement('option');
@@ -1718,28 +1718,28 @@ async function loadConfig() {
         currentSeccion = data.sections[0] || '1-1';
         localStorage.setItem('saga_seccion', currentSeccion);
       }
-      if (!data.years.includes(parseInt(current¿nio))) {
-        current¿nio = String(data.years[0] || '2026');
-        localStorage.setItem('saga_año', current¿nio);
+      if (!data.years.includes(parseInt(currentAnio))) {
+        currentAnio = String(data.years[0] || '2026');
+        localStorage.setItem('saga_año', currentAnio);
       }
 
       seccionSelect.value = currentSeccion;
-      añoSelect.value = current¿nio;
+      añoSelect.value = currentAnio;
     }
   } catch (err) {
     console.error('Error al cargar la configuración dinámica:', err);
   }
-  await load¿ctivities();
+  await loadActivities();
 }
 
-async function load¿ctivities() {
+async function loadActivities() {
     const seccion = document.getElementById('seccionSelect').value;
     const anio = document.getElementById('anioSelect').value;
     if (!seccion || !anio) return;
 
     try {
         const res = await fetch(`${SCRIPT_URL}/api/activities?seccion=${seccion}&anio=${anio}`, {
-            headers: window.adminEmail ? { '¿uthorization': `Bearer ${localStorage.getItem('siga_jwt')}` } : {}
+            headers: window.adminEmail ? { 'Authorization': `Bearer ${localStorage.getItem('siga_jwt')}` } : {}
         });
         const data = await res.json();
         
@@ -1747,45 +1747,45 @@ async function load¿ctivities() {
         activitySelect.innerHTML = '';
         
         if (data.ok && data.activities && data.activities.length > 0) {
-            const active¿cts = data.activities.filter(a => a.activa !== false);
-            active¿cts.sort((a, b) => {
+            const activeActs = data.activities.filter(a => a.activa !== false);
+            activeActs.sort((a, b) => {
                 if (!a.fecha_limite_pago) return 1;
                 if (!b.fecha_limite_pago) return -1;
                 return new Date(a.fecha_limite_pago) - new Date(b.fecha_limite_pago);
             });
-            const default¿ct = active¿cts.length > 0 ? active¿cts[0] : data.activities[data.activities.length - 1];
+            const defaultAct = activeActs.length > 0 ? activeActs[0] : data.activities[data.activities.length - 1];
 
             data.activities.forEach(act => {
                 const option = document.createElement('option');
                 option.value = act.id;
-                let estado = act.activa === false ? ' (CERR¿D¿)' : '';
+                let estado = act.activa === false ? ' (CERRADA)' : '';
                 option.textContent = act.nombre + estado;
-                if (act.id === default¿ct.id) option.selected = true;
+                if (act.id === defaultAct.id) option.selected = true;
                 activitySelect.appendChild(option);
             });
             activitySelect.style.display = 'block';
             
-            const selected¿ctData = data.activities.find(a => a.id === activitySelect.value);
+            const selectedActData = data.activities.find(a => a.id === activitySelect.value);
             const badgeCerrado = document.getElementById('badgeCerrado');
             if (badgeCerrado) {
-                if (selected¿ctData && selected¿ctData.activa === false) {
+                if (selectedActData && selectedActData.activa === false) {
                     badgeCerrado.style.display = 'inline-block';
-                    window.current¿ctivityIsReadonly = true;
+                    window.currentActivityIsReadonly = true;
                 } else {
                     badgeCerrado.style.display = 'none';
-                    window.current¿ctivityIsReadonly = false;
+                    window.currentActivityIsReadonly = false;
                 }
             }
             
             if (document.getElementById('settings').style.display === 'block') {
-                if(typeof render¿ctivityCards === 'function') render¿ctivityCards(data.activities);
+                if(typeof renderActivityCards === 'function') renderActivityCards(data.activities);
             }
             loadData();
         } else {
             activitySelect.style.display = 'none';
             document.getElementById('studentsGrid').innerHTML = '<div class="col-12 text-center text-muted">No hay actividades creadas.</div>';
             if (document.getElementById('settings').style.display === 'block') {
-                if(typeof render¿ctivityCards === 'function') render¿ctivityCards([]);
+                if(typeof renderActivityCards === 'function') renderActivityCards([]);
             }
         }
     } catch (e) {
@@ -1830,22 +1830,22 @@ async function submitLogin() {
   }
 }
 
-// Interceptor to add ¿uthorization header to fetch calls
+// Interceptor to add Authorization header to fetch calls
 const originalFetch = window.fetch;
 window.fetch = async function() {
   let [resource, config] = arguments;
   
   // Solamente inyectar en rutas administrativas (e.g., que no sean /upload o /config o /data)
   // O en general a todo lo que vaya a /api/
-  const is¿piCall = typeof resource === 'string' && resource.includes('/api/');
+  const isApiCall = typeof resource === 'string' && resource.includes('/api/');
   const isPublicRoute = typeof resource === 'string' && (resource.includes('/upload') || resource.includes('/login') || resource.includes('/config') || resource.endsWith('/data') || resource.includes('/activities'));
   
-  if (is¿piCall && !isPublicRoute) {
+  if (isApiCall && !isPublicRoute) {
     const token = localStorage.getItem('siga_jwt');
     if (token) {
       if (!config) config = {};
       if (!config.headers) config.headers = {};
-      config.headers['¿uthorization'] = 'Bearer ' + token;
+      config.headers['Authorization'] = 'Bearer ' + token;
     }
   }
   return await originalFetch(resource, config);
@@ -1869,7 +1869,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
-function render¿ctivityCards(activities) {
+function renderActivityCards(activities) {
     const container = document.getElementById('activityCardsContainer');
     if (!container) return;
     container.innerHTML = '';
@@ -1882,7 +1882,7 @@ function render¿ctivityCards(activities) {
     activities.forEach(act => {
         const isClosed = act.activa === false;
         const color = isClosed ? 'danger' : 'success';
-        const stateText = isClosed ? 'CERR¿DO' : '¿CTIVO';
+        const stateText = isClosed ? 'CERRADO' : 'ACTIVO';
         
         const card = document.createElement('div');
         card.className = 'col-md-6 col-lg-4 mb-3';
@@ -1892,15 +1892,15 @@ function render¿ctivityCards(activities) {
                     <h5 class="card-title">${act.nombre}</h5>
                     <span class="badge bg-${color} mb-2">${stateText}</span>
                     <p class="card-text text-muted small mb-1">
-                        <i class="fas fa-calendar-alt"></i> ¿ctividad: ${act.fecha_actividad || 'No definida'}<br>
+                        <i class="fas fa-calendar-alt"></i> Actividad: ${act.fecha_actividad || 'No definida'}<br>
                         <i class="fas fa-clock"></i> Límite de pago: ${act.fecha_limite_pago || 'No definida'}
                     </p>
                 </div>
                 <div class="card-footer bg-transparent border-0 d-flex justify-content-between align-items-center">
-                    <button class="btn btn-sm btn-outline-primary" onclick="edit¿ctivity('${act.id}')"><i class="fas fa-edit"></i> Editar</button>
+                    <button class="btn btn-sm btn-outline-primary" onclick="editActivity('${act.id}')"><i class="fas fa-edit"></i> Editar</button>
                     <div class="form-check form-switch">
-                        <input class="form-check-input" type="checkbox" role="switch" id="toggle¿ct_${act.id}" ${!isClosed ? 'checked' : ''} onchange="toggle¿ctivityStatus('${act.id}', this.checked)">
-                        <label class="form-check-label" for="toggle¿ct_${act.id}">¿ctivo</label>
+                        <input class="form-check-input" type="checkbox" role="switch" id="toggleAct_${act.id}" ${!isClosed ? 'checked' : ''} onchange="toggleActivityStatus('${act.id}', this.checked)">
+                        <label class="form-check-label" for="toggleAct_${act.id}">Activo</label>
                     </div>
                 </div>
             </div>
@@ -1909,12 +1909,12 @@ function render¿ctivityCards(activities) {
     });
 }
 
-async function edit¿ctivity(id) {
+async function editActivity(id) {
     const seccion = document.getElementById('seccionSelect').value;
     const anio = document.getElementById('anioSelect').value;
     
     const res = await fetch(`${SCRIPT_URL}/api/activities?seccion=${seccion}&anio=${anio}`, {
-        headers: { '¿uthorization': `Bearer ${localStorage.getItem('siga_jwt')}` }
+        headers: { 'Authorization': `Bearer ${localStorage.getItem('siga_jwt')}` }
     });
     const data = await res.json();
     const act = data.activities.find(a => a.id === id);
@@ -1922,7 +1922,7 @@ async function edit¿ctivity(id) {
     
     document.getElementById('activityId').value = act.id;
     document.getElementById('actName').value = act.nombre;
-    document.getElementById('fecha¿ctividad').value = act.fecha_actividad || '';
+    document.getElementById('fechaActividad').value = act.fecha_actividad || '';
     document.getElementById('fechaLimitePago').value = act.fecha_limite_pago || '';
     
     document.getElementById('activityItems').innerHTML = '';
@@ -1941,13 +1941,13 @@ async function edit¿ctivity(id) {
     }
     
     document.getElementById('activityFormContainer').style.display = 'block';
-    document.getElementById('btnShow¿ctivityForm').style.display = 'none';
+    document.getElementById('btnShowActivityForm').style.display = 'none';
 }
 
-async function toggle¿ctivityStatus(id, newState) {
+async function toggleActivityStatus(id, newState) {
     if (!newState) {
         const confirm = await Swal.fire({
-            title: '¿Cerrar actividad?',
+            title: 'ACerrar actividad?',
             text: "Los estudiantes ya no podrán realizar pagos y el evento pasará a modo de solo lectura.",
             icon: 'warning',
             showCancelButton: true,
@@ -1955,7 +1955,7 @@ async function toggle¿ctivityStatus(id, newState) {
             cancelButtonText: 'Cancelar'
         });
         if (!confirm.isConfirmed) {
-            document.getElementById('toggle¿ct_' + id).checked = true;
+            document.getElementById('toggleAct_' + id).checked = true;
             return;
         }
     }
@@ -1970,33 +1970,33 @@ async function toggle¿ctivityStatus(id, newState) {
         };
         const res = await fetch(`${SCRIPT_URL}/api/actividades`, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json', '¿uthorization': `Bearer ${localStorage.getItem('siga_jwt')}` },
+            headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${localStorage.getItem('siga_jwt')}` },
             body: JSON.stringify(payload)
         });
         const data = await res.json();
         if (data.ok) {
-            Swal.fire('Éxito', `¿ctividad ${newState ? 'abierta' : 'cerrada'} correctamente`, 'success');
-            load¿ctivities();
+            Swal.fire('Éxito', `Actividad ${newState ? 'abierta' : 'cerrada'} correctamente`, 'success');
+            loadActivities();
         } else {
             Swal.fire('Error', data.error || 'Error al cambiar estado', 'error');
-            document.getElementById('toggle¿ct_' + id).checked = !newState;
+            document.getElementById('toggleAct_' + id).checked = !newState;
         }
     } catch (e) {
-        document.getElementById('toggle¿ct_' + id).checked = !newState;
+        document.getElementById('toggleAct_' + id).checked = !newState;
     }
 }
 
-function show¿ctivityForm() {
+function showActivityForm() {
     document.getElementById('activityForm').reset();
     document.getElementById('activityId').value = '';
     document.getElementById('activityItems').innerHTML = '';
     document.getElementById('activityFormContainer').style.display = 'block';
-    document.getElementById('btnShow¿ctivityForm').style.display = 'none';
+    document.getElementById('btnShowActivityForm').style.display = 'none';
 }
 
-function hide¿ctivityForm() {
+function hideActivityForm() {
     document.getElementById('activityFormContainer').style.display = 'none';
-    document.getElementById('btnShow¿ctivityForm').style.display = 'inline-block';
+    document.getElementById('btnShowActivityForm').style.display = 'inline-block';
 }
 
 
