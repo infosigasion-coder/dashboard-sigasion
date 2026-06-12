@@ -1714,16 +1714,12 @@ async function loadPending() {
   if (!isAdminMode) return;
   var isReadonly = false || (isAdminMode && adminUser && adminUser.rol === 'docente');
   try {
-    var data = await callScript({
+        var data = await callScript({
       action:'getPending', 
       adminEmail:adminUser.email,
       seccion: currentSeccion,
       actividadId: window._actividad ? window._actividad.id : null,
-      'aÃ±o': parseInt(currentAnio),
-      'a�o': parseInt(currentAnio),
-      'a?o': parseInt(currentAnio),
-      año: parseInt(currentAnio),
-      ao: parseInt(currentAnio)
+      ['a\u00f1o']: parseInt(currentAnio)
     });
     if (!data.ok) return;
 
