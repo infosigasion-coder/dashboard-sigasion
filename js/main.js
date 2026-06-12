@@ -149,35 +149,51 @@ async function handleGoogleSignIn(response) {
   const payload = parseJwt(response.credential);
   const email = payload.email;
   
-  // El backend ahora exige contraseña, por lo que bloquea Google Auth con un 400.
-  // Ya que Google autenticó correctamente al usuario, forzamos el acceso local.
-  adminUser   = { email: email, name: payload.name, picture: payload.picture, rol: 'admin', seccion: currentSeccion };
-  
-  console.log({
-    message: 'Google Sign-In Exitoso (Local Bypass)',
-    user: { authenticated: true, email: email, name: payload.name }
-  });
-  
-  const fakeToken = btoa('{}') + '.' + btoa(JSON.stringify({ email: email, exp: (Date.now() / 1000) + 3600 })) + '.';
-  localStorage.setItem('siga_jwt', fakeToken);
-  
-  isAdminMode = true;
-  document.body.classList.add('admin-mode');
-  const adminBtn = document.getElementById('adminBtn');
-  if (adminBtn) adminBtn.classList.add('visible');
-  const googleBtn = document.getElementById('googleLoginBtn');
-  if (googleBtn) googleBtn.classList.remove('visible');
-  const adminEmailEl = document.getElementById('adminUserEmail');
-  if (adminEmailEl) adminEmailEl.textContent = email;
-  
-  const seccionSelect = document.getElementById('sagaSeccionSelect');
-  if (seccionSelect) seccionSelect.disabled = false;
-  if (activeStudent) reopenModal(activeStudent.num);
-  
-  closeLoginModal();
-  const updatedBadge = document.getElementById('updatedBadge');
-  if (updatedBadge) updatedBadge.textContent = '✅';
-  loadActivities();
+  try {
+    const res = await fetch(SCRIPT_URL + '/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: email, isGoogle: true })
+    });
+    const result = await res.json();
+    
+    if (result.ok) {
+      adminUser = { 
+        email: result.admin.email, 
+        name: result.admin.nombre, 
+        picture: payload.picture, 
+        rol: result.admin.rol, 
+        seccion: result.admin.seccion,
+        username: result.admin.username
+      };
+      
+      localStorage.setItem('siga_jwt', result.token);
+      
+      isAdminMode = true;
+      document.body.classList.add('admin-mode');
+      const adminBtn = document.getElementById('adminBtn');
+      if (adminBtn) adminBtn.classList.add('visible');
+      
+      const googleBtn = document.getElementById('googleLoginBtn');
+      if (googleBtn) googleBtn.style.display = 'none';
+      
+      const adminEmailEl = document.getElementById('adminUserEmail');
+      if (adminEmailEl) adminEmailEl.textContent = result.admin.nombre + ' (' + (result.admin.username || result.admin.rol) + ')';
+      
+      const seccionSelect = document.getElementById('sagaSeccionSelect');
+      if (seccionSelect) seccionSelect.disabled = false;
+      if (activeStudent) reopenModal(activeStudent.num);
+      
+      closeLoginModal();
+      const updatedBadge = document.getElementById('updatedBadge');
+      if (updatedBadge) updatedBadge.textContent = '✅';
+      loadActivities();
+    } else {
+      alert('Error: ' + result.error);
+    }
+  } catch (err) {
+    alert('Error de conexión: ' + err.message);
+  }
 }
 
 function parseJwt(token) {
@@ -216,7 +232,8 @@ async function submitPasswordLogin() {
     isAdminMode = true;
     document.body.classList.add('admin-mode');
     if(document.getElementById('adminBtn')) document.getElementById('adminBtn').classList.add('visible');
-    if(document.getElementById('googleLoginBtn')) document.getElementById('googleLoginBtn').classList.remove('visible');
+    const googleBtn = document.getElementById('googleLoginBtn');
+    if (googleBtn) googleBtn.style.display = 'none';
     document.getElementById('adminUserEmail').textContent = adminUser.email;
     if(document.getElementById('sagaSeccionSelect')) document.getElementById('sagaSeccionSelect').disabled = false;
     closeLoginModal();
@@ -1478,7 +1495,7 @@ function closeAdminPanel(){document.getElementById('adminPanelOverlay').classLis
 function setAdminTab(tab) {
   if (tab === 'students') { loadStudentsAdmin(); }
   currentAdminTab = tab;
-  var tabs = ['pending', 'history', 'reports', 'rejected', 'egresos', 'bulk', 'milestones', 'assistant', 'settings'];
+  var tabs = ['pending', 'history', 'reports', 'rejected', 'egresos', 'bulk', 'milestones', 'assistant', 'settings', 'students'];
   tabs.forEach(function(t) {
     var el = document.getElementById('atab-' + t);
     if (el) el.classList.toggle('active', t === tab);
@@ -1697,7 +1714,17 @@ async function loadPending() {
   if (!isAdminMode) return;
   var isReadonly = false || (isAdminMode && adminUser && adminUser.rol === 'docente');
   try {
-    var data = await callScript({action:'getPending', adminEmail:adminUser.email});
+    var data = await callScript({
+      action:'getPending', 
+      adminEmail:adminUser.email,
+      seccion: currentSeccion,
+      actividadId: window._actividad ? window._actividad.id : null,
+      'aÃ±o': parseInt(currentAnio),
+      'a�o': parseInt(currentAnio),
+      'a?o': parseInt(currentAnio),
+      año: parseInt(currentAnio),
+      ao: parseInt(currentAnio)
+    });
     if (!data.ok) return;
 
     var pending = data.pending || [];

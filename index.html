@@ -267,17 +267,16 @@
         <div class="admin-tab" onclick="setAdminTab('egresos')" id="atab-egresos" style="padding:8px 12px; font-size:12px;">💸 Egresos</div>
         <div class="admin-tab" onclick="setAdminTab('milestones')" id="atab-milestones" style="padding:8px 12px; font-size:12px; background:#e11d48; color:white;">⏰ Cintillo / Cronograma</div>
         <div class="admin-tab" onclick="setAdminTab('settings')" id="atab-settings" style="padding:8px 12px; font-size:12px; background:#4a148c; color:white;">⚙️ Config. Actividades</div>
+        <div class="admin-tab" onclick="setAdminTab('students')" id="atab-students" style="padding:8px 12px; font-size:12px; background:#10b981; color:white;">🧑‍🎓 Gestión Estudiantes</div>
       </div>
-  
-      <div class="admin-tab" onclick="setAdminTab('students')" id="atab-students" style="padding:8px 12px; font-size:12px; background:#10b981; color:white;">?? GestiA3n Estudiantes</div>
-      </div>
+    </div>
     <div class="admin-panel-body">
       
       <div id="admin-students-view" style="display:none;">
-        <h4 style="color:#10b981;margin-bottom:15px; border-bottom:1px solid #333; padding-bottom:10px;">GestiA3n de Estudiantes</h4>
+        <h4 style="color:#10b981;margin-bottom:15px; border-bottom:1px solid #333; padding-bottom:10px;">Gestión de Estudiantes</h4>
         <div style="display:flex; justify-content:space-between; margin-bottom:15px;">
            <button class="btn" style="background:#10b981;color:white;" onclick="openStudentModal()">+ Nuevo Estudiante</button>
-           <button class="btn btn-secondary" onclick="loadStudentsAdmin()">?? Recargar Lista</button>
+           <button class="btn btn-secondary" onclick="loadStudentsAdmin()">🔄 Recargar Lista</button>
         </div>
         
         <div class="table-responsive">
@@ -285,9 +284,9 @@
             <thead>
               <tr style="background:#222;border-bottom:1px solid #333;">
                 <th style="padding:10px;">#</th>
-                <th style="padding:10px;">Cdula</th>
+                <th style="padding:10px;">Cédula</th>
                 <th style="padding:10px;">Nombre</th>
-                <th style="padding:10px;">Gnero</th>
+                <th style="padding:10px;">Género</th>
                 <th style="padding:10px;">Hermanos</th>
                 <th style="padding:10px;">Nacimiento</th>
                 <th style="padding:10px;text-align:center;">Acciones</th>
@@ -672,5 +671,6 @@
 </div>
 
 </div>
+<script src="js/main.js?v=20260612_1"></script>
 </body>
 </html>
