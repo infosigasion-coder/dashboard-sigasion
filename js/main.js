@@ -145,7 +145,7 @@ updateCountdown();
 // ══════════════════════════════════════════════════════════════
 //  GOOGLE AUTH
 // ══════════════════════════════════════════════════════════════
-async async function handleGoogleSignIn(response) {
+async function handleGoogleSignIn(response) {
     const payload = parseJwt(response.credential);
     const email = payload.email;
     
