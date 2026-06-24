@@ -9,11 +9,10 @@
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 
 
-<link rel='stylesheet' href='./css/main.css?v=2.0.18'>
+<link rel='stylesheet' href='./css/main.css'>
 <script src='https://accounts.google.com/gsi/client' async defer></script>
 <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
-<script src='./js/main.js?v=2.0.18' defer></script>
-  <script src='https://cdn.jsdelivr.net/npm/chart.js'></script>
+<script src='./js/main.js'></script>
 </head>
 <body>
 
@@ -33,7 +32,7 @@
     <div class="logo-wrap" style="display:flex;align-items:center;gap:10px;">
       <div class="logo-icon"><img src="escudo_white.png" alt="Sión" style="height:64px; object-fit:contain; margin-right:8px;"></div>
       <div style="display:flex; flex-direction:column; justify-content:center;">
-        <div class="header-title" style="font-size:20px;font-weight:700;letter-spacing:-0.5px; color:#fff;">Sistema Inteligente de Gestión de Actividades (S.I.G.A.)</div>
+        <div class="header-title" style="font-size:20px;font-weight:700;letter-spacing:-0.5px; white-space:nowrap; color:#fff;">Sistema Inteligente de Gestión de Actividades (S.I.G.A.)</div>
         
       </div>
     </div>
@@ -66,7 +65,7 @@
       </div>
       <div class="filter-group">
         <label>Docente Encargado(a)</label>
-        <div class="saga-select" style="display:flex; align-items:center; min-width:180px; background:rgba(255,255,255,0.05); color:#fff; border:1px solid rgba(255,255,255,0.1); font-weight:600; font-size:13px; height: 36px; box-sizing: border-box; cursor:default;" id="headerDocenteText">
+        <div class="saga-select" style="display:flex; align-items:center; min-width:180px; background:rgba(255,255,255,0.05); color:#fff; border:1px solid rgba(255,255,255,0.1); font-weight:600; font-size:13px; height: 38px; cursor:default;" id="headerDocenteText">
           Cargando...
         </div>
       </div>
@@ -89,7 +88,7 @@
         ⚙️ Admin
         <span class="admin-badge-count" id="adminBadgeCount" style="display:none;">0</span>
       </button>
-      <button class="google-login-btn" id="googleLoginBtn" onclick="openLoginModal()" style="display:flex; align-items:center; gap:6px; background:#3b82f6; color:#fff; font-weight:600; padding:0 16px; height:36px; box-sizing:border-box; border-radius:8px; border:none; cursor:pointer; box-shadow:0 4px 6px -1px rgba(0,0,0,0.1); transition:all 0.2s ease; margin-left:8px;">
+      <button class="google-login-btn" id="googleLoginBtn" onclick="openLoginModal()" style="display:flex; align-items:center; gap:6px; background:#3b82f6; color:#fff; font-weight:600; padding:8px 16px; border-radius:8px; border:none; cursor:pointer; box-shadow:0 4px 6px -1px rgba(0,0,0,0.1); transition:all 0.2s ease; margin-left:8px;">
         <span style="font-size:16px;">🔐</span>
         <span>Acceso Admin</span>
       </button>
@@ -265,40 +264,11 @@
         <div class="admin-tab" onclick="setAdminTab('reports')" id="atab-reports" style="padding:8px 12px; font-size:12px;">📊 Resumen/Ingresos</div>
         <div class="admin-tab" onclick="setAdminTab('rejected')" id="atab-rejected" style="padding:8px 12px; font-size:12px;">❌ Rechazados</div>
         <div class="admin-tab" onclick="setAdminTab('egresos')" id="atab-egresos" style="padding:8px 12px; font-size:12px;">💸 Egresos</div>
-        <div class="admin-tab" onclick="setAdminTab('milestones')" id="atab-milestones" style="padding:8px 12px; font-size:12px; background:#e11d48; color:white;">⏰ Cintillo / Cronograma</div>
         <div class="admin-tab" onclick="setAdminTab('settings')" id="atab-settings" style="padding:8px 12px; font-size:12px; background:#4a148c; color:white;">⚙️ Config. Actividades</div>
-        <div class="admin-tab" onclick="setAdminTab('students')" id="atab-students" style="padding:8px 12px; font-size:12px; background:#10b981; color:white;">🧑‍🎓 Gestión Estudiantes</div>
       </div>
+  
     </div>
     <div class="admin-panel-body">
-      
-      <div id="admin-students-view" style="display:none;">
-        <h4 style="color:#10b981;margin-bottom:15px; border-bottom:1px solid #333; padding-bottom:10px;">Gestión de Estudiantes</h4>
-        <div style="display:flex; justify-content:space-between; margin-bottom:15px;">
-           <button class="btn" style="background:#10b981;color:white;" onclick="openStudentModal()">+ Nuevo Estudiante</button>
-           <button class="btn btn-secondary" onclick="loadStudentsAdmin()">🔄 Recargar Lista</button>
-        </div>
-        
-        <div class="table-responsive">
-          <table style="width:100%;border-collapse:collapse;color:#333;font-size:12px;text-align:left;">
-            <thead>
-              <tr style="background:#222;border-bottom:1px solid #333;">
-                <th style="padding:10px;">#</th>
-                <th style="padding:10px;">Cédula</th>
-                <th style="padding:10px;">Nombre</th>
-                <th style="padding:10px;">Género</th>
-                <th style="padding:10px;">Hermanos</th>
-                <th style="padding:10px;">Nacimiento</th>
-                <th style="padding:10px;text-align:center;">Acciones</th>
-              </tr>
-            </thead>
-            <tbody id="adminStudentsTbody">
-              <tr><td colspan="7" style="text-align:center;padding:15px;">Cargando estudiantes...</td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-
       <div id="admin-pending-view">
         <div id="auto-approved-section"></div>
         <div id="pending-list"><div class="admin-loading"><div class="admin-dots"><span></span><span></span><span></span></div></div></div>
@@ -341,8 +311,8 @@
           <textarea id="bulkImportText" placeholder="Ejemplo de formato:&#10;1	Alvarado Guevara, Miguel	niño	no&#10;2	Mora, María	niña	sí" style="width:100%;height:150px;background:#151515;color:#fff;border:1px solid #333;border-radius:6px;padding:10px;font-family:monospace;font-size:12px;outline:none;resize:vertical;"></textarea>
         </div>
         <div style="display:flex;gap:10px;margin-bottom:20px;">
-          <button class="btn btn-success" onclick="parseBulkStudents()" style="background:#28a745;color:#fff;padding:0 16px; height:36px; box-sizing:border-box;border:none;border-radius:6px;cursor:pointer;font-weight:bold;font-size:13px;">👁️ Procesar Lista</button>
-          <button class="btn btn-secondary" onclick="document.getElementById('bulkImportText').value=''; document.getElementById('bulkPreviewContainer').style.display='none';" style="background:#555;color:#fff;padding:0 16px; height:36px; box-sizing:border-box;border:none;border-radius:6px;cursor:pointer;font-weight:bold;font-size:13px;">Limpiar</button>
+          <button class="btn btn-success" onclick="parseBulkStudents()" style="background:#28a745;color:#fff;padding:8px 16px;border:none;border-radius:6px;cursor:pointer;font-weight:bold;font-size:13px;">👁️ Procesar Lista</button>
+          <button class="btn btn-secondary" onclick="document.getElementById('bulkImportText').value=''; document.getElementById('bulkPreviewContainer').style.display='none';" style="background:#555;color:#fff;padding:8px 16px;border:none;border-radius:6px;cursor:pointer;font-weight:bold;font-size:13px;">Limpiar</button>
         </div>
         
         <div id="bulkPreviewContainer" style="display:none;">
@@ -371,7 +341,7 @@
           Configura los hitos y fechas límite de cuenta regresiva para esta actividad. Si la lista está vacía o todos los hitos están en el pasado, el cintillo rojo se ocultará automáticamente.
         </p>
         <div id="milestonesEditorContainer" style="display:flex;flex-direction:column;gap:10px;margin-bottom:20px;"></div>
-        <button class="btn-main" onclick="addMilestoneRow()" style="background:#0f172a;color:#fff;border:none;border-radius:10px;padding:0 16px; height:36px; box-sizing:border-box;cursor:pointer;font-weight:bold;font-size:13px;display:inline-flex;align-items:center;gap:6px;min-height:auto;width:auto;margin-bottom:20px;">➕ Agregar Hito</button>
+        <button class="btn-main" onclick="addMilestoneRow()" style="background:#0f172a;color:#fff;border:none;border-radius:10px;padding:8px 16px;cursor:pointer;font-weight:bold;font-size:13px;display:inline-flex;align-items:center;gap:6px;min-height:auto;width:auto;margin-bottom:20px;">➕ Agregar Hito</button>
         <button class="btn-main" onclick="saveMilestones()" style="background:#10b981;color:#fff;border:none;border-radius:10px;padding:12px;cursor:pointer;font-weight:bold;font-size:14px;width:100%;">💾 Guardar Cambios en Base de Datos</button>
       </div>
       
@@ -603,7 +573,7 @@
 <!-- GOOGLE SIGN IN -->
 <div id="g_id_onload"
      data-client_id="788989901068-hs787j085opuvmocifqt4jcgtuum5vmd.apps.googleusercontent.com"
-     
+     data-callback="handleGoogleSión"
      data-auto_prompt="false">
 </div>
 
@@ -651,111 +621,6 @@
 </div>
 
 
-
-  <!-- MODAL ESTUDIANTE -->
-  <div class="modal-overlay" id="studentModal" style="display:none; z-index:9999;">
-    <div class="modal-content" style="max-width:500px;">
-      <div class="modal-header">
-        <h3 id="studentModalTitle" style="color:#10b981;">Añadir Estudiante</h3>
-        <button class="btn btn-secondary" onclick="closeStudentModal()">X</button>
-      </div>
-      <div class="modal-body">
-        <input type="hidden" id="studId">
-        <div class="form-group">
-          <label>Nombre Completo (Apellidos y Nombres)</label>
-          <input type="text" id="studNombre" class="form-control" placeholder="Ej. Márquez Báker María Jesús" required>
-        </div>
-        <div style="display:flex; gap:10px;">
-          <div class="form-group" style="flex:1;">
-            <label>Cédula</label>
-            <input type="text" id="studCedula" class="form-control" placeholder="Ej. 1-1234-5678">
-          </div>
-          <div class="form-group" style="flex:1;">
-            <label>Fecha Nacimiento</label>
-            <input type="date" id="studNacimiento" class="form-control">
-          </div>
-        </div>
-        <div style="display:flex; gap:10px;">
-          <div class="form-group" style="flex:1;">
-            <label>Género</label>
-            <select id="studGenero" class="form-control">
-              <option value="Niño">Niño (Varón)</option>
-              <option value="Niña">Niña (Mujer)</option>
-            </select>
-          </div>
-          <div class="form-group" style="flex:1; display:flex; align-items:center; justify-content:center; gap:10px; padding-top:20px;">
-            <input type="checkbox" id="studHermano" style="width:20px;height:20px;">
-            <label for="studHermano" style="margin:0;cursor:pointer;">👦👧 Tiene Hermano(s)</label>
-          </div>
-        </div>
-        <div class="form-group">
-          <label>Nombre del Padre</label>
-          <input type="text" id="studPadre" class="form-control">
-        </div>
-        <div class="form-group">
-          <label>Nombre de la Madre</label>
-          <input type="text" id="studMadre" class="form-control">
-        </div>
-      </div>
-      <div class="modal-footer" style="display:flex; justify-content:space-between; width:100%;">
-        
-        <div style="display:flex; gap:10px;">
-          <button class="btn btn-secondary" onclick="closeStudentModal()">Cancelar</button>
-          <button class="btn btn-success" style="background:#10b981;" onclick="saveStudent()">Guardar</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-
-  <!-- MODAL CUOTA ESPECIAL -->
-  <div class="modal-overlay" id="cuotaModal" style="display:none; z-index:9999;">
-    <div class="modal-content" style="max-width:450px;">
-      <div class="modal-header">
-        <h3 style="color:#f59e0b;">⭐ Cuota Especial</h3>
-        <button class="btn btn-secondary" onclick="closeCuotaModal()">X</button>
-      </div>
-      <div class="modal-body">
-        <input type="hidden" id="cuotaEstId">
-        <p style="margin-bottom:15px; font-size:14px; color:#aaa;">Configurando cuota de <strong id="cuotaEstName" style="color:#fff;"></strong> para la actividad actual.</p>
-        
-        <div style="background:#222; padding:15px; border-radius:8px; border:1px solid #333; margin-bottom:15px;">
-           <div style="display:flex; justify-content:space-between; align-items:center;">
-             <label style="margin:0; font-weight:bold;">Estado de Participación</label>
-             <label class="toggle-switch" style="display:flex;align-items:center;gap:10px;cursor:pointer;">
-                <input type="checkbox" id="cuotaParticipa" onchange="toggleCuotaFields()" checked style="width:18px;height:18px;">
-                <span id="cuotaParticipaLabel" style="color:#10b981;font-weight:bold;">Sí Participa</span>
-             </label>
-           </div>
-           <p style="font-size:12px; color:#888; margin-top:5px;">Si desmarcas esta opción, el estudiante quedará exento de la cuota.</p>
-        </div>
-
-        <div id="cuotaFields">
-           <div class="form-group">
-             <label>Monto Personalizado (Opcional)</label>
-             <input type="number" id="cuotaMonto" class="form-control" placeholder="Ej. 15000 (dejar vacío para usar rubros)">
-             <small style="color:#888;">Si ingresas un monto aquí, ignorará el desglose compuesto.</small>
-           </div>
-           
-           <div class="form-group" id="cuotaRubrosContainer" style="display:none; border-top:1px solid #333; padding-top:15px; margin-top:10px;">
-             <label>Ajuste de Rubros (Desglose)</label>
-             <div id="cuotaRubrosList"></div>
-           </div>
-        </div>
-
-        <div class="form-group" style="margin-top:15px;">
-          <label>Motivo / Observación</label>
-          <input type="text" id="cuotaMotivo" class="form-control" placeholder="Ej. Pago doble por excepción">
-        </div>
-
-      </div>
-      <div class="modal-footer">
-        <button class="btn btn-secondary" onclick="closeCuotaModal()">Cancelar</button>
-        <button class="btn btn-success" style="background:#f59e0b;" onclick="saveCuotaEspecial()">Guardar Cuota</button>
-      </div>
-    </div>
-  </div>
-
 <!-- SAGA LOGIN MODAL -->
 <div class="modal-overlay" id="loginModal" style="display:none; z-index:9999;">
   <div class="modal-content" style="max-width: 350px;">
@@ -776,6 +641,5 @@
 </div>
 
 </div>
-<script src="js/main.js?v=20260612_1"></script>
 </body>
 </html>

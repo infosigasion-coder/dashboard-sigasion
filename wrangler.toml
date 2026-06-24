@@ -1,0 +1,18 @@
+name = "saga-backend"
+main = "worker.js"
+compatibility_date = "2024-01-01"
+
+[vars]
+# Dirección URL de tu proyecto de Supabase (cambiar por la tuya cuando la crees)
+SUPABASE_URL = "https://xzrpslgdhekqnyyurjjo.supabase.co"
+
+# Clave pública anónima de Supabase
+SUPABASE_ANON_KEY = "sb_publishable_kdYWJC_lUktAgrmf2JMKow_npUSZ1Yg"
+
+# NOTA DE SEGURIDAD:
+# Las claves secretas que no deben ser públicas (como CLAUDE_API_KEY, TELEGRAM_TOKEN
+# y SUPABASE_SERVICE_ROLE_KEY) se subirán a Cloudflare usando comandos seguros de terminal
+# (wrangler secret put KEY_NAME) en lugar de escribirse en este archivo de texto.
+
+[triggers]
+crons = ["0 8 * * *"] # Ejecutar keep-alive todos los días a las 8:00 AM UTC
