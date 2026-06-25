@@ -3618,7 +3618,7 @@ function renderAdminStudents() {
       <td style="padding:10px; color:#aaa;">${index + 1}</td>
       <td style="padding:10px;">${st.cedula || '-'}</td>
       <td style="padding:10px; font-weight:bold;">${st.nombre}</td>
-      <td style="padding:10px;">${genLabel}</td>
+      <td style="padding:10px; white-space:nowrap;">${genLabel}</td>
       <td style="padding:10px;">${hermLabel}</td>
       <td style="padding:10px;">${st.fechaNacimiento || '-'}</td>
       <td style="padding:10px; text-align:center;">
