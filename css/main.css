@@ -921,3 +921,18 @@ body{display:flex;flex-direction:column;margin:0;font-family:"DM Sans",sans-seri
 }
 /* Hide the old header */
 .header { display: none !important; }
+
+/* FIXES APLICADOS */
+.swal-high-zindex {
+  z-index: 999999 !important;
+}
+
+#adminStudentsTbody td {
+  white-space: nowrap;
+}
+
+#adminStudentsTbody .btn-sm {
+  min-width: 65px;
+  display: inline-block;
+  text-align: center;
+}
