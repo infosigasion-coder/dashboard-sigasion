@@ -655,15 +655,15 @@ function addSettingsRubroRow(nombre = '', precioNino = '', precioNina = '', desc
   const row = document.createElement('div');
   row.className = 'settings-rubro-row';
   row.style = 'display:grid; grid-template-columns:1fr 1fr; gap:8px; background:#f8fafc; padding:12px; border-radius:8px; border:1px solid #e2e8f0; margin-bottom:8px; position:relative;';
-  row.innerHTML = 
+  row.innerHTML = `
     <input type="text" class="sr-nombre" placeholder="Concepto (ej. Mensualidad)" value="${nombre}" style="grid-column:1 / span 2; padding:8px; border-radius:6px; border:1px solid #cbd5e1; font-size:13px;" required>
-    <input type="number" class="sr-nino" placeholder="Costo Niño ¢" value="${precioNino}" style="padding:8px; border-radius:6px; border:1px solid #cbd5e1; font-size:13px;" required>
-    <input type="number" class="sr-nina" placeholder="Costo Niña ¢" value="${precioNina}" style="padding:8px; border-radius:6px; border:1px solid #cbd5e1; font-size:13px;" required>
+    <input type="number" class="sr-nino" placeholder="Costo Niï¿½o ï¿½" value="${precioNino}" style="padding:8px; border-radius:6px; border:1px solid #cbd5e1; font-size:13px;" required>
+    <input type="number" class="sr-nina" placeholder="Costo Niï¿½a ï¿½" value="${precioNina}" style="padding:8px; border-radius:6px; border:1px solid #cbd5e1; font-size:13px;" required>
     <div style="display:flex; gap:8px; grid-column:1 / span 2;">
-      <input type="number" class="sr-desc" placeholder="Descuento Hermano ¢" value="${descuentoHermano}" style="flex:1; padding:8px; border-radius:6px; border:1px solid #cbd5e1; font-size:13px;">
+      <input type="number" class="sr-desc" placeholder="Descuento Hermano ï¿½" value="${descuentoHermano}" style="flex:1; padding:8px; border-radius:6px; border:1px solid #cbd5e1; font-size:13px;">
       <button type="button" class="btn-del" onclick="this.closest('.settings-rubro-row').remove()" style="background:#fee2e2; color:#ef4444; border:none; width:36px; height:36px; border-radius:6px; cursor:pointer; display:flex; align-items:center; justify-content:center; flex-shrink:0;">X</button>
     </div>
-  ;
+  `;
   container.appendChild(row);
 }
 
@@ -3876,11 +3876,11 @@ async function loadSeccionesForEdit() {
     const json = await res.json();
     if(json.ok) {
       allSeccionesConfig = json.secciones || [];
-      select.innerHTML = '<option value="">-- Crear una Nueva Sección --</option>';
+      select.innerHTML = '<option value="">-- Crear una Nueva Secciï¿½n --</option>';
       allSeccionesConfig.forEach(s => {
         const opt = document.createElement('option');
         opt.value = s.seccion;
-        opt.textContent = 'Sección ' + s.seccion + ' (' + s.docente_nombre + ')';
+        opt.textContent = 'Secciï¿½n ' + s.seccion + ' (' + s.docente_nombre + ')';
         select.appendChild(opt);
       });
     }
