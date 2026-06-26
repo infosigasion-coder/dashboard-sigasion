@@ -281,7 +281,7 @@
         
         <div class="table-responsive">
           <table style="width:100%;border-collapse:collapse;color:#333;font-size:12px;text-align:left;">
-            <thead>
+            <thead style="color:#fff;">
               <tr style="background:#222;border-bottom:1px solid #333;">
                 <th style="padding:10px;">#</th>
                 <th style="padding:10px;">Cédula</th>
@@ -387,6 +387,13 @@
           <!-- TARJETA SECCIONES -->
           <div style="background:#fff; border:1px solid #e2e8f0; border-radius:16px; padding:20px; box-shadow:0 4px 12px rgba(15,23,42,0.02);">
             <h4 style="margin-top:0;color:#0f172a;font-family:'Outfit',sans-serif;font-weight:700;margin-bottom:15px;display:flex;align-items:center;gap:8px;">🏫 Crear o Actualizar Sección</h4>
+            
+            <div style="display:flex; flex-direction:column; gap:12px; margin-bottom:15px;">
+              <label style="font-size:11px; font-weight:600; color:#475569; text-transform:uppercase;">SELECCIONAR SECCIÓN EXISTENTE (OPCIONAL)</label>
+              <select id="edit-sec-select" onchange="loadSeccionForEdit(this.value)" style="padding:10px; border:1px solid #e2e8f0; border-radius:10px; font-size:13px; outline:none; background:white;">
+                <option value="">-- Crear una Nueva Sección --</option>
+              </select>
+            </div>
             
             <div style="display:flex; flex-direction:column; gap:12px;">
               <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
@@ -776,6 +783,6 @@
 </div>
 
 </div>
-<script src="js/main.js?v=20260625_1"></script>
+<script src="js/main.js?v=20260626_2"></script>
 </body>
 </html>

@@ -1749,7 +1749,7 @@ async function loadPending() {
       actividadId: window._actividad ? window._actividad.id : null,
       anio: parseInt(currentAnio)
     });
-    if (!data.ok) return;
+    if (!data.ok) { document.getElementById('pending-list').innerHTML = '<div style="text-align:center;padding:32px;color:#ef4444;font-size:13px;">? Error cargando pendientes</div>'; return; }
 
     var pending = data.pending || [];
     updateAdminBadge(pending.length);
@@ -1863,7 +1863,7 @@ async function loadHistory() {
   if (!isAdminMode) return;
   try {
     var data = await callScript({action:'getHistory', adminEmail:adminUser.email, limit:200});
-    if (!data.ok) return;
+    if (!data.ok) { document.getElementById('pending-list').innerHTML = '<div style="text-align:center;padding:32px;color:#ef4444;font-size:13px;">? Error cargando pendientes</div>'; return; }
     allHistory = data.history || [];
     renderHistory();
   } catch(err) {}
